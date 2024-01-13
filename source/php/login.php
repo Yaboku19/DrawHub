@@ -8,5 +8,5 @@ if(isset($_SESSION["user_id"])) {
   $_SESSION["user_id"] = null;
 }
 
-require '../template/Login-base.php';
+require '../template/login-base.php';
 ?>
