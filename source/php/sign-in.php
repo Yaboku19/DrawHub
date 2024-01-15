@@ -10,8 +10,10 @@ $date = new DateTime('now');
 $date->modify("-14 years");
 $date = date_format($date, "Y-m-d");
 if(isset($_POST["username"], $_POST["email"], $_POST["password"], $_POST["name"], $_POST["surname"], $_POST["date"])) {
-  $check_id = $dbh->checkValueInDb("user", "username", $_POST["username"]);
-  $check_email = $dbh->checkValueInDb("user", "email", $_POST["email"]);
+  /*$check_id = $dbh->checkValueInDb("user", "username", $_POST["username"]);
+  $check_email = $dbh->checkValueInDb("user", "email", $_POST["email"]);*/
+  $check_id = false;
+  $check_email = false;
   if(!$check_id && !$check_email) { //se non è gia presente nel database
     if(!empty($_POST["username"])) {
       if(!empty($_POST["email"])) {
@@ -58,11 +60,11 @@ if(isset($_POST["username"], $_POST["email"], $_POST["password"], $_POST["name"]
 }
 //$risposta["risultato"] = $result["sign-in-result"];
 //$risposta["errore"]= $result["text-error"];
-$risposta =array (
+/*$risposta =array (
   'risultato' => false,
   'errore' => "inserire il dio"
-);
+);*/
 header('Content-Type: application/json');
-echo json_encode($risposta);
+echo json_encode($result);
 
 ?>
