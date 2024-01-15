@@ -58,11 +58,11 @@ if(isset($_POST["username"], $_POST["email"], $_POST["password"], $_POST["name"]
 }
 //$risposta["risultato"] = $result["sign-in-result"];
 //$risposta["errore"]= $result["text-error"];
-$risposta =array (
+/*$risposta =array (
   'risultato' => false,
   'errore' => "inserire il dio"
-);
+);*/
 header('Content-Type: application/json');
-echo json_encode($risposta);
+echo json_encode($result);
 
 ?>
