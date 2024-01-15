@@ -1,27 +1,25 @@
 <?php
 require_once("db_config.php");
-define("DEFAULT_IMAGE", "default_image.png");
+//$datiRicevuti = json_decode(file_get_contents("php://input"), true);
 
 $result["sign-in-result"] = false;
-$result["text-error"] = "";
+$result["text-error"] = "errore"; //errore che comparirà se sbaglia i campi
 
 //create minimum date allowed to sign in
 $date = new DateTime('now');
 $date->modify("-14 years");
 $date = date_format($date, "Y-m-d");
-
-if(isset($_POST["nickname"], $_POST["email"], $_POST["password"], $_POST["name"], $_POST["surname"], $_POST["date"], $_POST["residence"], $_POST["birthplace"])) {
-  $check_id = $dbh->checkValueInDb("user", "user_id", $_POST["nickname"]);
+if(isset($_POST["username"], $_POST["email"], $_POST["password"], $_POST["name"], $_POST["surname"], $_POST["date"])) {
+  $check_id = $dbh->checkValueInDb("user", "username", $_POST["username"]);
   $check_email = $dbh->checkValueInDb("user", "email", $_POST["email"]);
-  if(!$check_id && !$check_email) {
-    if(!empty($_POST["nickname"])) {
+  if(!$check_id && !$check_email) { //se non è gia presente nel database
+    if(!empty($_POST["username"])) {
       if(!empty($_POST["email"])) {
         if(strlen($_POST['password']) >= 8 && strlen($_POST['password']) <= 16) {
           if(!empty($_POST["name"])) {
             if(!empty($_POST["surname"])) {
               if($_POST["date"] < $date) {
-                $result["sign-in-result"] = $dbh->addUser($_POST["nickname"], $_POST["email"], $_POST["password"], $_POST["name"], $_POST["surname"], $_POST["date"], $_POST["residence"], $_POST["birthplace"]);
-                $dbh->setImageToUser(DEFAULT_IMAGE, $_POST["nickname"]);
+                $result["sign-in-result"] = $dbh->addUser($_POST["username"], $_POST["email"], $_POST["password"], $_POST["name"], $_POST["surname"], $_POST["date"]);
               } else {
                 $result["sign-in-result"] = false;
                 $result["text-error"] = "L'età minima è 14 anni";
@@ -55,11 +53,16 @@ if(isset($_POST["nickname"], $_POST["email"], $_POST["password"], $_POST["name"]
     $result["text-error"] = "L'email inserita esiste già";
   } else {
     $result["sign-in-result"] = false;
-    $result["text-error"] = "Qualcosa è andato storto :(";
+    $result["text-error"] = "Qualcosa è andato storto";
   }
 }
-
+//$risposta["risultato"] = $result["sign-in-result"];
+//$risposta["errore"]= $result["text-error"];
+$risposta =array (
+  'risultato' => false,
+  'errore' => "inserire il dio"
+);
 header('Content-Type: application/json');
-echo json_encode($result);
+echo json_encode($risposta);
 
 ?>
