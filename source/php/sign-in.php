@@ -1,6 +1,6 @@
 <?php
 require_once("db_config.php");
-define("DEFAULT_IMAGE", "default_image.png");
+/*define("DEFAULT_IMAGE", "default_image.png");
 
 $result["sign-in-result"] = false;
 $result["text-error"] = "";
@@ -61,5 +61,5 @@ if(isset($_POST["nickname"], $_POST["email"], $_POST["password"], $_POST["name"]
 
 header('Content-Type: application/json');
 echo json_encode($result);
-
+*/
 ?>

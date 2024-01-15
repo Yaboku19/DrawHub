@@ -9,3 +9,4 @@ if(isset($_SESSION["user_id"])) {
 }
 
 require '../template/login-base.php';
+?>

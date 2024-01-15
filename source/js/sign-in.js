@@ -1,27 +1,30 @@
-function generateForm(cities) {
+function generateForm() {
     let form = `
-    
+
     <section>
-      <div class="d-flex justify-content-center align-middle margin m-3 ">
+      <div class="d-flex justify-content-center align-middle margin m-2 ">
         <div class="flex-column border border-3 p-5">
-            <div class="pb-2 text-center">
+            <div class="pb-2 pt-0 text-center">
               <img src="../img/drawhub.png" alt="" width="300" height="75">
             </div>
-            <div class="mt-1">
-                <form action="../php/Sign-in.php" method="POST" >
-                <ul class="list-group list-group-flush">
-                <li class="list-group-item"><label for="nome" class="fw-semibold fst-italic">Nome</label><input type="text" class="d-flex justify-content-end rounded bg-secondary bg-opacity-10" id="nome" name="nome"/></li>
-                <li class="list-group-item"><label for="cognome" class="fw-semibold fst-italic">Cognome</label><input type="text" class="d-flex justify-content-end rounded bg-secondary bg-opacity-10" id ="cognome" name="cognome"/></li>
-                <li class="list-group-item"><label for="date">Data di nascita</label><input type="date" class="d-flex justify-content-end rounded bg-secondary bg-opacity-10" id="date" name="date" required/></li>
-                <li class="list-group-item"><label for="email" class="fw-semibold fst-italic">E-mail</label><input type="email" class="d-flex justify-content-end rounded bg-secondary bg-opacity-10" id="email" name="email"/></li>
-                <li class="list-group-item"><label for="username" class="fw-semibold fst-italic">Username</label><input type="text" class="d-flex justify-content-end rounded bg-secondary bg-opacity-10" id="username" name="username"/></li>
-                <li class="list-group-item"><label for="password" class="fw-semibold fst-italic">Password</label><input type="password" class="d-flex justify-content-end rounded bg-secondary bg-opacity-10" id="password" name="password"/></li>
+            <div class="p-1 my-1 text-center">
+            <a class="btn mx-2 btn-primary" data-toggle="button" aria-pressed="false" href='../php/login.php'>Log in</a><button type="button" class="btn btn-primary mx-2" data-toggle="button" aria-pressed="true" disabled>Sign in</button>
+            </div>
+            <div class="m-1">
+                <form action="../php/sign-in.php" method="POST">
+                <ul class="list-group-flush">
+                  <li class="list-group-item m-1 p-0"><label for="nome" class="fw-semibold fst-italic">Nome</label><input type="text" class="d-flex justify-content-end rounded bg-secondary bg-opacity-10" id="nome" name="nome"/></li>
+                  <li class="list-group-item m-1 p-0"><label for="cognome" class="fw-semibold fst-italic">Cognome</label><input type="text" class="d-flex justify-content-end rounded bg-secondary bg-opacity-10" id ="cognome" name="cognome"/></li>
+                  <li class="list-group-item m-1 p-0"><label for="date" class="fw-semibold fst-italic">Data di nascita</label><input type="date" class="d-flex justify-content-end rounded bg-secondary bg-opacity-10" id="date" name="date" required/></li>
+                  <li class="list-group-item m-1 p-0"><label for="email" class="fw-semibold fst-italic">E-mail</label><input type="email" class="d-flex justify-content-end rounded bg-secondary bg-opacity-10" id="email" name="email"/></li>
+                  <li class="list-group-item m-1 p-0"><label for="username" class="fw-semibold fst-italic">Username</label><input type="text" class="d-flex justify-content-end rounded bg-secondary bg-opacity-10" id="username" name="username"/></li>
+                  <li class="list-group-item m-1 p-0"><label for="password" class="fw-semibold fst-italic">Password</label><input type="password" class="d-flex justify-content-end rounded bg-secondary bg-opacity-10" id="password" name="password"/></li>
                 </ul>
+                <hr>
             </div>
             <div class="d-flex justify-content-end">
               <button type="submit" data-toggle="button" class="btn btn-outline-primary">Registrati</button>
             </div>
-            <p class="text-danger"></p>
             </form>
         </div>
       </div>
@@ -60,9 +63,9 @@ function generateForm(cities) {
   });
   
   
-  function VisualizeSigninForm(cities) {
+  function VisualizeSigninForm() {
     // Utente NON loggato
-    let form = generateForm(cities);
+    let form = generateForm();
     main.innerHTML = form;
     // Gestisco tentativo di login
     document.querySelector("main form").addEventListener("submit", function (event) {
