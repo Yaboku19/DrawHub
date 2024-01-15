@@ -7,18 +7,17 @@ function generateForm(cities) {
             <div class="pb-2 text-center">
               <img src="../img/drawhub.png" alt="" width="300" height="75">
             </div>
-            <div class="mt-2">
+            <div class="mt-1">
                 <form action="../php/Sign-in.php" method="POST" >
                 <ul class="list-group list-group-flush">
                 <li class="list-group-item"><label for="nome" class="fw-semibold fst-italic">Nome</label><input type="text" class="d-flex justify-content-end rounded bg-secondary bg-opacity-10" id="nome" name="nome"/></li>
                 <li class="list-group-item"><label for="cognome" class="fw-semibold fst-italic">Cognome</label><input type="text" class="d-flex justify-content-end rounded bg-secondary bg-opacity-10" id ="cognome" name="cognome"/></li>
+                <li class="list-group-item"><label for="date">Data di nascita</label><input type="date" class="d-flex justify-content-end rounded bg-secondary bg-opacity-10" id="date" name="date" required/></li>
                 <li class="list-group-item"><label for="email" class="fw-semibold fst-italic">E-mail</label><input type="email" class="d-flex justify-content-end rounded bg-secondary bg-opacity-10" id="email" name="email"/></li>
                 <li class="list-group-item"><label for="username" class="fw-semibold fst-italic">Username</label><input type="text" class="d-flex justify-content-end rounded bg-secondary bg-opacity-10" id="username" name="username"/></li>
                 <li class="list-group-item"><label for="password" class="fw-semibold fst-italic">Password</label><input type="password" class="d-flex justify-content-end rounded bg-secondary bg-opacity-10" id="password" name="password"/></li>
-                <li class="list-group-item"><label for="date">Data nascita</label><input type="date" class="d-flex justify-content-end rounded bg-secondary bg-opacity-10" id="date" name="date" required/></li>
                 </ul>
             </div>
-            <hr/>
             <div class="d-flex justify-content-end">
               <button type="submit" data-toggle="button" class="btn btn-outline-primary">Registrati</button>
             </div>
