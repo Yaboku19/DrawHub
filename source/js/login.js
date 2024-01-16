@@ -1,8 +1,8 @@
 function generateForm(loginerror = null) {
     let form = `
     <section>
-      <div class="d-flex justify-content-center align-middle margin m-2 py-3 align-items-center">
-        <div class="flex-column border border-3 p-5">
+      <div class="d-flex justify-content-center align-middle margin m-2 py-3 align-items-center ">
+        <div class="flex-column border border-3 p-5 bg-secondary bg-opacity-10">
           <div class="pb-2 pt-0 text-center">
               <img src="../img/drawhub.png" alt="" width="300" height="75">
           </div>
@@ -12,8 +12,8 @@ function generateForm(loginerror = null) {
             </div>
             <form action="../php/Login.php" method="POST">
             <ul class="list-group-flush">
-              <li class="list-group-item m-1 p-0"><label for="email" class="fw-semibold fst-italic">E-mail</label><input type="email" class="d-flex justify-content-end rounded bg-secondary bg-opacity-10" id="email" name="email"/></li>
-              <li class="list-group-item m-1 p-0"><label for="password" class="fw-semibold fst-italic">Password</label><input type="password" class="d-flex justify-content-end rounded bg-secondary bg-opacity-10" id="password" name="password"/></li>
+              <li class="list-group-item m-1 p-0"><label for="email" class="fw-semibold fst-italic">E-mail</label><input type="email" class="d-flex justify-content-end rounded" id="email" name="email"/></li>
+              <li class="list-group-item m-1 p-0"><label for="password" class="fw-semibold fst-italic">Password</label><input type="password" class="d-flex justify-content-end rounded" id="password" name="password"/></li>
             </ul>
             <hr/>
             <div class="d-flex justify-content-end">
@@ -60,7 +60,6 @@ function generateForm(loginerror = null) {
         if (response.data["login-result"]) {
           window.location.href = "../php/showhomepage.php";
         } else {
-          console.log(response.data);
           document.getElementById("error-text").innerText = response.data["login-error"];
         }
     });

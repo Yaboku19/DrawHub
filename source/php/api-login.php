@@ -1,5 +1,5 @@
 <?php
-//require_once("db_config.php");
+require_once("db_config.php");
 $result["login-result"] = false;
 $result["login-error"] = "";
 
