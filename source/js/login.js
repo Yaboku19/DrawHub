@@ -60,6 +60,7 @@ function generateForm(loginerror = null) {
         if (response.data["login-result"]) {
           window.location.href = "../php/showhomepage.php";
         } else {
+          console.log(response.data);
           document.getElementById("error-text").innerText = response.data["login-error"];
         }
     });

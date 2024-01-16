@@ -56,7 +56,8 @@ function generateForm() {
    *  Parte eseguita 
    */
   const main = document.querySelector("main");
-  axios.post('Sign-in.php').then(response => {
+  VisualizeSigninForm();  
+  /*axios.post('sign-in.php').then(response => {
       if (response.data["sign-in-result"]) {
           // User Sign-in succesfully
           visualizeSuccess();
@@ -65,7 +66,7 @@ function generateForm() {
           console.log(response.data);
           VisualizeSigninForm();  
       }
-  });
+  });*/
   
   
   function VisualizeSigninForm() {
@@ -94,9 +95,7 @@ function generateForm() {
     formData.append('date', birthDate);
     formData.append('password', password);
     
-
-
-    axios.post('Sign-in.php', formData).then(response => {
+    axios.post('sign-in.php', formData).then(response => {
         if (response.data["sign-in-result"]) {
           visualizeSuccess();
         } else {
