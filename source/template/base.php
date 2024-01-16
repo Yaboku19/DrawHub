@@ -37,7 +37,7 @@ $_SESSION["user_id"]="pippo";
     <div class="container p-0 m-0">
     <div class="d-sm-block d-md-none fixed-top z-index-master w-100 bg-white bg-opacity-100 p-0 m-0">
         <button class="navbar-toggler fs-1 my-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-            <i class="bi bi-three-dots text-dark"></i>
+            <i class="bi bi-list text-dark"></i>
         </button>
         <hr class="p-0 m-0">
     </div>
@@ -121,7 +121,7 @@ $_SESSION["user_id"]="pippo";
                 </a>
             </li>
             <li class="nav-item">
-                <a href="../php/insertPost.php" class="nav-link px-0 text-dark">
+                <a href="../php/showAddPost.php" class="nav-link px-0 text-dark">
                     <i class="fs-3 bi-plus-circle-fill"></i> <span class="fs-3 ms-2 d-sm-inline">Nuovo post</span>
                 </a>
             </li>
@@ -168,7 +168,7 @@ $_SESSION["user_id"]="pippo";
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="../php/insertPost.php" class="nav-link px-0 text-dark">
+                        <a href="../php/showAddPost.php" class="nav-link px-0 text-dark">
                             <i class="fs-4 bi-plus-circle-fill"></i> <span class="fs-4 ms-2 d-none d-sm-inline">Nuovo post</span>
                         </a>
                     </li>
@@ -186,84 +186,21 @@ $_SESSION["user_id"]="pippo";
                 </ul>
             </div>
         </div>
-            <div class="col-md-8 offset-md-1 px-3 py-3">
-                
-                <div class="card my-4 bg-secondary bg-opacity-10 row"><!-- un Post inizia da qua -->
-                    <div class="card-header">
-                        <a href="#" class="nav-link px-0 text-dark">
-                            <i class="fs-3 bi-person-circle"></i> <span class="fs-3 ms-2 d-sm-inline">Maria_rossi23</span>
-                        </a>
-                    </div>    
-                    <div class="card-body">
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-                        <img src="../img/drawhub.png" class="card-img-bottom img-fluid py-2 my-1" alt="...">
-                        <div class="my-3">
-                            <button type="button" class="btn btn-outline-danger position-relative mx-3 fs-3"><em class="bi-hand-thumbs-up"></em>
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                    54
-                                </span>
-                            </button>
-                            <button type="button" class="btnSmile btnSmileL btn btn-outline-danger position-relative mx-3 fs-3"><em class="bi bi-emoji-smile-upside-down"></em>
-                            <span class="numeroSmile position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                78
-                            </span>
-                            </button>
-                            <button type="button" class="btnCuore btnCuoreL btn btn-outline-danger position-relative mx-3 fs-3"><em class="bi bi-heart-fill"></em>
-                            <span class="numeroCuore position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                166
-                            </span>
-                            </button>
-
-                            <button type="button" class="btnBacio btnBacioL btn btn-outline-danger position-relative mx-3 fs-3"><em class="bi bi-emoji-kiss"></em>
-                            <span class="numeroBacio position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                26
-                            </span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <p>commenti</p>
-                    </div>                    
-                </div>
-                <div class="card my-4 bg-secondary bg-opacity-10 row">
-                    <div class="card-header">
-                                <a href="#" class="nav-link px-0 text-dark">
-                                    <i class="fs-3 bi-person-circle"></i> <span class="fs-3 ms-2 d-sm-inline">Maria_rossi23</span>
-                                </a>
-                    </div>    
-                    <div class="card-body">
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-                        <img src="../img/drawhub.png" class="card-img-bottom img-fluid py-2 my-1" alt="...">
-                        <div class="my-3">
-                            <button type="button" class="btn btn-outline-danger position-relative mx-3 fs-3"><em class="bi-hand-thumbs-up"></em>
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                    54
-                                </span>
-                            </button>
-                            <button type="button" class="btnSmile btnSmileL btn btn-outline-danger position-relative mx-3 fs-3"><em class="bi bi-emoji-smile-upside-down"></em>
-                            <span class="numeroSmile position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                78
-                            </span>
-                            </button>
-                            <button type="button" class="btnCuore btnCuoreL btn btn-outline-danger position-relative mx-3 fs-3"><em class="bi bi-heart-fill"></em>
-                            <span class="numeroCuore position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                166
-                            </span>
-                            </button>
-
-                            <button type="button" class="btnBacio btnBacioL btn btn-outline-danger position-relative mx-3 fs-3"><em class="bi bi-emoji-kiss"></em>
-                            <span class="numeroBacio position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                26
-                            </span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <p>commenti</p>
-                    </div>                    
-                </div>
+            <div id="dinamic" class="col-md-8 offset-md-1 px-3 py-3">
+                <main>
+                <?php
+                if (isset($templateParams["name"])) {
+                    require($templateParams["name"]);
+                }
+                if (isset($templateParams["js"])) :
+                    foreach($templateParams["js"] as $script):
+                ?>
+                <script src="<?php echo $script; ?>"></script>
+                <?php
+                        endforeach;
+                    endif;
+                ?>
+                </main>
             </div>
         </div>
     </div>
@@ -275,14 +212,5 @@ $_SESSION["user_id"]="pippo";
 </script>
 <!--<script src="../js/constants.js"></script>
 <script src="../js/search.js"></script>-->
-<?php 
-    if (isset($templateParams["js"])) :
-        foreach($templateParams["js"] as $script):
-    ?>
-<script src="<?php echo $script; ?>"></script>
-<?php
-        endforeach;
-    endif;
-    ?>
 
 </html>
