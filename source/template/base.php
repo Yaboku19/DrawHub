@@ -56,7 +56,7 @@ if ($templateParams["notifications"] === "link-secondary") {
                                 <a class="nav-link" href="../php/showSearch.php"><img src="../img/icons/search.svg" alt=""> Cerca</a>
                             </li>
                             <li class="nav-item m-1">
-                                <a class="nav-link" href="../php/insertPost.php"><img src="../img/icons/addPost.svg" alt=""> Nuovo Post</a>
+                                <a class="nav-link" href="../php/showAddPost.php"><img src="../img/icons/addPost.svg" alt=""> Nuovo Post</a>
                             </li>
                             <li class="nav-item m-1">
                                 <a class="nav-link" href="../php/showExplore.php"><img src="../img/icons/explore.svg" alt=""> Esplora</a>
@@ -77,8 +77,8 @@ if ($templateParams["notifications"] === "link-secondary") {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
 </script>
-<script src="../js/constants.js"></script>
-<script src="../js/search.js"></script>
+<!--<script src="../js/constants.js"></script>
+<script src="../js/search.js"></script>-->
 <?php 
     if (isset($templateParams["js"])) :
         foreach($templateParams["js"] as $script):

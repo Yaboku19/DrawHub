@@ -45,6 +45,17 @@ class DatabaseHelper{
         return $result == true;
     }
 
+        /** 
+     * add a post to the db
+    */   
+    public function addPost($string, $author, $img, $exam){
+        $data = date("Y-m-d");
+        //$id = $this->getNewId("post_id", "post");
+        $stmt = $this->db->prepare("INSERT INTO post (user, postID, description, urlImage, originalPostUser, originalPostid) VALUES (?, ?, ?, ?, ?, ?);");
+        $stmt->bind_param("ssssss", $id, $author, $string, $data, $exam, $img);
+        $result = $stmt->execute();
+        return $result;
+    }
 
 }
 ?>
