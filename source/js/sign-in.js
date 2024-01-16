@@ -99,7 +99,6 @@ function generateForm() {
         if (response.data["sign-in-result"]) {
           visualizeSuccess();
         } else {
-          console.log(response.data);
           document.getElementById("error-text").innerText = response.data["text-error"];
         }
     }).catch(err => {
