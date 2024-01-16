@@ -44,25 +44,25 @@ if ($templateParams["notifications"] === "link-secondary") {
                     <div class="w-100">
                         <ul class="navbar-nav flex-column m-3 p-3">
                             <li class="nav-item m-1">
-                                <a class="nav-link w-100" href="#"><img src="../img/icons/home.svg" alt=""> Home</a>
+                                <a class="nav-link w-100" href="../php/showHomepage.php"><img src="../img/icons/home.svg" alt=""> Home</a>
                             </li>
                             <li class="nav-item m-1">
-                                <a class="nav-link" href="#"><img src="../img/icons/account.svg" alt=""> Account</a>
+                                <a class="nav-link" href="../php/showProfile.php"><img src="../img/icons/account.svg" alt=""> Account</a>
                             </li>
                             <li class="nav-item m-1">
-                                <a class="nav-link" href="#"><img src="../img/icons/notification.svg" alt=""> Notifiche</a>
+                                <a class="nav-link" href="../php/showNotification.php"><img src="../img/icons/notification.svg" alt=""> Notifiche</a>
                             </li>
                             <li class="nav-item m-1">
-                                <a class="nav-link" href="#"><img src="../img/icons/search.svg" alt=""> Cerca</a>
+                                <a class="nav-link" href="../php/showSearch.php"><img src="../img/icons/search.svg" alt=""> Cerca</a>
                             </li>
                             <li class="nav-item m-1">
-                                <a class="nav-link" href="#"><img src="../img/icons/addPost.svg" alt=""> Nuovo Post</a>
+                                <a class="nav-link" href="../php/insertPost.php"><img src="../img/icons/addPost.svg" alt=""> Nuovo Post</a>
                             </li>
                             <li class="nav-item m-1">
-                                <a class="nav-link" href="#"><img src="../img/icons/explore.svg" alt=""> Esplora</a>
+                                <a class="nav-link" href="../php/showExplore.php"><img src="../img/icons/explore.svg" alt=""> Esplora</a>
                             </li>
                             <li class="nav-item m-1">
-                                <a class="nav-link" href="#"> <img src="../img/icons/settings.svg" alt=""> Impostazioni</a>
+                                <a class="nav-link" href="../php/showSettings.php"> <img src="../img/icons/settings.svg" alt=""> Impostazioni</a>
                             </li>
                         </ul>
                     </div>
