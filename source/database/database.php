@@ -22,7 +22,7 @@ class DatabaseHelper{
         $stmt->execute();
         $result = $stmt->get_result();
 
-        return $result->num_rows > 0;
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     public function checkValueInDb($table, $field, $id) {
@@ -37,7 +37,7 @@ class DatabaseHelper{
 
     public function addUser($username, $email, $passw, $name, $surname, $birthDate) { //da sisemare
         $user_query = $this->db->prepare("INSERT INTO 
-                user (username, email, password, bio, urlProfilePicture, birthDate, name, surname)
+                user (username, email, password, bio, urlProfilePicture, birthDate, name, cognome)
                 VALUES (?, ?, ?,' ', 'defaultImage.png', ?, ?, ?);");
         $user_query->bind_param("ssssss", $username, $email, $passw, $birthDate, $name, $surname);
         $result = $user_query->execute();
