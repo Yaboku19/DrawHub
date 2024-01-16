@@ -149,37 +149,37 @@ $_SESSION["user_id"]="pippo";
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
                     <li class="nav-item">
                         <a href="../php/showHomepage.php" class="nav-link px-0 text-dark">
-                            <i class="fs-3 bi-house-fill"></i> <span class="fs-3 ms-2 d-none d-sm-inline">Home</span>
+                            <i class="fs-4 bi-house-fill"></i> <span class="fs-4 ms-2 d-none d-sm-inline">Home</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="../php/showProfile.php" class="nav-link px-0 text-dark">
-                            <i class="fs-3 bi-person-circle"></i> <span class="fs-3 ms-2 d-none d-sm-inline">Account</span>
+                            <i class="fs-4 bi-person-circle"></i> <span class="fs-4 ms-2 d-none d-sm-inline">Account</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="../php/showNotification.php" class="nav-link px-0 text-dark">
-                            <i class="fs-3 bi-bell-fill"></i> <span class="fs-3 ms-2 d-none d-sm-inline">Notifiche</span>
+                            <i class="fs-4 bi-bell-fill"></i> <span class="fs-4 ms-2 d-none d-sm-inline">Notifiche</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="../php/showSearch.php" class="nav-link px-0 text-dark">
-                            <i class="fs-3 bi-search"></i> <span class="fs-3 ms-2 d-none d-sm-inline">Cerca</span>
+                            <i class="fs-4 bi-search"></i> <span class="fs-4 ms-2 d-none d-sm-inline">Cerca</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="../php/insertPost.php" class="nav-link px-0 text-dark">
-                            <i class="fs-3 bi-plus-circle-fill"></i> <span class="fs-3 ms-2 d-none d-sm-inline">Nuovo post</span>
+                            <i class="fs-4 bi-plus-circle-fill"></i> <span class="fs-4 ms-2 d-none d-sm-inline">Nuovo post</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="../php/showExplore.php" class="nav-link px-0 text-dark">
-                            <i class="fs-3 bi-compass-fill"></i> <span class="fs-3 ms-2 d-none d-sm-inline">Esplora</span>
+                            <i class="fs-4 bi-compass-fill"></i> <span class="fs-4 ms-2 d-none d-sm-inline">Esplora</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#../php/showSettings.php" class="nav-link px-0 text-dark">
-                            <i class="fs-3 bi-gear-fill"></i> <span class="fs-3 ms-2 d-none d-sm-inline">Impostazioni</span>
+                            <i class="fs-4 bi-gear-fill"></i> <span class="fs-4 ms-2 d-none d-sm-inline">Impostazioni</span>
                         </a>
                     </li>
                     
@@ -191,7 +191,7 @@ $_SESSION["user_id"]="pippo";
                 <div class="card my-4 bg-secondary bg-opacity-10 row"><!-- un Post inizia da qua -->
                     <div class="card-header">
                         <a href="#" class="nav-link px-0 text-dark">
-                            <i class="fs-3 bi-person-circle"></i> <span class="fs-3 ms-2 d-none d-sm-inline">Maria_rossi23</span>
+                            <i class="fs-3 bi-person-circle"></i> <span class="fs-3 ms-2 d-sm-inline">Maria_rossi23</span>
                         </a>
                     </div>    
                     <div class="card-body">
@@ -229,7 +229,7 @@ $_SESSION["user_id"]="pippo";
                 <div class="card my-4 bg-secondary bg-opacity-10 row">
                     <div class="card-header">
                                 <a href="#" class="nav-link px-0 text-dark">
-                                    <i class="fs-3 bi-person-circle"></i> <span class="fs-3 ms-2 d-none d-sm-inline">Maria_rossi23</span>
+                                    <i class="fs-3 bi-person-circle"></i> <span class="fs-3 ms-2 d-sm-inline">Maria_rossi23</span>
                                 </a>
                     </div>    
                     <div class="card-body">
