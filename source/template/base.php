@@ -19,6 +19,7 @@ if ($templateParams["notifications"] === "link-secondary") {
     $notifyLink = "link-light";
 }
 */
+$_SESSION["user_id"]="pippo";
 ?>
 
 <!DOCTYPE html>
@@ -47,7 +48,7 @@ if ($templateParams["notifications"] === "link-secondary") {
                                 <a class="nav-link w-100" href="../php/showHomepage.php"><img src="../img/icons/home.svg" alt=""> Home</a>
                             </li>
                             <li class="nav-item m-1">
-                                <a class="nav-link" href="../php/showProfile.php"><img src="../img/icons/account.svg" alt=""> Account</a>
+                                <a class="nav-link" href="../php/showProfile.php?username=<?php echo $_SESSION["user_id"];?>"><img src="../img/icons/account.svg" alt=""> Account</a>
                             </li>
                             <li class="nav-item m-1">
                                 <a class="nav-link" href="../php/showNotification.php"><img src="../img/icons/notification.svg" alt=""> Notifiche</a>
@@ -69,7 +70,11 @@ if ($templateParams["notifications"] === "link-secondary") {
                 </nav>
             </div>
             <div class="col-9">
-                <p>Pagina dinamica</p>
+            <?php
+                if (isset($templateParams["name"])) {
+                    require($templateParams["name"]);
+                }
+                ?>
             </div>
         </div>
     </main>
