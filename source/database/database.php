@@ -22,7 +22,7 @@ class DatabaseHelper{
         $stmt->execute();
         $result = $stmt->get_result();
 
-        return $result->fetch_all(MYSQLI_ASSOC);
+        return $result->num_rows > 0;
     }
 
     public function checkValueInDb($table, $field, $id) {

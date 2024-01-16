@@ -57,7 +57,7 @@ function generateForm(loginerror = null) {
     formData.append('password', password);
   
     axios.post('api-login.php', formData).then(response => {
-        if (response.data["login-result"]) {
+        if (response) {
           window.location.href = "../php/showhomepage.php";
         } else {
           document.getElementById("error-text").innerText = response.data["login-error"];
