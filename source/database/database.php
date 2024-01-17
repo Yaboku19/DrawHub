@@ -36,8 +36,9 @@ class DatabaseHelper{
     }
 
     public function addUser($username, $email, $passw, $name, $surname, $birthDate) { //da sisemare
-        $user_query = $this->db->prepare("INSERT INTO user (username, email, password, bio, fotoProfilo, dataNascita, nome, cognome)
-                        VALUES (?, ?, ?,' ', 'defaultImage.png', ?, ?, ?);");
+        $user_query = $this->db->prepare("INSERT INTO 
+                user (username, email, password, bio, urlProfilePicture, birthDate, name, cognome)
+                VALUES (?, ?, ?,' ', 'defaultImage.png', ?, ?, ?);");
         $user_query->bind_param("ssssss", $username, $email, $passw, $birthDate, $name, $surname);
         $result = $user_query->execute();
         return $result == true;

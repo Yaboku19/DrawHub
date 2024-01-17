@@ -4,7 +4,11 @@ CREATE TABLE drawHub.user (
     username                VARCHAR(30)     NOT NULL    PRIMARY KEY,
     password                VARCHAR(30)     NOT NULL,
     bio                     VARCHAR(200)    NOT NULL,
-    urlProfilePicture       VARCHAR(100)    NOT NULL     
+    urlProfilePicture       VARCHAR(100)    NOT NULL,
+    birthDate               Date            NOT NULL,
+    email                   varchar(25)     NOT NULL,
+    name                    varchar(15)     NOT NULL,
+    surname                 varchar(15)     NOT NULL
 ) engine=InnoDB;
 
 CREATE TABLE drawHub.follow (
@@ -17,9 +21,9 @@ CREATE TABLE drawHub.follow (
 
 CREATE TABLE drawHub.post ( 
     user                    VARCHAR(30)     NOT NULL,
-    postID                  INT     NOT NULL,
+    postID                  INT             NOT NULL,
     description             VARCHAR(200)    NOT NULL,
-    urlImmage               VARCHAR(100)    NOT NULL,
+    urlImage                VARCHAR(100)    NOT NULL,
     originalPostUser        VARCHAR(30),
     originalPostId          INT,
     PRIMARY KEY (user, postID),
