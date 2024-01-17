@@ -44,13 +44,13 @@ CREATE TABLE drawHub.comment (
 ) engine=InnoDB;
 
 CREATE TABLE drawHub.reactionType (
-    typeID                  INT             NOT NULL    PRIMARY KEY,
-    urlImmage               VARCHAR(100)    NOT NULL
+    typeID                  VARCHAR(20)   NOT NULL    PRIMARY KEY,
+    tagImage               VARCHAR(50)    NOT NULL
 ) engine=InnoDB;
 
 CREATE TABLE drawHub.reaction (
     user                    VARCHAR(30)     NOT NULL,
-    typeID                  INT             NOT NULL,
+    typeID                  VARCHAR(20)     NOT NULL,
     postUser                VARCHAR(30)     NOT NULL,
     postID                  INT             NOT NULL,
     PRIMARY KEY (user, typeID, postUser, postID),
@@ -85,7 +85,7 @@ CREATE TABLE drawHub.newReaction (
     user                    VARCHAR(30)     NOT NULL,
     notificationID          INT             NOT NULL,
     newReactionUser         VARCHAR(30)     NOT NULL,
-    newReactionTypeID       INT             NOT NULL,
+    newReactionTypeID       VARCHAR(20)     NOT NULL,
     newReactionPostID       INT             NOT NULL,
     newReactionPostUser     VARCHAR(30)     NOT NULL,
     PRIMARY KEY (user, notificationID),
