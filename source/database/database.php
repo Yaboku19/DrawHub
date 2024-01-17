@@ -56,5 +56,58 @@ class DatabaseHelper{
         return $result;
     }
 
+    public function getPosts($id, $n) { //da sistemare
+        $stmt = $this->db->prepare("SELECT * FROM post");
+        //$stmt->bind_param("si",$id, $n);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getPostComments($post_id){ //da sistemare
+        $stmt = $this->db->prepare("SELECT COUNT(*) AS comment FROM comment WHERE post_id = ?");
+        $stmt->bind_param("s", $post_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC)[0]["comment"];
+    }
+
+    public function getAllReactionCount($post_id) {
+        $reactions = $this->getAllReactions();
+        foreach ($reactions as $reaction) {
+            $result["num_".$reaction["reaction_info"]] = $this->getPostReactionInfo($post_id, $reaction["reaction_id"]);
+        }
+        return $result;
+    }
+
+    public function hasReactedAll($user_id, $post_id) {
+        $reactions = $this->getAllReactions();
+        foreach ($reactions as $reaction) {
+            $result["user_has_".$reaction["reaction_info"]] = $this->hasReacted($post_id, $user_id, $reaction["reaction_id"]);
+        }
+        return $result;
+    }
+
+    public function getAllReactions() {
+        $result = $this->db->query("SELECT * FROM reaction;");
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function hasReacted($post_id, $user_id, $reaction_type){
+        $stmt = $this->db->prepare("SELECT * FROM post_user_reaction WHERE post_id = ? AND user_id = ? and reaction_id = ?");
+        $stmt->bind_param("sss", $post_id, $user_id, $reaction_type);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $res = $result->fetch_all(MYSQLI_ASSOC);
+        return !empty($res);
+    }
+
+    public function getPostReactionInfo($post_id, $numReaction){
+        $stmt = $this->db->prepare("SELECT COUNT(*) AS info FROM post_user_reaction WHERE post_id = ? AND reaction_id = ?");
+        $stmt->bind_param("ss", $post_id, $numReaction);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC)[0]["info"];
+    }
 }
 ?>
