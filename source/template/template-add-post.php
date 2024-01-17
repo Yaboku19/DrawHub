@@ -1,12 +1,12 @@
 <div class="container mt-2 mb-5">
     <div class="justify-content-center border bg-light">
         <div class="p-5 text-center">
-            <p class="text-danger"> <?php /*echo $error;*/ ?> </p>
-            <form action="insertpost.php" method="POST" enctype="multipart/form-data">
+            <p class="text-danger"> <?php echo $error; ?> </p>
+            <form action="showAddPost.php" method="POST" enctype="multipart/form-data">
                 <p class="fs-3"><strong><label for="post">Il Tuo Nuovo Post:</label></strong></p>
                 <hr />
                 <label for="imgpost">Aggiungi immagine</label><input type="file" name="imgpost" id="imgpost" class="form-control"/>
-                <label for="esame">Esame</label>
+                <label for="post">Descrizione</label>
                 <!--<select name="esame" id="esame">
                     <option value="-1" selected>Seleziona una categoria</option>
                     <?php   /*require_once("db_config.php");

@@ -12,12 +12,6 @@ $error = "";
 
 if(isset($_POST["submit"]) && isset($_POST["post"])){
     $testo = $_POST["post"];
-    $esame = $_POST["esame"];
-    if ($esame == "-1"){
-        $exam = null;
-    } else {
-        $exam = $esame;
-    }
     if ($testo != "" && isset($_SESSION["username"])) {
         if(isset($_FILES["imgpost"]) && $_FILES["imgpost"]["name"] != ""){
             list($result, $msg) = uploadImage(UPLOAD_DIR, $_FILES["imgpost"]);

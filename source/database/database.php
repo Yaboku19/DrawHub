@@ -127,5 +127,14 @@ class DatabaseHelper{
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function addPost($string, $author, $img, $exam){
+        $data = date("Y-m-d");
+        $id = $this->getNewId("post_id", "post");
+        $stmt = $this->db->prepare("INSERT INTO post (post_id, author, string, data, esame_id, immagine) VALUES (?, ?, ?, ?, ?, ?);");
+        $stmt->bind_param("ssssss", $id, $author, $string, $data, $exam, $img);
+        $result = $stmt->execute();
+        return $result;
+    }
 }
 ?>
