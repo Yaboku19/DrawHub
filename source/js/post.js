@@ -83,6 +83,7 @@ let div = document.getElementById("dinamic");
 let end = false;
 //const main = document.querySelector("main");
 axios.get("api-showpost.php").then(response => {
+  console.log(response.data);
   if (response.data["success"]) {
     num = response.data["posts"].length;
     console.log("dadss");
