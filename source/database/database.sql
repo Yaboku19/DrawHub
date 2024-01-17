@@ -21,15 +21,13 @@ CREATE TABLE drawHub.follow (
 
 CREATE TABLE drawHub.post ( 
     user                    VARCHAR(30)     NOT NULL,
-    postID                  INT             NOT NULL,
+    postID                  INT             NOT NULL        AUTO_INCREMENT      PRIMARY KEY,
     description             VARCHAR(200)    NOT NULL,
     urlImage                VARCHAR(100)    NOT NULL,
-    originalPostUser        VARCHAR(30),
     originalPostId          INT,
     datePost                DATE            NOT NULL,
-    PRIMARY KEY (user, postID),
     CONSTRAINT FK_Post_Author FOREIGN KEY (user) REFERENCES drawHub.user(username) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT FK_Post_OriginalPost FOREIGN KEY (originalPostUser, originalPostId) REFERENCES drawHub.post(User, postID) ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT FK_Post_OriginalPost FOREIGN KEY (originalPostId) REFERENCES drawHub.post(postID) ON DELETE CASCADE ON UPDATE CASCADE
 ) engine=InnoDB;
 
 CREATE TABLE drawHub.comment (
