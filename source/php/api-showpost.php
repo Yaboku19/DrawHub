@@ -7,12 +7,12 @@ if (isset($_SESSION["username"])) {
     $post = $dbh->getPosts($_SESSION["username"], $numeropost); //prende i post degli utenti che segue
 
     for($i = 0; $i < count($post); $i++) {
-        //$post[$i]["data"] = date("F j, Y", strtotime($post[$i]["data"]));
+        $post[$i]["datePost"] = date("F j, Y", strtotime($post[$i]["datePost"]));
         //$post[$i]["num_comments"] = $dbh->getPostComments($post[$i]["post_id"]);
         
-        //$reactCount = $dbh->getAllReactionCount($post[$i]["post_id"]);
+        $reactCount = $dbh->getAllReactionCount($post[$i]["postID"]);
         //$userReactions = $dbh->hasReactedAll($_SESSION["user_id"], $post[$i]["post_id"]);
-        //$post[$i] = array_merge($post[$i] , $reactCount);
+        $post[$i] = array_merge($post[$i] , $reactCount);
         //$post[$i] = array_merge($post[$i] , $userReactions);
         
         $var = true;

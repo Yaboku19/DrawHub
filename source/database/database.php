@@ -89,20 +89,20 @@ class DatabaseHelper{
         return $result;
     }
 
+    public function countPostReactionType($post_id, $reactionType){ //da sist
+        $stmt = $this->db->prepare("SELECT COUNT(*) AS info FROM post P, reaction R  WHERE R.postID=P.postID AND P.postID = ? AND R.typeID = ?");
+        $stmt->bind_param("is", $post_id, $reactionType);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC)[0]["info"];
+    }
+
     /**
      * restituisce tutti i tipi di reaction
      */
     public function getAllReactionType() {
         $result = $this->db->query("SELECT typeID FROM reactionType;");
         return $result->fetch_all(MYSQLI_ASSOC);
-    }
-
-    public function countPostReactionType($post_id, $reactionType){ //da sist
-        $stmt = $this->db->prepare("SELECT COUNT(*) AS info FROM post, user,  WHERE post_id = ? AND reaction_id = ?");
-        $stmt->bind_param("ss", $post_id, $reactionType);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->fetch_all(MYSQLI_ASSOC)[0]["info"];
     }
 
     public function getSearchResult($search_term) {
@@ -114,13 +114,5 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function addPost($string, $author, $img, $exam){
-        $data = date("Y-m-d");
-        $id = $this->getNewId("post_id", "post");
-        $stmt = $this->db->prepare("INSERT INTO post (post_id, author, string, data, esame_id, immagine) VALUES (?, ?, ?, ?, ?, ?);");
-        $stmt->bind_param("ssssss", $id, $author, $string, $data, $exam, $img);
-        $result = $stmt->execute();
-        return $result;
-    }
 }
 ?>

@@ -17,23 +17,22 @@ function generatePost(post_data) {
         <div class="my-3">
             <button type="button" class="btn btn-outline-danger position-relative mx-3 fs-3"><em class="bi-heart-fill"></em>
               <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                  54
+                ${post_data[i]["num_cuore"]}
               </span>
             </button>
             <button type="button" class="btn btn-outline-danger position-relative mx-3 fs-3"><em class="bi-emoji-heart-eyes-fill"></em>
               <span class="numeroSmile position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                  78
+                ${post_data[i]["num_occhi_a_cuore"]}
               </span>
             </button>
             <button type="button" class="btn btn-outline-danger position-relative mx-3 fs-3"><em class="bi-emoji-neutral-fill"></em>
               <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                  166
+                ${post_data[i]["num_occhi_neutri"]}
               </span>
             </button>
-  
             <button type="button" class="btn btn-outline-danger position-relative mx-3 fs-3"><em class="bi-hand-thumbs-down-fill"></em>
               <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                  26
+                  ${post_data[i]["num_pollice_giu"]}
               </span>
             </button>
         </div>

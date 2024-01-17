@@ -49,12 +49,11 @@ CREATE TABLE drawHub.reactionType (
 CREATE TABLE drawHub.reaction (
     user                    VARCHAR(30)     NOT NULL,
     typeID                  VARCHAR(20)     NOT NULL,
-    postUser                VARCHAR(30)     NOT NULL,
     postID                  INT             NOT NULL,
-    PRIMARY KEY (user, typeID, postUser, postID),
+    PRIMARY KEY (user, typeID, postID),
     CONSTRAINT FK_Reaction_Author FOREIGN KEY (user) REFERENCES drawHub.user(username) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT FK_Reaction_Type FOREIGN KEY (typeID) REFERENCES drawHub.reactionType(typeID) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT FK_Reaction_Post FOREIGN KEY (postUser, postID) REFERENCES drawHub.post(User, postID) ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT FK_Reaction_Post FOREIGN KEY (postID) REFERENCES drawHub.post(postID) ON DELETE CASCADE ON UPDATE CASCADE
 ) engine=InnoDB;
 
 CREATE TABLE drawHub.newFollower (
@@ -88,6 +87,6 @@ CREATE TABLE drawHub.newReaction (
     newReactionPostUser     VARCHAR(30)     NOT NULL,
     PRIMARY KEY (user, notificationID),
     CONSTRAINT FK_NewReaction_User FOREIGN KEY (user) REFERENCES drawHub.user(username) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT FK_NewReaction_Reaction FOREIGN KEY (newReactionUser, newReactionTypeID, newReactionPostUser, newReactionPostID) 
-        REFERENCES drawHub.reaction(user, typeID, postUser, postID) ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT FK_NewReaction_Reaction FOREIGN KEY (newReactionUser, newReactionTypeID, newReactionPostID) 
+        REFERENCES drawHub.reaction(user, typeID, postID) ON DELETE CASCADE ON UPDATE CASCADE
 ) engine=InnoDB;
