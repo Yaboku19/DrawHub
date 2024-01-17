@@ -5,11 +5,11 @@ $result["success"] = false;
 
 if (isset($_POST["profileUsername"])) {
     $username = $_POST["profileUsername"];
-    $nameCheck = $dbh->checkValueInDb("user", "user_id", $username);
+    $nameCheck = $dbh->checkValueInDb("user", "username", $username);
     if ($nameCheck) {
         $result["success"] = true;
         $result["userPosts"] = $dbh->getAllUserPosts($username);
-        $result["viewingLoggedUserPosts"] = $_SESSION["user_id"] === $username;
+        $result["viewingLoggedUserPosts"] = $_SESSION["username"] === $username;
         $authorInfo = $dbh->getUserInfo($username);
         for ($i = 0; $i < count($result["userPosts"]); $i++) {
             $id = $result["userPosts"][$i]["post_id"];
@@ -19,7 +19,7 @@ if (isset($_POST["profileUsername"])) {
             }
             $result["userPosts"][$i]["data"] = date("F j, Y", strtotime($result["userPosts"][$i]["data"]));
             $reactCount = $dbh->getAllReactionCount($id);
-            $userReactions = $dbh->hasReactedAll($_SESSION["user_id"], $id);
+            $userReactions = $dbh->hasReactedAll($_SESSION["username"], $id);
             $result["userPosts"][$i]["user_image"] = $authorInfo["user_image"];
             $result["userPosts"][$i] = array_merge($result["userPosts"][$i], $reactCount);
             $result["userPosts"][$i] = array_merge($result["userPosts"][$i], $userReactions);
