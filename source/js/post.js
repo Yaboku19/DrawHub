@@ -5,36 +5,36 @@ function generatePost(post_data) {
     <div class="card my-4 bg-secondary bg-opacity-10 row"> <!-- un Post inizia da qua -->
     <div class="card-header">
         <a href="#" class="nav-link px-0 text-dark">
-            <img src="../img/${post_data[i]["urlProfilePicture"]}" class="rounded-circle py-2 my-1" alt="..." width="40" height="40">
+            <img src="../img/${post_data[i]["urlProfilePicture"]}" class="rounded-circle py-0 mb-1" alt="..." width="40" height="40">
             <!--<i class="fs-3 bi-person-circle"></i>--> 
-            <span class="fs-3 ms-2 d-sm-inline">${post_data[i]["user"]}</span>
+            <span class="fs-3 ms-2 mt-1 d-sm-inline">${post_data[i]["user"]}</span>
         </a>
     </div>
     <div class="card-body">
         <p class="card-text">${post_data[i]["description"]}</p>
-        <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-        <img src="../img/${post_data[i]["urlimage"]}" class="card-img-bottom img-fluid py-2 my-1" alt="...">
+        <!--<p class="card-text"><small class="text-body-secondary">data</small></p>-->
+        <img src="../img/${post_data[i]["urlImage"]}" class="card-img-bottom img-fluid py-2 my-1" alt="...">
         <div class="my-3">
-            <button type="button" class="btn btn-outline-danger position-relative mx-3 fs-3"><em class="bi-hand-thumbs-up"></em>
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    54
-                </span>
+            <button type="button" class="btn btn-outline-danger position-relative mx-3 fs-3"><em class="bi-heart-fill"></em>
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  54
+              </span>
             </button>
-            <button type="button" class="btnSmile btnSmileL btn btn-outline-danger position-relative mx-3 fs-3"><em class="bi bi-emoji-smile-upside-down"></em>
-            <span class="numeroSmile position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                78
-            </span>
+            <button type="button" class="btn btn-outline-danger position-relative mx-3 fs-3"><em class="bi-emoji-heart-eyes-fill"></em>
+              <span class="numeroSmile position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  78
+              </span>
             </button>
-            <button type="button" class="btnCuore btnCuoreL btn btn-outline-danger position-relative mx-3 fs-3"><em class="bi bi-heart-fill"></em>
-            <span class="numeroCuore position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                166
-            </span>
+            <button type="button" class="btn btn-outline-danger position-relative mx-3 fs-3"><em class="bi-emoji-neutral-fill"></em>
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  166
+              </span>
             </button>
   
-            <button type="button" class="btnBacio btnBacioL btn btn-outline-danger position-relative mx-3 fs-3"><em class="bi bi-emoji-kiss"></em>
-            <span class="numeroBacio position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                26
-            </span>
+            <button type="button" class="btn btn-outline-danger position-relative mx-3 fs-3"><em class="bi-hand-thumbs-down-fill"></em>
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  26
+              </span>
             </button>
         </div>
     </div>
