@@ -57,7 +57,7 @@ class DatabaseHelper{
     }
 
     public function getPosts($id, $n) { //da sistemare
-        $stmt = $this->db->prepare("SELECT * FROM post");
+        $stmt = $this->db->prepare("SELECT P.*, U.urlProfilePicture FROM post P, user U WHERE P.user = U.username;");
         //$stmt->bind_param("si",$id, $n);
         $stmt->execute();
         $result = $stmt->get_result();
