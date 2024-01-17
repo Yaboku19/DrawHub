@@ -3,8 +3,8 @@ require_once("db_config.php");
 
 $numeropost = 5;
 $var = false;
-if (isset($_SESSION["user_id"])) {
-    $post = $dbh->getPosts($_SESSION["user_id"], $numeropost); //prende i post degli utenti che segue
+if (isset($_SESSION["username"])) {
+    $post = $dbh->getPosts($_SESSION["username"], $numeropost); //prende i post degli utenti che segue
 
     /*for($i = 0; $i < count($post); $i++) {
         $post[$i]["data"] = date("F j, Y", strtotime($post[$i]["data"]));
