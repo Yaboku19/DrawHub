@@ -5,7 +5,7 @@ $templateParams["title"] = "Insert Post";
 $templateParams["name"] = "../template/template-add-post.php";
 $templateParams["homepage"] = "";
 $templateParams["notifications"] = "";
-//$templateParams["paginaprofilouser"]= $_SESSION["user_id"];
+//$templateParams["paginaprofilouser"]= $_SESSION["username"];
 $templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js");
 
 $error = "";
@@ -18,22 +18,22 @@ if(isset($_POST["submit"]) && isset($_POST["post"])){
     } else {
         $exam = $esame;
     }
-    if ($testo != "" && isset($_SESSION["user_id"])) {
+    if ($testo != "" && isset($_SESSION["username"])) {
         if(isset($_FILES["imgpost"]) && $_FILES["imgpost"]["name"] != ""){
             list($result, $msg) = uploadImage(UPLOAD_DIR, $_FILES["imgpost"]);
             if($result == 1){
-                $dbh->addPost($testo, $_SESSION["user_id"], $msg, $exam);
+                $dbh->addPost($testo, $_SESSION["username"], $msg, $exam);
                 header("Location: showhomepage.php");
             } else {
                 $error = $msg;
             }
         } else {
 
-            $dbh->addPost($testo, $_SESSION["user_id"], null, $exam);
+            $dbh->addPost($testo, $_SESSION["username"], null, $exam);
             header("Location: showhomepage.php");
         }
         
-        //$dbh->addPost($testo, $_SESSION["user_id"]);
+        //$dbh->addPost($testo, $_SESSION["username"]);
         
         //echo($result);
         

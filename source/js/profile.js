@@ -148,7 +148,7 @@ function updateSelect(response_settings) {
 }
 
 const main = document.querySelector("main");
-console.log("sono in settings.js");
+console.log("sono in profile.js");
 /*axios.get("api-get-current-settings.php").then(response_settings => {
   axios.get("api-selector-controller.php").then(response_selector => {
     if(response_settings.data["logged"]) {*/
