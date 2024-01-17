@@ -33,10 +33,11 @@ function generateOptions(values, selected, category) {
   return options;
 }
 
-function showPage(response_settings, response_select) {
-  uni_options = generateOptions(response_select["unis"], response_select["uni-selected"],"uni");
+function showPage(/*response_settings, response_select*/) {
+  console.log("sono in show page");
+  /*uni_options = generateOptions(response_select["unis"], response_select["uni-selected"],"uni");
   course_options = generateOptions(response_select["courses"], 1, "course");
-  residence_options = generateOptions(response_settings["cities"], response_settings["current-residence"], "residence");
+  residence_options = generateOptions(response_settings["cities"], response_settings["current-residence"], "residence");*/
   let form = `
     <div class="container justify-content-center align-middle ">
       <div class="p-lg-5 mb-5 bg-light">
@@ -147,14 +148,15 @@ function updateSelect(response_settings) {
 }
 
 const main = document.querySelector("main");
-axios.get("api-get-current-settings.php").then(response_settings => {
+console.log("sono in settings.js");
+/*axios.get("api-get-current-settings.php").then(response_settings => {
   axios.get("api-selector-controller.php").then(response_selector => {
-    if(response_settings.data["logged"]) {
-      showPage(response_settings.data, response_selector.data);
-      updateButton(response_settings.data["user_id"]);
-      updateSelect(response_settings);
-    } else {
+    if(response_settings.data["logged"]) {*/
+      showPage(/*response_settings.data, response_selector.data*/);
+      /*updateButton(response_settings.data["user_id"]);
+      updateSelect(response_settings);*/
+   /* } else {
       window.location.href = "../php/index.php";
     }
   });
-});
+});*/

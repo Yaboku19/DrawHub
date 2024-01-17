@@ -16,16 +16,17 @@ define("IMG_PATH", "../img/");
 $templateParams["title"] = "Profile";
 $templateParams["user_exists"] = false;
 $templateParams["errormsg"] = "Missing username";
-$templateParams["paginaprofilouser"]=$_SESSION["user_id"];
+//$templateParams["paginaprofilouser"]=$_SESSION["username"];
+$templateParams["name"]=null;
 $templateParams["homepage"] = "";
-$templateParams["uni-list"] = "";
 $templateParams["notifications"] = "";
 
 if (isset($_GET["username"])) {
-    //$templateParams["user_exists"] = $dbh->checkValueInDb("user", "user_id", $_GET["username"]);
+    /*$templateParams["user_exists"] = $dbh->checkValueInDb("user", "username", $_GET["username"]);*/
+    $templateParams["user_exists"]=true;
     if ($templateParams["user_exists"]) {
         $templateParams["name"] = "show-profile.php";
-        //$user = $dbh->getUserInfo($_GET["username"]);
+        $user = $dbh->getUserInfo($_GET["username"]);
         $templateParams["username"] = $_GET["username"];
         $templateParams["u_name"] = $user["name"];
         $templateParams["surname"] = $user["surname"];
@@ -37,7 +38,8 @@ if (isset($_GET["username"])) {
         /*$templateParams["post_count"] = $dbh->getPostCountFromUser($templateParams["username"]);
         $templateParams["follower_count"] = $dbh->getFollowerCount($templateParams["username"]);
         $templateParams["followed_count"] = $dbh->getFollowedCount($templateParams["username"]);*/
-        $templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js", "../js/user-profile-list.js");
+        $templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js", "../js/settings.js");
+        //$templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js", "../js/user-profile-list.js");
         //$templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js", "../js/reactions.js", "../js/utils.js", "../js/user-profile-list.js", "../js/follow.js");
     } else {
         $templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js", "../js/utils.js");

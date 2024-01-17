@@ -106,7 +106,7 @@ $_SESSION["user_id"]="pippo";
                 </a>
             </li>
             <li class="nav-item">
-                <a href="../php/showProfile.php" class="nav-link px-0 text-dark">
+                <a href="../php/showProfile.php?username=<?php echo $_SESSION["user_id"];?>" class="nav-link px-0 text-dark">
                     <i class="fs-3 bi-person-circle"></i> <span class="fs-3 ms-2 d-sm-inline">Account</span>
                 </a>
             </li>
@@ -153,7 +153,7 @@ $_SESSION["user_id"]="pippo";
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="../php/showProfile.php" class="nav-link px-0 text-dark">
+                        <a href="../php/showProfile.php?username=<?php echo $_SESSION["user_id"];?>" class="nav-link px-0 text-dark">
                             <i class="fs-4 bi-person-circle"></i> <span class="fs-4 ms-2 d-none d-sm-inline">Account</span>
                         </a>
                     </li>
@@ -178,7 +178,7 @@ $_SESSION["user_id"]="pippo";
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#../php/showSettings.php" class="nav-link px-0 text-dark">
+                        <a href="../php/showSettings.php" class="nav-link px-0 text-dark">
                             <i class="fs-4 bi-gear-fill"></i> <span class="fs-4 ms-2 d-none d-sm-inline">Impostazioni</span>
                         </a>
                     </li>

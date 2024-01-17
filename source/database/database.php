@@ -56,5 +56,12 @@ class DatabaseHelper{
         return $result;
     }
 
+    public function getUserInfo($username){
+        $stmt = $this->db->prepare("SELECT * from users WHERE username = ?;");
+        $stmt->bind_param("s", $username);
+        $result = $stmt->execute();
+        return $result;
+    }
+
 }
 ?>
