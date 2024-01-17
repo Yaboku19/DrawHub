@@ -97,6 +97,50 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC)[0]["info"];
     }
 
+        /**
+     * Given a username returns the number of followers that user has
+     */
+    public function getFollowerCount($username) {
+        $stmt = $this->db->prepare("SELECT COUNT(*) AS follower_count FROM follow WHERE user = ?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC)[0]["follower_count"];
+    }
+
+    /**
+     * Given username returns il numero di seguiti
+     */
+    public function getFollowedCount($username) {
+        $stmt = $this->db->prepare("SELECT COUNT(*) AS followed_count FROM follow WHERE followerUser = ?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC)[0]["followed_count"];
+    }
+
+    /**
+     * dato l'utente conta il numero di post caricati
+     */
+    public function getPostCountFromUser($username) {
+        $stmt = $this->db->prepare("SELECT COUNT(*) AS post_count FROM post WHERE user = ?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC)[0]["post_count"];
+    }
+
+    /**
+     * verifico se loggedUser (utente attuale) segue user
+     */
+    public function isUserFollowing($loggedUser, $user) {
+        $stmt = $this->db->prepare("SELECT * FROM follow WHERE followerUser = ? AND user = ?");
+        $stmt->bind_param("ss", $loggedUser, $user);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return !empty($result->fetch_all(MYSQLI_ASSOC));
+    }
+
     /**
      * restituisce tutti i tipi di reaction
      */

@@ -1,51 +1,53 @@
 <?php
-/*require_once("db_config.php");
-
-$templateParams["title"] = "Profile";
-$templateParams["homepage"] = "";
-$templateParams["notifications"] = "";
-//$templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js", "../js/settings.js");
-
-require("../template/base.php");*/
-?>
-
-<?php
-require_once 'db_config.php';
-define("IMG_PATH", "../img/");
-
-$templateParams["title"] = "Profile";
-$templateParams["user_exists"] = false;
-$templateParams["errormsg"] = "Missing username";
-//$templateParams["paginaprofilouser"]=$_SESSION["username"];
-$templateParams["name"]=null;
-$templateParams["homepage"] = "";
-$templateParams["notifications"] = "";
-
-if (isset($_GET["username"])) {
-    /*$templateParams["user_exists"] = $dbh->checkValueInDb("user", "username", $_GET["username"]);*/
-    $templateParams["user_exists"]=true;
-    if ($templateParams["user_exists"]) {
-        $templateParams["name"] = "show-profile.php";
-        $user = $dbh->getUserInfo($_GET["username"]);
-        $templateParams["username"] = $_GET["username"];
-        $templateParams["bio"] = $user["bio"];
-        $templateParams["user_image"] = IMG_PATH . $user["urlProfilePicture"];
-        $templateParams["birthDate"] = $user["birthDate"];
-        $templateParams["email"] = $user["email"];
-        $templateParams["name"] = $user["name"];
-        $templateParams["surname"] = $user["surname"];
-        /*$templateParams["post_count"] = $dbh->getPostCountFromUser($templateParams["username"]);
-        $templateParams["follower_count"] = $dbh->getFollowerCount($templateParams["username"]);
-        $templateParams["followed_count"] = $dbh->getFollowedCount($templateParams["username"]);*/
-        $templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js", "../js/profile.js");
-        //$templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js", "../js/user-profile-list.js");
-        //$templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js", "../js/reactions.js", "../js/utils.js", "../js/user-profile-list.js", "../js/follow.js");
-    } else {
-        $templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js", "../js/utils.js");
-        $templateParams["errormsg"] = "Utente non trovato.";
-        $templateParams["name"] = "show-error.php";
+$isFollowing = false;
+$followBtnText = "<em class=\"bi bi-person-plus\"> Segui</em>";
+$followBtnClass = "primary";
+$followBtnDisable = "";
+if (isset($_SESSION["username"])) {
+    $isFollowing = $dbh->isUserFollowing($_SESSION["user_id"], $templateParams["username"]);
+    if ($isFollowing) {
+        $followBtnText = "<em class=\"bi bi-person-slash\"> Non seguire</em>";
+        $followBtnClass = "danger";
+    }
+    if ($templateParams["username"] === $_SESSION["username"]) {
+        $followBtnDisable = "hidden";
     }
 }
-
-require '../template/base.php'
 ?>
+<div class="container mt-2 mb-5">
+    <div class="row">
+        <div class="col-12 col-lg-3">
+            <div class="left-column">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <img src="<?php echo($templateParams["user_image"]) ?>" id="profileImage" width="120" height="120" class="mt-n5 rounded-circle" alt="immagine profilo"/>
+                        <p class="card-title mt-2"><?php echo($templateParams["u_name"]." ".$templateParams["surname"]) ?></p>
+                        <p class="card-text">@<?php echo($templateParams["username"]) ?></p>
+                        <?php
+                            /*if ($templateParams["corso_id"] !== null) {
+                                $courseInfo = $dbh->getCourseInfo($templateParams["corso_id"]);
+                                echo ("<p class=\"card-text\">Iscritto a: <a href=\"course.php?course_id=".$courseInfo["corso_id"]."\">".$courseInfo["nome"]."</a></p>");
+                            }*/
+                        ?>
+                        <p class="card-text text-justify mb-2"><?php echo($templateParams["bio"]) ?></p>
+                        <p class="card-text text-justify mb-2"><?php echo($templateParams["birthDate"]) ?></p>
+                        <button type="button" id="followBtn" class="btn btn-<?php echo($followBtnClass)?>" <?php echo($followBtnDisable)?>><?php echo($followBtnText)?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6">
+            <div class="middle-column">
+                <div class="card border-primary">
+                    <div class="card-header">
+                        <ul class="list-group list-group-horizontal p-0 text-center">
+                            <li class="col-4 list-group-item align-items-center"><a class="link-primary" id="posts" href="#">Post</a> <span id="postCount" class="badge bg-primary rounded-pill text-light"><?php echo($templateParams["post_count"]) ?></span></li>
+                            <li class="col-4 list-group-item align-items-center"><a class="link-primary" id="followers" href="#">Seguaci</a> <span id="followerCount" class="badge bg-primary rounded-pill text-light"><?php echo($templateParams["follower_count"]) ?></span></li>
+                            <li class="col-4 list-group-item align-items-center"><a class="link-primary" id="following" href="#">Seguiti</a> <span id="followingCount" class="badge bg-primary rounded-pill text-light"><?php echo($templateParams["followed_count"]) ?></span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

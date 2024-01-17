@@ -55,7 +55,7 @@ if ($templateParams["notifications"] === "link-secondary") {
                                 <a class="nav-link w-100" href="../php/showHomepage.php"><img src="../img/icons/home.svg" alt=""> Home</a>
                             </li>
                             <li class="nav-item m-1">
-                                <a class="nav-link" href="../php/showProfile.php?username=<?php echo $_SESSION["username"];?>"><img src="../img/icons/account.svg" alt=""> Account</a>
+                                <a class="nav-link" href="../php/profile.php?username=<?php echo $_SESSION["username"];?>"><img src="../img/icons/account.svg" alt=""> Account</a>
                             </li>
                             <li class="nav-item m-1">
                                 <a class="nav-link" href="../php/showNotification.php"><img src="../img/icons/notification.svg" alt=""> Notifiche</a>
@@ -124,7 +124,7 @@ if ($templateParams["notifications"] === "link-secondary") {
                 </a>
             </li>
             <li class="nav-item">
-                <a href="../php/showProfile.php?username=<?php echo $_SESSION["username"];?>" class="nav-link px-0 text-dark">
+                <a href="../php/profile.php?username=<?php echo $_SESSION["username"];?>" class="nav-link px-0 text-dark">
                     <i class="fs-3 bi-person-circle"></i> <span class="fs-3 ms-2 d-sm-inline">Account</span>
                 </a>
             </li>
@@ -171,7 +171,7 @@ if ($templateParams["notifications"] === "link-secondary") {
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="../php/showProfile.php?username=<?php echo $_SESSION["username"];?>" class="nav-link px-0 text-dark">
+                        <a href="../php/profile.php?username=<?php echo $_SESSION["username"];?>" class="nav-link px-0 text-dark">
                             <i class="fs-4 bi-person-circle"></i> <span class="fs-4 ms-2 d-none d-sm-inline">Account</span>
                         </a>
                     </li>
