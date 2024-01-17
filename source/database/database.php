@@ -44,18 +44,6 @@ class DatabaseHelper{
         return $result == true;
     }
 
-        /** 
-     * add a post to the db
-    */   
-    public function addPost($string, $author, $img, $exam){
-        $data = date("Y-m-d");
-        //$id = $this->getNewId("post_id", "post");
-        $stmt = $this->db->prepare("INSERT INTO post (user, postID, description, urlImage, originalPostUser, originalPostid) VALUES (?, ?, ?, ?, ?, ?);");
-        $stmt->bind_param("ssssss", $id, $author, $string, $data, $exam, $img);
-        $result = $stmt->execute();
-        return $result;
-    }
-
     public function getUserInfo($username) {
         $stmt = $this->db->prepare("SELECT * FROM user WHERE username = ?");
         $stmt->bind_param("s", $username);
@@ -114,11 +102,15 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function addPost($string, $author, $img, $exam){
+    public function addPost($author, $description, $img, $originalPost){
         $data = date("Y-m-d");
-        $id = $this->getNewId("post_id", "post");
-        $stmt = $this->db->prepare("INSERT INTO post (post_id, author, string, data, esame_id, immagine) VALUES (?, ?, ?, ?, ?, ?);");
-        $stmt->bind_param("ssssss", $id, $author, $string, $data, $exam, $img);
+        if ($originalPost == "") {
+            $stmt = $this->db->prepare("INSERT INTO post (user, description, urlImage, datePost) VALUES (?, ?, ?, ?);");
+            $stmt->bind_param("ssss", $author, $description, $img, $data);
+        } else {
+            $stmt = $this->db->prepare("INSERT INTO post (user, description, urlImage, datePost, originalPostId) VALUES (?, ?, ?, ?, ?);");
+            $stmt->bind_param("sssss", $author, $description, $img, $data, $originalPost);
+        }
         $result = $stmt->execute();
         return $result;
     }
