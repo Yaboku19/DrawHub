@@ -6,7 +6,7 @@ $templateParams["name"] = "../template/template-add-post.php";
 $templateParams["homepage"] = "";
 $templateParams["notifications"] = "";
 //$templateParams["paginaprofilouser"]= $_SESSION["user_id"];
-//$templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js");
+$templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js");
 
 $error = "";
 
