@@ -10,3 +10,15 @@ VALUES ('mariobalo', 1, 'Descrizione del primo post.', 'prova.jpg', '2024-01-17'
 INSERT INTO drawHub.post (user, postID, description, urlImage, datePost)
 VALUES ('marcorossi', 1, 'Descrizione del secondo post.', 'prova.jpg', '2024-01-17');
 
+INSERT INTO drawHub.reactionType (typeID, tagImage)
+VALUES ("cuore", "bi-heart-fill");
+
+INSERT INTO drawHub.reactionType (typeID, tagImage)
+VALUES ("occhi_a_cuore", "bi-emoji-heart-eyes-fill");
+
+INSERT INTO drawHub.reactionType (typeID, tagImage)
+VALUES ("occhi_neutri", "bi-emoji-neutral-fill");
+
+INSERT INTO drawHub.reactionType (typeID, tagImage)
+VALUES ("pollice_giu", "bi-hand-thumbs-down-fill");
+
