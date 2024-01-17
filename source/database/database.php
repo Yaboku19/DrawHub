@@ -61,7 +61,8 @@ class DatabaseHelper{
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
-        return $result->fetch_all(MYSQLI_ASSOC);
+        echo($result->num_rows);
+        return $result->fetch_all(MYSQLI_ASSOC)[0];
     }
 
     public function getPosts($id, $n) { //da sistemare
