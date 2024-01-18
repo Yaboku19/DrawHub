@@ -61,7 +61,6 @@ followBtn.addEventListener("click", function(event) {
     if (followBtn.classList.contains(followClass)) {
         formData.append("action", "follow");
         axios.post("api-follow.php", formData).then(response => {
-            console.log(response.data["action"]);
             if (!response.data["success"]) {
                 showErrorMsg(response.data["errormsg"]);
             } else {
@@ -75,7 +74,6 @@ followBtn.addEventListener("click", function(event) {
     } else {
         formData.append("action", "unfollow");
         axios.post("api-follow.php", formData).then(response => {
-            console.log(response.data["action"]);
             if (!response.data["success"]) {
                 showErrorMsg(response.data["errormsg"]);
             } else {
