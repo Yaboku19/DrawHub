@@ -9,16 +9,19 @@ getParameter = (key) => {
 
 const followBtn = document.querySelector("button#followBtn");
 const followerCount = document.querySelector("span#followerCount");
-const user_id = getParameter("username");
+const username = getParameter("username");
 const followClass = "btn-primary";
 const unfollowClass = "btn-danger";
+
+
 followBtn.addEventListener("click", function(event) {
     event.preventDefault();
     const formData = new FormData();
-    formData.append("followed_id", user_id);
+    formData.append("followed_user", username);
     if (followBtn.classList.contains(followClass)) {
         formData.append("action", "follow");
         axios.post("api-follow.php", formData).then(response => {
+            console.log(response.data["action"]);
             if (!response.data["success"]) {
                 showErrorMsg(response.data["errormsg"]);
             } else {

@@ -103,7 +103,7 @@ function showUserList(users) {
             <div class="row">
                 <div class="d-flex align-items-center">
                     <div class="flex-shrink-0">
-                        <img src="${uploadDir}${element["user_image"]}" class="rounded-circle" width="50" hight="50" alt="">
+                    <img src="${uploadDir}${element["urlProfilePicture"]}" class="rounded-circle" width="50" hight="50" alt="">
                     </div>
                     <div class="flex-grow-1 ms-3">
                         <a href="profile.php?username=${element["username"]}">${element["name"]} ${element["surname"]} @${element["username"]}</a> 

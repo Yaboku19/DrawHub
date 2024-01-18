@@ -25,11 +25,14 @@ VALUES ("pollice_giu", "bi-hand-thumbs-down-fill");
 INSERT INTO drawHub.reaction (user, typeID, postID)
 VALUES ("marcorossi", "cuore",  1);
 
-INSERT INTO drawhub.comment ()
-VALUES ;
+INSERT INTO drawhub.comment (user, postID, text, commentID)
+VALUES ("marcorossi", 1,"bella immagine", 1);
 
-INSERT INTO drawhub.comment ()
-VALUES ;
+INSERT INTO drawhub.comment (user, postID, text, commentID)
+VALUES ("marcorossi", 2,"bella immagine copiata", 1);
 
-INSERT INTO drawhub.comment ()
-VALUES ;
+INSERT INTO drawhub.comment (user, postID, text, commentID)
+VALUES ("marcorossi", 1, "adoro", 2);
+
+INSERT INTO drawhub.comment (user, postID, text, commentID)
+VALUES ("mariobalo", 1,"penso solo al pallone", 1);

@@ -85,8 +85,8 @@ axios.get("api-showpost.php").then(response => {
   console.log(response.data);
   if (response.data["success"]) {
     showPost(response.data["posts"]);
-    enableAllButtons(response.data["posts"].length, response.data["posts"]);
     addPostIDAlreadyShow(response.data["posts"]);
+    enableAllButtons(response.data["posts"].length, response.data["posts"]);
     /*if (num == 0) {
       let element = document.getElementById('adddiv');
       let newdiv = showEndPost();
@@ -102,7 +102,7 @@ axios.get("api-showpost.php").then(response => {
       enableButtons(response);
     }*/
     //console.log(response.data);
-    rd = response.data["posts"];
+    //rd = response.data["posts"];
     /*sendPost();
     getLoggedUserInfo()
     dynamicButtonPost();*/
@@ -112,13 +112,23 @@ axios.get("api-showpost.php").then(response => {
 
 });
 
-function enableAllButtons(length, post_data) {
+/*function enableAllButtons(length, post_data) {
   for (let i = 0; i < length; i++) {
     enableButton(post_data[i]["postID"] ,"btn_cuore_", "cuore");
     enableButton(post_data[i]["postID"] ,"btn_occhi_a_cuore_", "occhi_a_cuore");
     enableButton(post_data[i]["postID"] ,"btn_occhi_neutri_", "occhi_neutri");
     enableButton(post_data[i]["postID"] ,"btn_pollice_giu_", "pollice_giu");
     enableComment(post_data[i]["postID"]);
+  }
+}*/
+
+function enableAllButtons(length, post_data) {
+  for (let i = 0; i < num.length; i++) {
+    enableButton(num[i] ,"btn_cuore_", "cuore");
+    enableButton(num[i] ,"btn_occhi_a_cuore_", "occhi_a_cuore");
+    enableButton(num[i] ,"btn_occhi_neutri_", "occhi_neutri");
+    enableButton(num[i] ,"btn_pollice_giu_", "pollice_giu");
+    enableComment(num[i]);
   }
 }
 
@@ -133,6 +143,7 @@ function enableButton(postID, buttonType, reactionType) {
   
   if(button){
     button.addEventListener('click', function onclick() {
+      console.log("caio");
       axios.post("api-reaction.php", formData).then(response =>
         span.innerHTML=response.data[reactionType]);
         //quando viene cliccato il bottone, aggiorna dinamicamente il colore
@@ -149,18 +160,48 @@ function enableComment(postID) {
   let commentSpan = document.getElementById("comment" + postID);
   if (commentSpan) {
     commentSpan.addEventListener("click", () => {
-        let container = document.getElementById("prova");
-        if (container) {
-          container.innerHTML = `<p> ${postID} </p>`;
-        } else {
-          console.log("troia");
-        }
-        
-        console.log("ciaooo");
+      loadComments(postID);
     });
   } else {
-  console.log("tua madre troia");
+    console.log("errore nel caricamento del commentspan")
   }
+}
+
+function addPostIDAlreadyShow(post_data) {
+  for (let index = 0; index < post_data.length; index++) {
+    num.push(post_data[index]["postID"]);
+  }
+  //console.log(num);
+}
+function loadComments(postID) {
+  const formData = new FormData();
+  formData.append("postID", postID);
+  axios.post("api-showcomment.php", formData).then(response => {
+    if (response.data["success"]) {
+      let modalBody = document.querySelector("div.comment-body");;
+      if (modalBody) {
+        document.querySelectorAll("div.commentsList")?.forEach(element => element.remove());
+        for (let i = 0; i < response.data["comments"].length; i++) {
+          const container = document.createElement("div");
+          container.classList = "container commentsList p-3";
+          container.innerHTML = `
+            <div class="row">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1 ms-3">
+                        <p> ${response.data["comments"][i]["text"]}</p>
+                    </div>
+                </div>
+            </div>
+            `;
+            modalBody.appendChild(container);
+        }
+      } else {
+        console.log("modalBody commenti non valido");
+      }
+    } else {
+      console.log(response.data["comment"]);
+    }
+  });
 }
 
 function addPostIDAlreadyShow(post_data) {
@@ -179,69 +220,15 @@ async function loadMore() {
     axios.post("api-loadMorePosts.php", {
       numPost: num
     }).then(response => {
-      console.log(response.data);
+      //console.log(response.data);
       if (response.data["success"]) {
         showPost(response.data["posts"]);
-        enableAllButtons(response.data["posts"].length, response.data["posts"]);
         addPostIDAlreadyShow(response.data["posts"]);
+        enableAllButtons(response.data["posts"].length, response.data["posts"]);
       }
     });
   }
-}
-    /*loading = true;
-    const formData = new FormData();
-    formData.append('num', num);
-    const resp = await axios.post("api-loadPost.php", formData);
-    //console.log(resp.data);
-
-    if (!resp.data["errors"]) {
-      q = resp.data["posts"];
-      if (q.length == 0) {
-        document.removeEventListener('scroll', loadMore);
-        if (end == false) {
-          let element = document.getElementById('adddiv');
-          let newdiv = showEndPost();
-          element.append(newdiv);
-        }
-        return;
-      }
-
-      rd = rd.concat(q);
-
-      for (let i = 0; i < q.length; i++) {
-        let newdiv = newPosts(q[i], i + num);
-        let element = document.getElementById('adddiv');
-        element.append(newdiv);
-      }
-
-      num = num + q.length;
-      const btnLike = "bottoneL";
-      const numeroLike = "numeroLike"
-      updateButton(rd, btnLike, numeroLike, 1, -1, "btnlkd");
-
-      const btnFire = "btnFireL";
-      const numeroFire = "numeroFire"
-      updateButton(rd, btnFire, numeroFire, 2, -2, "btnFireLkd");
-
-      const btnSmile = "btnSmileL"
-      const numeroSmile = "numeroSmile"
-      updateButton(rd, btnSmile, numeroSmile, 3, -3, "btnSmileLkd");
-
-      const btnCuore = "btnCuoreL"
-      const numeroCuore = "numeroCuore"
-      updateButton(rd, btnCuore, numeroCuore, 4, -4, "btnCuoreLkd");
-
-      const btnBacio = "btnBacioL"
-      const numeroBacio = "numeroBacio"
-      updateButton(rd, btnBacio, numeroBacio, 5, -5, "btnBacioLkd");
-      loading = false;
-    } else {
-      main.innerHTML = "";
-      main.appendChild(showError());
-    }
-  }
-
-}
+}/*
 
 function showEndPost() {
   let newdiv = `<div class="d-flex justify-content-between p-2 px-3">
