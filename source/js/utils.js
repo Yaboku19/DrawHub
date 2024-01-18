@@ -44,25 +44,25 @@ function showPostList(posts, addModifyButton) {
             <div class="mt-4">
             <button class="btnCuore btnCuoreL btn btn-outline-danger position-relative me-2 ms-2 mb-2"><em class="bi bi-heart-fill"></em>
                 <span class="numeroCuore position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                ${element["num_cuore"]}
+                ${element["cuore"]}
                 </span>
             </button>
 
             <button class="btnCuore btnCuoreL btn btn-outline-danger position-relative me-2 ms-2 mb-2"><em class="bi-emoji-heart-eyes-fill"></em>
                 <span class="numeroCuore position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                ${element["num_occhi_a_cuore"]}
+                ${element["occhi_a_cuore"]}
                 </span>
             </button>
 
             <button class="btnCuore btnCuoreL btn btn-outline-danger position-relative me-2 ms-2 mb-2"><em class="bi-emoji-neutral-fill"></em>
                 <span class="numeroCuore position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                ${element["num_occhi_neutri"]}
+                ${element["occhi_neutri"]}
                 </span>
             </button>
 
             <button class="btnCuore btnCuoreL btn btn-outline-danger position-relative me-2 ms-2 mb-2"><em class="bi-hand-thumbs-down-fill"></em>
                 <span class="numeroCuore position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                ${element["num_pollice_giu"]}
+                ${element["pollice_giu"]}
                 </span>
             </button>`
 
