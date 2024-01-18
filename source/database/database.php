@@ -172,23 +172,41 @@ class DatabaseHelper{
     }
     public function addReaction($username, $postID, $reactionType) {
         $stmt = $this->db->prepare("INSERT INTO reaction (user, typeID, postID) VALUES (?, ?, ?)");
-        $stmt->bind_param("ssi", $username, $postID, $reactionType);
-        $stmt->execute();
-        $result = $stmt->get_result();
+        $stmt->bind_param("ssi", $username, $reactionType, $postID);
+        $result = $stmt->execute();
         return $result;
     }
 
     public function removeReaction($username, $postID, $reactionType) {
-        $stmt = $this->db->prepare("DELETE FROM reaction R WHERE R.user=? AND R.typeID=? AND R.postID=?");
-        $stmt->bind_param("ssi", $username, $postID, $reactionType);
+        $stmt = $this->db->prepare("DELETE FROM reaction WHERE `reaction`.`user` = ? AND `reaction`.`typeID` = ? AND `reaction`.`postID` = ?");
+        $stmt->bind_param("ssi", $username, $reactionType, $postID);
+        $result = $stmt->execute();
+        return $result;
+    }
+
+    /**
+     * Per ogni reazione restituisce se l'utente ha già messo like nel post di $post_id
+     */
+    public function hasReactedAll($username, $post_id) {
+        $reactions = $this->getAllReactionType();
+        foreach ($reactions as $reaction) {
+            $result["user_has_".$reaction["typeID"]] = $this->hasReacted($post_id, $username, $reaction["typeID"]);
+        }
+        return $result;
+    }
+
+    public function hasReacted($post_id, $username, $reaction_type){
+        $stmt = $this->db->prepare("SELECT * FROM reaction WHERE postID = ? AND user = ? AND typeID = ?");
+        $stmt->bind_param("iss", $post_id, $username, $reaction_type);
         $stmt->execute();
         $result = $stmt->get_result();
-        return $result;
+        $res = $result->fetch_all(MYSQLI_ASSOC);
+        return !empty($res);
     }
 
     public function isReactionAlreadyPresent($username, $postID, $reactionType) {
         $stmt = $this->db->prepare("SELECT count(*) AS reactionCount FROM reaction R WHERE R.user=? AND R.typeID=? AND R.postID=?");
-        $stmt->bind_param("ssi", $username, $postID, $reactionType);
+        $stmt->bind_param("ssi", $username, $reactionType, $postID);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC)[0]["reactionCount"] > 0;

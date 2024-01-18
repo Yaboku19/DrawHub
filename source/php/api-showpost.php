@@ -12,8 +12,9 @@ if (isset($_SESSION["username"])) {
         
         $reactCount = $dbh->getAllReactionCount($post[$i]["postID"]);
         $post[$i] = array_merge($post[$i] , $reactCount);
-        //$userReactions = $dbh->hasReactedAll($_SESSION["user_id"], $post[$i]["post_id"]);
-        //$post[$i] = array_merge($post[$i] , $userReactions);
+        $userReactions = $dbh->hasReactedAll($_SESSION["username"], $post[$i]["postID"]);
+        
+        $post[$i] = array_merge($post[$i] , $userReactions);
         
         $var = true;
     }
