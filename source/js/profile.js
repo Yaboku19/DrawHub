@@ -33,7 +33,7 @@ function generateOptions(values, selected, category) {
   return options;
 }
 
-function showPage(/*response_settings, response_select*/) {
+function showPage(response_settings, response_select) {
   console.log("sono in show page");
   /*uni_options = generateOptions(response_select["unis"], response_select["uni-selected"],"uni");
   course_options = generateOptions(response_select["courses"], 1, "course");
@@ -151,11 +151,11 @@ const main = document.querySelector("main");
 console.log("sono in profile.js");
 /*axios.get("api-get-current-settings.php").then(response_settings => {
   axios.get("api-selector-controller.php").then(response_selector => {
-    if(response_settings.data["logged"]) {*/
-      showPage(/*response_settings.data, response_selector.data*/);
-      /*updateButton(response_settings.data["user_id"]);
-      updateSelect(response_settings);*/
-   /* } else {
+    if(response_settings.data["logged"]) {
+      showPage(response_settings.data, response_selector.data);
+      updateButton(response_settings.data["user_id"]);
+      updateSelect(response_settings);
+   } else {
       window.location.href = "../php/index.php";
     }
   });

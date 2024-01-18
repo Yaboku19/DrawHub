@@ -32,6 +32,7 @@ class DatabaseHelper{
         $stmt->execute();
         $result = $stmt->get_result();
 
+        //return $result->num_rows; 
         return !empty($result->fetch_all(MYSQLI_ASSOC));
     }
 
@@ -61,7 +62,6 @@ class DatabaseHelper{
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
-        echo($result->num_rows);
         return $result->fetch_all(MYSQLI_ASSOC)[0];
     }
 
@@ -128,6 +128,18 @@ class DatabaseHelper{
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC)[0]["post_count"];
+    }
+
+    /**
+     * Returns all posts made by the user with the given username
+     * The are ordered from the most recent to the least recent
+     */
+    public function getAllUserPosts($username) {
+        $stmt = $this->db->prepare("SELECT * FROM post WHERE user = ? ORDER BY datePost DESC");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     /**

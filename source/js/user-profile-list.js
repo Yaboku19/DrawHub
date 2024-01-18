@@ -15,34 +15,36 @@ getParameter = (key) => {
 function makeRequestAndEdit(username, requestedList) {
     const formData = new FormData();
     formData.append("profileUsername", username);
-    if (requestedList != "posts") {
+    /*if (requestedList != "posts") {
         formData.append("requestedList", requestedList);
         axios.post("api-user-list.php", formData).then(response => {
+            console.log(username);
             if (!response.data["success"]) {
                 showErrorMsg(response.data["errormsg"]);
             } else {
                 showUserList(response.data["userList"])
             }
         });
-    } else {
+    } else {*/
         axios.post("api-show-user-posts.php", formData).then(response => {
             if (!response.data["success"]) {
                 showErrorMsg(response.data["errormsg"]);
             } else {
+                console.log(response.data["userPosts"]);
                 showPostList(response.data["userPosts"], response.data["viewingLoggedUserPosts"]);
             }
         });
     }
-}
+//}
 
-const main = document.querySelector("main");
+const pippo = document.querySelector("main");
 const followersLink = document.querySelector("a#followers");
 const followingLink = document.querySelector("a#following");
 const postsLink = document.querySelector("a#posts");
 const profileUsername = getParameter("username");
 const linkList = [postsLink, followersLink, followingLink];
 const userImagePath = document.querySelector("img#profileImage").getAttribute("src");
-followersLink.addEventListener("click", function(event) {
+/*followersLink.addEventListener("click", function(event) {
     event.preventDefault();
     makeRequestAndEdit(profileUsername, "followers");
     updateLinks(linkList, followersLink);
@@ -56,6 +58,6 @@ postsLink.addEventListener("click", function(event) {
     event.preventDefault();
     makeRequestAndEdit(profileUsername, "posts");
     updateLinks(linkList, postsLink);
-});
+});*/
 makeRequestAndEdit(profileUsername, "posts");
 updateLinks(linkList, postsLink);
