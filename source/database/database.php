@@ -45,18 +45,6 @@ class DatabaseHelper{
         return $result == true;
     }
 
-        /** 
-     * add a post to the db
-    */   
-    public function addPost($string, $author, $img, $exam){
-        $data = date("Y-m-d");
-        //$id = $this->getNewId("post_id", "post");
-        $stmt = $this->db->prepare("INSERT INTO post (user, postID, description, urlImage, originalPostUser, originalPostid) VALUES (?, ?, ?, ?, ?, ?);");
-        $stmt->bind_param("ssssss", $id, $author, $string, $data, $exam, $img);
-        $result = $stmt->execute();
-        return $result;
-    }
-
     public function getUserInfo($username) {
         $stmt = $this->db->prepare("SELECT * FROM user WHERE username = ?");
         $stmt->bind_param("s", $username);
@@ -73,9 +61,9 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getPostComments($post_id){ //da sistemare
-        $stmt = $this->db->prepare("SELECT COUNT(*) AS comment FROM comment WHERE post_id = ?");
-        $stmt->bind_param("s", $post_id);
+    public function getPostComments($postID){ //da sistemare
+        $stmt = $this->db->prepare("SELECT COUNT(*) AS comment FROM comment C WHERE C.postID = ?");
+        $stmt->bind_param("i", $postID);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC)[0]["comment"];
@@ -84,7 +72,7 @@ class DatabaseHelper{
     public function getAllReactionCount($post_id) {
         $allReactionsType = $this->getAllReactionType(); 
         foreach ($allReactionsType as $reactionType) {
-            $result["num_".$reactionType["typeID"]] = $this->countPostReactionType($post_id, $reactionType["typeID"]);
+            $result[$reactionType["typeID"]] = $this->countPostReactionType($post_id, $reactionType["typeID"]);
         }
         return $result;
     }
@@ -170,5 +158,40 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function addPost($author, $description, $img, $originalPost){
+        $data = date("Y-m-d");
+        if ($originalPost == "") {
+            $stmt = $this->db->prepare("INSERT INTO post (user, description, urlImage, datePost) VALUES (?, ?, ?, ?);");
+            $stmt->bind_param("ssss", $author, $description, $img, $data);
+        } else {
+            $stmt = $this->db->prepare("INSERT INTO post (user, description, urlImage, datePost, originalPostId) VALUES (?, ?, ?, ?, ?);");
+            $stmt->bind_param("sssss", $author, $description, $img, $data, $originalPost);
+        }
+        $result = $stmt->execute();
+        return $result;
+    }
+    public function addReaction($username, $postID, $reactionType) {
+        $stmt = $this->db->prepare("INSERT INTO reaction (user, typeID, postID) VALUES (?, ?, ?)");
+        $stmt->bind_param("ssi", $username, $postID, $reactionType);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result;
+    }
+
+    public function removeReaction($username, $postID, $reactionType) {
+        $stmt = $this->db->prepare("DELETE FROM reaction R WHERE R.user=? AND R.typeID=? AND R.postID=?");
+        $stmt->bind_param("ssi", $username, $postID, $reactionType);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result;
+    }
+
+    public function isReactionAlreadyPresent($username, $postID, $reactionType) {
+        $stmt = $this->db->prepare("SELECT count(*) AS reactionCount FROM reaction R WHERE R.user=? AND R.typeID=? AND R.postID=?");
+        $stmt->bind_param("ssi", $username, $postID, $reactionType);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC)[0]["reactionCount"] > 0;
+    }
 }
 ?>

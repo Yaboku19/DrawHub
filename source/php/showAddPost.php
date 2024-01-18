@@ -16,15 +16,13 @@ if(isset($_POST["submit"]) && isset($_POST["post"])){
         if(isset($_FILES["imgpost"]) && $_FILES["imgpost"]["name"] != ""){
             list($result, $msg) = uploadImage(UPLOAD_DIR, $_FILES["imgpost"]);
             if($result == 1){
-                $dbh->addPost($testo, $_SESSION["username"], $msg, $exam);
+                $dbh->addPost($_SESSION["username"], $testo, $msg, "");
                 header("Location: showhomepage.php");
             } else {
                 $error = $msg;
             }
         } else {
-
-            $dbh->addPost($testo, $_SESSION["username"], null, $exam);
-            header("Location: showhomepage.php");
+            $error = "Errore; l'immagine deve essere presente";
         }
         
         //$dbh->addPost($testo, $_SESSION["username"]);

@@ -12,66 +12,44 @@ function generatePost(post_data) {
     </div>
     <div class="card-body">
         <p class="card-text">${post_data[i]["description"]}</p>
-        <!--<p class="card-text"><small class="text-body-secondary">data</small></p>-->
+        <p class="card-text"><small class="text-body-secondary">${post_data[i]["datePost"]}</small></p>
         <img src="../img/${post_data[i]["urlImage"]}" class="card-img-bottom img-fluid py-2 my-1" alt="...">
         <div class="my-3">
-            <button type="button" class="btn btn-outline-danger position-relative mx-3 fs-3"><em class="bi-heart-fill"></em>
+            <button type="button" class="btn btn-outline-danger position-relative mx-3 fs-3" id="btn_cuore_${post_data[i]["postID"]}"><em class="bi-heart-fill"></em>
               <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                ${post_data[i]["num_cuore"]}
+                ${post_data[i]["cuore"]}
               </span>
             </button>
-            <button type="button" class="btn btn-outline-danger position-relative mx-3 fs-3"><em class="bi-emoji-heart-eyes-fill"></em>
+            <button type="button" class="btn btn-outline-danger position-relative mx-3 fs-3" id="btn_occhi_a_cuore_${post_data[i]["postID"]}"><em class="bi-emoji-heart-eyes-fill"></em>
               <span class="numeroSmile position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                ${post_data[i]["num_occhi_a_cuore"]}
+                ${post_data[i]["occhi_a_cuore"]}
               </span>
             </button>
-            <button type="button" class="btn btn-outline-danger position-relative mx-3 fs-3"><em class="bi-emoji-neutral-fill"></em>
+            <button type="button" class="btn btn-outline-danger position-relative mx-3 fs-3" id="btn_occhi_neutri_${post_data[i]["postID"]}"><em class="bi-emoji-neutral-fill"></em>
               <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                ${post_data[i]["num_occhi_neutri"]}
+                ${post_data[i]["occhi_neutri"]}
               </span>
             </button>
-            <button type="button" class="btn btn-outline-danger position-relative mx-3 fs-3"><em class="bi-hand-thumbs-down-fill"></em>
+            <button type="button" class="btn btn-outline-danger position-relative mx-3 fs-3" id="btn_pollice_giu_${post_data[i]["postID"]}"><em class="bi-hand-thumbs-down-fill"></em>
               <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                  ${post_data[i]["num_pollice_giu"]}
+                  ${post_data[i]["pollice_giu"]}
               </span>
             </button>
         </div>
     </div>
     <div class="card-footer">
-        <p>commenti</p>
+        <p>commenti (${post_data[i]["num_comments"]})</p>
     </div>                    
   </div><!-- un Post finisce qui -->`;
-    
   }
 
 return section;
 }
-  /*for (let i = 0; i < post_data.length && i < 10; i++) {
-    section += `
-              
-            `;
-  }
-  section += `
-  </div>
-  </div>
-    </div>
-`;
 
-  const variabile = document.createElement("div");
-  variabile.classList.add("container", "mt-2", "mb-5");
-
-  variabile.innerHTML = section;
-  return variabile;
-}
-
-*/
 
 function showPost(post_data) {
-  //main.appendChild(generatePost(post_data));
   let form = generatePost(post_data);
-  div.innerHTML = form;/*
-  main.innerHTML = form;
-  main.append(form);*/  
+  div.innerHTML = form; 
 }
 
 
@@ -87,13 +65,12 @@ let num;
 let rd;
 let div = document.getElementById("dinamic");
 let end = false;
-//const main = document.querySelector("main");
 axios.get("api-showpost.php").then(response => {
-  console.log(response.data);
+  //console.log(response.data);
   if (response.data["success"]) {
     num = response.data["posts"].length;
-    console.log("dadss");
     showPost(response.data["posts"]);
+    enableAllButtons(response.data["posts"].length);
     /*if (num == 0) {
       let element = document.getElementById('adddiv');
       let newdiv = showEndPost();
@@ -118,7 +95,32 @@ axios.get("api-showpost.php").then(response => {
   }
 
 });
-/*
+
+function enableAllButtons(i) {
+  for (let index = 1; index <= i; index++) {
+    enableButton(index ,"btn_cuore_", "cuore");
+    enableButton(index ,"btn_occhi_a_cuore_", "occhi_a_cuore");
+    enableButton(index ,"btn_occhi_neutri_", "occhi_neutri");
+    enableButton(index ,"btn_pollice_giu_", "pollice_giu");
+    
+  }
+}
+
+function enableButton(postID, buttonType, reactionType) {
+  let buttonID = buttonType+postID;
+  const formData = new FormData();
+  formData.append('postID', postID);
+  formData.append('reactionType', reactionType);
+  let button = document.getElementById(buttonID);
+  if(button){
+    
+    button.addEventListener('click', function onclick() {
+      axios.post("api-reaction.php", formData).then(response =>
+        console.log(response));
+
+    });
+  }
+}
 
 /*
 async function loadMore() {
