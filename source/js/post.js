@@ -188,10 +188,12 @@ function loadComments(postID) {
   });
 }
 
-/*
+
 async function loadMore() {
-  if (window.scrollY + window.innerHeight >= document.body.scrollHeight && !loading) {
-    loading = true;
+  if ((window.scrollY + window.innerHeight) >= document.body.scrollHeight) {
+    console.log("scorre");
+  }}
+    /*loading = true;
     const formData = new FormData();
     formData.append('num', num);
     const resp = await axios.post("api-loadPost.php", formData);
