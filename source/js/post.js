@@ -65,7 +65,7 @@ function chooseButtonColor(data, index) {
 
 function showPost(post_data) {
   let form = generatePost(post_data);
-  div.innerHTML = form; 
+  div.innerHTML += form; 
 }
 
 
@@ -77,16 +77,16 @@ document.addEventListener(
   { passive: true }
 );
 
-let num;
+let num = [];
 let rd;
 let div = document.getElementById("dinamic");
 let end = false;
 axios.get("api-showpost.php").then(response => {
   console.log(response.data);
   if (response.data["success"]) {
-    num = response.data["posts"].length;
     showPost(response.data["posts"]);
     enableAllButtons(response.data["posts"].length, response.data["posts"]);
+    addPostIDAlreadyShow(response.data["posts"]);
     /*if (num == 0) {
       let element = document.getElementById('adddiv');
       let newdiv = showEndPost();
@@ -163,11 +163,31 @@ function enableComment(postID) {
   }
 }
 
+function addPostIDAlreadyShow(post_data) {
+  for (let index = 0; index < post_data.length; index++) {
+    num.push(post_data[index]["postID"]);
+  }
+  //console.log(num);
+}
 
 async function loadMore() {
   if ((window.scrollY + window.innerHeight) >= document.body.scrollHeight) {
     console.log("scorre");
-  }}
+    
+    const formData = new FormData();
+    formData.append('num', num);
+    axios.post("api-loadMorePosts.php", {
+      numPost: num
+    }).then(response => {
+      console.log(response.data);
+      if (response.data["success"]) {
+        showPost(response.data["posts"]);
+        enableAllButtons(response.data["posts"].length, response.data["posts"]);
+        addPostIDAlreadyShow(response.data["posts"]);
+      }
+    });
+  }
+}
     /*loading = true;
     const formData = new FormData();
     formData.append('num', num);
