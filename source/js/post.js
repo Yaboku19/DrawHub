@@ -42,8 +42,28 @@ function generatePost(post_data) {
         </div>
     </div>
     <div class="card-footer">
-      <p>commenti (${post_data[i]["num_comments"]})</p>
-    </div>                    
+      <button id="btnCommenti${post_data[i]["postID"]}">Commenti (${post_data[i]["num_comments"]})</button>
+    </div>
+    <div class="modal fade" id="commentModal${post_data[i]["postID"]}" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <label for="commentInput" class="modal-title" id="commentModalLabel">Ricerca:</label>
+                <input type="comment" class="form-control" id="commentInput" placeholder="Cerca utente">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container commentResult p-3">
+                    <p>Utilizza la barra di ricerca per cercare utenti in base al loro nome, cognome e/o username.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+            </div>
+            </div>
+        </div>
+    </div>
+    <script src="comment.js"></script>               
   </div><!-- un Post finisce qui -->`;
   }
 
@@ -83,7 +103,7 @@ axios.get("api-showpost.php").then(response => {
   if (response.data["success"]) {
     num = response.data["posts"].length;
     showPost(response.data["posts"]);
-    enableAllButtons(response.data["posts"].length);
+    enableAllButtons(response.data["posts"].length, response.data["posts"]);
     /*if (num == 0) {
       let element = document.getElementById('adddiv');
       let newdiv = showEndPost();
@@ -109,13 +129,13 @@ axios.get("api-showpost.php").then(response => {
 
 });
 
-function enableAllButtons(i) {
-  for (let index = 1; index <= i; index++) {
-    enableButton(index ,"btn_cuore_", "cuore");
-    enableButton(index ,"btn_occhi_a_cuore_", "occhi_a_cuore");
-    enableButton(index ,"btn_occhi_neutri_", "occhi_neutri");
-    enableButton(index ,"btn_pollice_giu_", "pollice_giu");
-    
+function enableAllButtons(length, post_data) {
+  for (let i = 0; i < length; i++) {
+    enableButton(post_data[i]["postID"] ,"btn_cuore_", "cuore");
+    enableButton(post_data[i]["postID"] ,"btn_occhi_a_cuore_", "occhi_a_cuore");
+    enableButton(post_data[i]["postID"] ,"btn_occhi_neutri_", "occhi_neutri");
+    enableButton(post_data[i]["postID"] ,"btn_pollice_giu_", "pollice_giu");
+    enableComment(post_data[i]["postID"]);
   }
 }
 
@@ -140,6 +160,11 @@ function enableButton(postID, buttonType, reactionType) {
         }
     });
   }
+}
+
+function enableComment(postID) {
+  btn = document.getElementById("btnCommenti" + postID);
+  console.log(btn);
 }
 
 /*
