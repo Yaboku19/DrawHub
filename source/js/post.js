@@ -120,6 +120,7 @@ function enableAllButtons(length, post_data) {
     enableButton(post_data[i]["postID"] ,"btn_pollice_giu_", "pollice_giu");
     enableComment(post_data[i]["postID"]);
   }
+  enablePostComment();
 }
 
 function enableButton(postID, buttonType, reactionType) {
@@ -145,14 +146,35 @@ function enableButton(postID, buttonType, reactionType) {
   }
 }
 
+function enablePostComment() {
+  let btn = document.getElementById("postaCommento");
+  if (btn) {
+    btn.addEventListener("click", () =>{
+      const formData = new FormData();
+      formData.append("postID", document.getElementById("idPost").innerHTML);
+      formData.append("text", document.getElementById("commentInput").value);
+      axios.post("api-addcomment.php", formData).then(response => {
+        if (response.data["success"]) {
+          loadComments(document.getElementById("idPost").innerHTML);
+        } else {
+          console.log(response.data["comment"]);
+        }
+      });
+    });
+  } else {
+    console.log("errore nel caricamento del pulsante posta");
+  }
+}
+
 function enableComment(postID) {
   let commentSpan = document.getElementById("comment" + postID);
   if (commentSpan) {
     commentSpan.addEventListener("click", () => {
+      document.getElementById("commentInput").value = "";
       loadComments(postID);
     });
   } else {
-    console.log("errore nel caricamento del commentspan")
+    console.log("errore nel caricamento del commentspan");
   }
 }
 
@@ -161,7 +183,9 @@ function loadComments(postID) {
   formData.append("postID", postID);
   axios.post("api-showcomment.php", formData).then(response => {
     if (response.data["success"]) {
-      let modalBody = document.querySelector("div.comment-body");;
+      let modalBody = document.querySelector("div.comment-body");
+      let modalheader = document.getElementById("idPost");
+      modalheader.innerHTML = postID;
       if (modalBody) {
         document.querySelectorAll("div.commentsList")?.forEach(element => element.remove());
         for (let i = 0; i < response.data["comments"].length; i++) {

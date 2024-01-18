@@ -260,5 +260,23 @@ class DatabaseHelper{
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function addComment($user, $postID, $text) {
+        $stmt = $this->db->prepare("SELECT commentID FROM comment WHERE user = ? AND postID = ? ORDER BY 1 DESC LIMIT 1");
+        $stmt->bind_param("ss", $user, $postID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $commentID = $result->fetch_all(MYSQLI_ASSOC)[0]["commentID"] + 1;
+        } else {
+            $commentID = 1;
+        }
+        $user_query = $this->db->prepare("INSERT INTO 
+                comment (user, postID, text, commentID)
+                VALUES (?, ?, ?, ?);");
+        $user_query->bind_param("ssss", $user, $postID, $text, $commentID);
+        $result = $user_query->execute();
+        return  $result;
+    }
 }
 ?>

@@ -116,6 +116,7 @@ if ($templateParams["notifications"] === "link-secondary") {
             <div class="modal-content">
             <div class="modal-header justify-content-end">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <p id="idPost" class="d-none"></p>
             </div>
             <div class="comment-body">
                 <div class="container commentResult p-3" id = "commentsList">
@@ -124,7 +125,7 @@ if ($templateParams["notifications"] === "link-secondary") {
             </div>
             <div class="modal-footer ">
                 <input type="text" class="form-control" id="commentInput" placeholder="Scrivi un commento">
-                <button data-toggle="button" class="btn btn-outline-primary">posta</button>
+                <button data-toggle="button" class="btn btn-outline-primary" id="postaCommento">posta</button>
             </div>
             </div>
         </div>
