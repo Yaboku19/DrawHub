@@ -176,7 +176,6 @@ function loadComments(postID) {
                 </div>
             </div>
             `;
-            console.log(response.data["comments"][i]);
             modalBody.appendChild(container);
         }
       } else {
