@@ -42,7 +42,7 @@ function generatePost(post_data) {
         </div>
     </div>
     <div class="card-footer">
-        <p>commenti (${post_data[i]["num_comments"]})</p>
+      <p>commenti (${post_data[i]["num_comments"]})</p>
     </div>                    
   </div><!-- un Post finisce qui -->`;
   }
