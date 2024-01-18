@@ -23,12 +23,6 @@ if (isset($_SESSION["username"])) {
                         <img src="<?php echo($templateParams["user_image"]) ?>" id="profileImage" width="120" height="120" class="mt-n5 rounded-circle" alt="immagine profilo"/>
                         <p class="card-title mt-2"><?php echo($templateParams["u_name"]." ".$templateParams["surname"]) ?></p>
                         <p class="card-text">@<?php echo($templateParams["username"]) ?></p>
-                        <?php
-                            /*if ($templateParams["corso_id"] !== null) {
-                                $courseInfo = $dbh->getCourseInfo($templateParams["corso_id"]);
-                                echo ("<p class=\"card-text\">Iscritto a: <a href=\"course.php?course_id=".$courseInfo["corso_id"]."\">".$courseInfo["nome"]."</a></p>");
-                            }*/
-                        ?>
                         <p class="card-text text-justify mb-2"><?php echo($templateParams["bio"]) ?></p>
                         <p class="card-text text-justify mb-2"><?php echo($templateParams["birthDate"]) ?></p>
                         <button type="button" id="followBtn" class="btn btn-<?php echo($followBtnClass)?>" <?php echo($followBtnDisable)?>><?php echo($followBtnText)?></button>
