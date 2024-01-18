@@ -108,6 +108,47 @@ class DatabaseHelper{
     }
 
     /**
+     * Returns the followers of the user with the given username
+     */
+    public function getFollowers($username) {
+        $stmt = $this->db->prepare("SELECT followerUser AS username FROM follow WHERE user = ?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    /**
+     * Returns the users followed by the user with the given username
+     */
+    public function getFollowing($username) {
+        $stmt = $this->db->prepare("SELECT user AS username FROM follow WHERE followerUser = ?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    /**
+     * aggiunge nella tabella follow la relazione tra l'user_followed(utente seguito) e user_follower(utente che vuole seguire)
+     */
+    public function addFollower($user_followed, $user_follower) {
+        $stmt = $this->db->prepare("INSERT INTO follow (followerUser, user) VALUES (?, ?)");
+        $stmt->bind_param("ss", $user_followed, $user_follower);
+        $result = $stmt->execute();
+        return $result;
+    }
+
+    /**
+     * Rimuovo la relazione tra l'user_followed(utente seguito) e user_follower(utente che non vuole più seguire)
+     */
+    public function removeFollower($user_followed, $user_follower) {
+        $stmt = $this->db->prepare("DELETE FROM follow WHERE followerUser = ? AND user = ?");
+        $stmt->bind_param("ss", $user_followed, $user_follower);
+        return $stmt->execute();
+    }
+
+    /**
      * dato l'utente conta il numero di post caricati
      */
     public function getPostCountFromUser($username) {
