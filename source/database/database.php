@@ -252,5 +252,13 @@ class DatabaseHelper{
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC)[0]["reactionCount"] > 0;
     }
+
+    public function getAllCommentOfAPost ($postID) {
+        $stmt = $this->db->prepare("SELECT * FROM comment WHERE postID = ?");
+        $stmt->bind_param("i", $postID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }
 ?>

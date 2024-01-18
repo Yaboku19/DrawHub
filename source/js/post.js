@@ -149,21 +149,46 @@ function enableComment(postID) {
   let commentSpan = document.getElementById("comment" + postID);
   if (commentSpan) {
     commentSpan.addEventListener("click", () => {
-        let container = document.getElementById("prova");
-        if (container) {
-          container.innerHTML = `<p> ${postID} </p>`;
-        } else {
-          console.log("troia");
-        }
-        
-        console.log("ciaooo");
+      loadComments(postID);
     });
   } else {
-  console.log("tua madre troia");
+    console.log("errore nel caricamento del commentspan")
   }
 }
 
+function loadComments(postID) {
+  const formData = new FormData();
+  formData.append("postID", postID);
+  axios.post("api-showcomment.php", formData).then(response => {
+    if (response.data["success"]) {
+      let modalBody = document.querySelector("div.comment-body");;
+      if (modalBody) {
+        document.querySelectorAll("div.commentsList")?.forEach(element => element.remove());
+        for (let i = 0; i < response.data["comments"].length; i++) {
+          const container = document.createElement("div");
+          container.classList = "container commentsList p-3";
+          container.innerHTML = `
+            <div class="row">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1 ms-3">
+                        <p> ${response.data["comments"][i]["text"]}</p>
+                    </div>
+                </div>
+            </div>
+            `;
+            console.log(response.data["comments"][i]);
+            modalBody.appendChild(container);
+        }
+      } else {
+        console.log("modalBody commenti non valido");
+      }
+    } else {
+      console.log(response.data["comment"]);
+    }
+  });
+}
 
+/*
 async function loadMore() {
   if ((window.scrollY + window.innerHeight) >= document.body.scrollHeight) {
     console.log("scorre");
