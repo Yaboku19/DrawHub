@@ -1,6 +1,11 @@
 function generatePost(post_data) {
   let section = ``;
   for (let i = 0; i < post_data.length && i < 10; i++) { 
+    post_data[i]["user_has_cuore"] = chooseButtonColor(post_data[i], "user_has_cuore");
+    post_data[i]["user_has_occhi_a_cuore"] = chooseButtonColor(post_data[i], "user_has_occhi_a_cuore");
+    post_data[i]["user_has_occhi_neutri"] = chooseButtonColor(post_data[i], "user_has_occhi_neutri");
+    post_data[i]["user_has_pollice_giu"] = chooseButtonColor(post_data[i], "user_has_pollice_giu");
+    console.log("bottone:-->"+ post_data[i]["user_has_cuore"]);
     section+= `
     <div class="card my-4 bg-secondary bg-opacity-10 row"> <!-- un Post inizia da qua -->
     <div class="card-header">
@@ -15,23 +20,23 @@ function generatePost(post_data) {
         <p class="card-text"><small class="text-body-secondary">${post_data[i]["datePost"]}</small></p>
         <img src="../img/${post_data[i]["urlImage"]}" class="card-img-bottom img-fluid py-2 my-1" alt="...">
         <div class="my-3">
-            <button type="button" class="btn btn-outline-danger position-relative mx-3 fs-3" id="btn_cuore_${post_data[i]["postID"]}"><em class="bi-heart-fill"></em>
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            <button type="button" class="btn ${post_data[i]["user_has_cuore"]} position-relative mx-3 fs-3" id="btn_cuore_${post_data[i]["postID"]}"><em class="bi-heart-fill"></em>
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cuore">
                 ${post_data[i]["cuore"]}
               </span>
             </button>
-            <button type="button" class="btn btn-outline-danger position-relative mx-3 fs-3" id="btn_occhi_a_cuore_${post_data[i]["postID"]}"><em class="bi-emoji-heart-eyes-fill"></em>
-              <span class="numeroSmile position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            <button type="button" class="btn ${post_data[i]["user_has_occhi_a_cuore"]} position-relative mx-3 fs-3" id="btn_occhi_a_cuore_${post_data[i]["postID"]}"><em class="bi-emoji-heart-eyes-fill"></em>
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="occhi_a_cuore">
                 ${post_data[i]["occhi_a_cuore"]}
               </span>
             </button>
-            <button type="button" class="btn btn-outline-danger position-relative mx-3 fs-3" id="btn_occhi_neutri_${post_data[i]["postID"]}"><em class="bi-emoji-neutral-fill"></em>
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            <button type="button" class="btn ${post_data[i]["user_has_occhi_neutri"]} position-relative mx-3 fs-3" id="btn_occhi_neutri_${post_data[i]["postID"]}"><em class="bi-emoji-neutral-fill"></em>
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="occhi_neutri">
                 ${post_data[i]["occhi_neutri"]}
               </span>
             </button>
-            <button type="button" class="btn btn-outline-danger position-relative mx-3 fs-3" id="btn_pollice_giu_${post_data[i]["postID"]}"><em class="bi-hand-thumbs-down-fill"></em>
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            <button type="button" class="btn ${post_data[i]["user_has_pollice_giu"]} position-relative mx-3 fs-3" id="btn_pollice_giu_${post_data[i]["postID"]}"><em class="bi-hand-thumbs-down-fill"></em>
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="pollice_giu">
                   ${post_data[i]["pollice_giu"]}
               </span>
             </button>
@@ -44,6 +49,15 @@ function generatePost(post_data) {
   }
 
 return section;
+}
+
+function chooseButtonColor(data, index) {
+  if(data[index]) {
+    data[index]="btn-danger";
+  } else {
+    data[index]="btn-outline-danger";
+  }
+  return data[index];
 }
 
 
@@ -66,7 +80,7 @@ let rd;
 let div = document.getElementById("dinamic");
 let end = false;
 axios.get("api-showpost.php").then(response => {
-  //console.log(response.data);
+  console.log(response.data);
   if (response.data["success"]) {
     num = response.data["posts"].length;
     showPost(response.data["posts"]);
@@ -112,11 +126,20 @@ function enableButton(postID, buttonType, reactionType) {
   formData.append('postID', postID);
   formData.append('reactionType', reactionType);
   let button = document.getElementById(buttonID);
+  let span = document.getElementById(reactionType);
+  console.log(span);
+  
   if(button){
-    
     button.addEventListener('click', function onclick() {
       axios.post("api-reaction.php", formData).then(response =>
-        console.log(response));
+        span.innerHTML=response.data[reactionType]);
+        //quando viene cliccato il bottone, aggiorna dinamicamente il colore
+        if(button.classList.contains("btn-outline-danger")) {
+          button.classList.replace("btn-outline-danger", "btn-danger");
+        } else {
+          button.classList.replace("btn-danger", "btn-outline-danger");
+        }
+        
 
     });
   }
