@@ -132,9 +132,9 @@ class DatabaseHelper{
     /**
      * aggiunge nella tabella follow la relazione tra l'user_followed(utente seguito) e user_follower(utente che vuole seguire)
      */
-    public function addFollower($user_followed, $user_follower) {
+    public function addFollower($user_follower, $user_followed) {
         $stmt = $this->db->prepare("INSERT INTO follow (followerUser, user) VALUES (?, ?)");
-        $stmt->bind_param("ss", $user_followed, $user_follower);
+        $stmt->bind_param("ss", $user_follower, $user_followed);
         $result = $stmt->execute();
         return $result;
     }
@@ -142,9 +142,9 @@ class DatabaseHelper{
     /**
      * Rimuovo la relazione tra l'user_followed(utente seguito) e user_follower(utente che non vuole più seguire)
      */
-    public function removeFollower($user_followed, $user_follower) {
+    public function removeFollower($user_follower, $user_followed) {
         $stmt = $this->db->prepare("DELETE FROM follow WHERE followerUser = ? AND user = ?");
-        $stmt->bind_param("ss", $user_followed, $user_follower);
+        $stmt->bind_param("ss", $user_follower, $user_followed);
         return $stmt->execute();
     }
 
