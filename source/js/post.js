@@ -65,7 +65,7 @@ function chooseButtonColor(data, index) {
 
 function showPost(post_data) {
   let form = generatePost(post_data);
-  div.innerHTML = form; 
+  div.innerHTML += form; 
 }
 
 
@@ -77,15 +77,15 @@ document.addEventListener(
   { passive: true }
 );
 
-let num;
+let num = [];
 let rd;
 let div = document.getElementById("dinamic");
 let end = false;
 axios.get("api-showpost.php").then(response => {
   console.log(response.data);
   if (response.data["success"]) {
-    num = response.data["posts"].length;
     showPost(response.data["posts"]);
+    addPostIDAlreadyShow(response.data["posts"]);
     enableAllButtons(response.data["posts"].length, response.data["posts"]);
     /*if (num == 0) {
       let element = document.getElementById('adddiv');
@@ -102,7 +102,7 @@ axios.get("api-showpost.php").then(response => {
       enableButtons(response);
     }*/
     //console.log(response.data);
-    rd = response.data["posts"];
+    //rd = response.data["posts"];
     /*sendPost();
     getLoggedUserInfo()
     dynamicButtonPost();*/
@@ -112,13 +112,23 @@ axios.get("api-showpost.php").then(response => {
 
 });
 
-function enableAllButtons(length, post_data) {
+/*function enableAllButtons(length, post_data) {
   for (let i = 0; i < length; i++) {
     enableButton(post_data[i]["postID"] ,"btn_cuore_", "cuore");
     enableButton(post_data[i]["postID"] ,"btn_occhi_a_cuore_", "occhi_a_cuore");
     enableButton(post_data[i]["postID"] ,"btn_occhi_neutri_", "occhi_neutri");
     enableButton(post_data[i]["postID"] ,"btn_pollice_giu_", "pollice_giu");
     enableComment(post_data[i]["postID"]);
+  }
+}*/
+
+function enableAllButtons(length, post_data) {
+  for (let i = 0; i < num.length; i++) {
+    enableButton(num[i] ,"btn_cuore_", "cuore");
+    enableButton(num[i] ,"btn_occhi_a_cuore_", "occhi_a_cuore");
+    enableButton(num[i] ,"btn_occhi_neutri_", "occhi_neutri");
+    enableButton(num[i] ,"btn_pollice_giu_", "pollice_giu");
+    enableComment(num[i]);
   }
 }
 
@@ -133,6 +143,7 @@ function enableButton(postID, buttonType, reactionType) {
   
   if(button){
     button.addEventListener('click', function onclick() {
+      console.log("caio");
       axios.post("api-reaction.php", formData).then(response =>
         span.innerHTML=response.data[reactionType]);
         //quando viene cliccato il bottone, aggiorna dinamicamente il colore
@@ -156,6 +167,12 @@ function enableComment(postID) {
   }
 }
 
+function addPostIDAlreadyShow(post_data) {
+  for (let index = 0; index < post_data.length; index++) {
+    num.push(post_data[index]["postID"]);
+  }
+  //console.log(num);
+}
 function loadComments(postID) {
   const formData = new FormData();
   formData.append("postID", postID);
@@ -176,7 +193,6 @@ function loadComments(postID) {
                 </div>
             </div>
             `;
-            console.log(response.data["comments"][i]);
             modalBody.appendChild(container);
         }
       } else {
@@ -188,65 +204,31 @@ function loadComments(postID) {
   });
 }
 
-/*
+function addPostIDAlreadyShow(post_data) {
+  for (let index = 0; index < post_data.length; index++) {
+    num.push(post_data[index]["postID"]);
+  }
+  //console.log(num);
+}
+
 async function loadMore() {
   if ((window.scrollY + window.innerHeight) >= document.body.scrollHeight) {
     console.log("scorre");
-  }}
-    /*loading = true;
+    
     const formData = new FormData();
     formData.append('num', num);
-    const resp = await axios.post("api-loadPost.php", formData);
-    //console.log(resp.data);
-
-    if (!resp.data["errors"]) {
-      q = resp.data["posts"];
-      if (q.length == 0) {
-        document.removeEventListener('scroll', loadMore);
-        if (end == false) {
-          let element = document.getElementById('adddiv');
-          let newdiv = showEndPost();
-          element.append(newdiv);
-        }
-        return;
+    axios.post("api-loadMorePosts.php", {
+      numPost: num
+    }).then(response => {
+      //console.log(response.data);
+      if (response.data["success"]) {
+        showPost(response.data["posts"]);
+        addPostIDAlreadyShow(response.data["posts"]);
+        enableAllButtons(response.data["posts"].length, response.data["posts"]);
       }
-
-      rd = rd.concat(q);
-
-      for (let i = 0; i < q.length; i++) {
-        let newdiv = newPosts(q[i], i + num);
-        let element = document.getElementById('adddiv');
-        element.append(newdiv);
-      }
-
-      num = num + q.length;
-      const btnLike = "bottoneL";
-      const numeroLike = "numeroLike"
-      updateButton(rd, btnLike, numeroLike, 1, -1, "btnlkd");
-
-      const btnFire = "btnFireL";
-      const numeroFire = "numeroFire"
-      updateButton(rd, btnFire, numeroFire, 2, -2, "btnFireLkd");
-
-      const btnSmile = "btnSmileL"
-      const numeroSmile = "numeroSmile"
-      updateButton(rd, btnSmile, numeroSmile, 3, -3, "btnSmileLkd");
-
-      const btnCuore = "btnCuoreL"
-      const numeroCuore = "numeroCuore"
-      updateButton(rd, btnCuore, numeroCuore, 4, -4, "btnCuoreLkd");
-
-      const btnBacio = "btnBacioL"
-      const numeroBacio = "numeroBacio"
-      updateButton(rd, btnBacio, numeroBacio, 5, -5, "btnBacioLkd");
-      loading = false;
-    } else {
-      main.innerHTML = "";
-      main.appendChild(showError());
-    }
+    });
   }
-
-}
+}/*
 
 function showEndPost() {
   let newdiv = `<div class="d-flex justify-content-between p-2 px-3">

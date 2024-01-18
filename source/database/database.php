@@ -53,9 +53,19 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC)[0];
     }
 
-    public function getPosts($id, $n) { //da sistemare
-        $stmt = $this->db->prepare("SELECT P.*, U.urlProfilePicture FROM post P, user U WHERE P.user = U.username;");
-        //$stmt->bind_param("si",$id, $n);
+    public function getPosts($username, $n) { //da sistemare
+        $stmt = $this->db->prepare("SELECT P.*, U.urlProfilePicture FROM post P, user U WHERE P.user = U.username LIMIT ? ;");
+        $stmt->bind_param("i", $n);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getMorePosts($username, $posts) { //da sistemare
+        $placeholders = implode(',', array_fill(0, count($posts), '?'));
+        $stmt = $this->db->prepare("SELECT P.*, U.urlProfilePicture FROM post P, user U WHERE P.user = U.username AND P.postID NOT IN ( $placeholders );");
+        $stmt->bind_param(str_repeat('i', count($posts)), ...$posts);
+        //$stmt->bind_param("s",$posts);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
