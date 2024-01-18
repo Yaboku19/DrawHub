@@ -5,7 +5,7 @@ function generateForm() {
       <div class="d-flex justify-content-center align-middle margin m-2 ">
         <div class="flex-column border border-3 p-5 bg-secondary bg-opacity-10">
             <div class="pb-2 pt-0 text-center">
-              <img src="../img/drawhub.png" alt="" width="300" height="75">
+              <img src="${uploadDir}drawhub.png" alt="" width="300" height="75">
             </div>
             <div class="p-1 my-1 text-center">
             <a class="btn mx-2 btn-primary" data-toggle="button" aria-pressed="false" href='../php/login.php'>Log in</a><button type="button" class="btn btn-primary mx-2" data-toggle="button" aria-pressed="true" disabled>Sign in</button>

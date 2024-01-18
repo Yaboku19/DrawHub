@@ -20,14 +20,14 @@ function showPostList(posts, addModifyButton) {
         }
         let img = "";
         if (element["urlImage"] != null) {
-            img = `<img src="../img/${element["urlImage"]}" alt="immagine del post" class="img-fluid">`;
+            img = `<img src="${uploadDir}${element["urlImage"]}" alt="immagine del post" class="img-fluid">`;
         }
         const newPost = document.createElement("div");
         newPost.innerHTML = `
         <div class="container">
             <div class="col d-flex justify-content-between p-2 px-3">
                 <div class="d-flex flex-row align-items-center">
-                    <img src="../img/${element["userProfilePicture"]}" width="50" class="rounded-circle" alt="">
+                    <img src="${uploadDir}${element["userProfilePicture"]}" width="50" class="rounded-circle" alt="">
                     <div class="d-flex flex-column ml-2">
                         <a class="nav-link" href="profile.php?username=${element["user"]}">@${element["user"]}</a>
                     </div>

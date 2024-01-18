@@ -5,7 +5,7 @@ function generatePost(post_data) {
     <div class="card my-4 bg-secondary bg-opacity-10 row"> <!-- un Post inizia da qua -->
     <div class="card-header">
         <a href="#" class="nav-link px-0 text-dark">
-            <img src="../img/${post_data[i]["urlProfilePicture"]}" class="rounded-circle py-0 mb-1" alt="..." width="40" height="40">
+            <img src="${uploadDir}${post_data[i]["urlProfilePicture"]}" class="rounded-circle py-0 mb-1" alt="..." width="40" height="40">
             <!--<i class="fs-3 bi-person-circle"></i>--> 
             <span class="fs-3 ms-2 mt-1 d-sm-inline">${post_data[i]["user"]}</span>
         </a>
@@ -13,7 +13,7 @@ function generatePost(post_data) {
     <div class="card-body">
         <p class="card-text">${post_data[i]["description"]}</p>
         <p class="card-text"><small class="text-body-secondary">${post_data[i]["datePost"]}</small></p>
-        <img src="../img/${post_data[i]["urlImage"]}" class="card-img-bottom img-fluid py-2 my-1" alt="...">
+        <img src="${uploadDir}${post_data[i]["urlImage"]}" class="card-img-bottom img-fluid py-2 my-1" alt="...">
         <div class="my-3">
             <button type="button" class="btn btn-outline-danger position-relative mx-3 fs-3" id="btn_cuore_${post_data[i]["postID"]}"><em class="bi-heart-fill"></em>
               <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">

@@ -23,7 +23,7 @@ function showResults(userList) {
                 <div class="row">
                     <div class="d-flex align-items-center">
                         <div class="flex-shrink-0">
-                            <img src="../img/${user["urlProfilePicture"]}" class="rounded-circle" width="50" hight="50" alt="">
+                            <img src="${uploadDir}${user["urlProfilePicture"]}" class="rounded-circle" width="50" hight="50" alt="">
                         </div>
                         <div class="flex-grow-1 ms-3">
                             <a href="profile.php?username=${user["username"]}">${user["name"]} ${user["surname"]} </a> 
