@@ -32,13 +32,12 @@ CREATE TABLE drawHub.post (
 
 CREATE TABLE drawHub.comment (
     user                    VARCHAR(30)     NOT NULL,
-    postUser                VARCHAR(30)     NOT NULL,
     postID                  INT             NOT NULL,
     text                    VARCHAR(100)    NOT NULL,
     commentID               INT             NOT NULL,
-    PRIMARY Key (user, postID, postUser, commentID),
+    PRIMARY Key (user, postID, commentID),
     CONSTRAINT FK_Comment_Author FOREIGN KEY (user) REFERENCES drawHub.user(username) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT FK_Comment_Post FOREIGN KEY (postUser, postID) REFERENCES drawHub.post(user, postID) ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT FK_Comment_Post FOREIGN KEY (postID) REFERENCES drawHub.post(postID) ON DELETE CASCADE ON UPDATE CASCADE
 ) engine=InnoDB;
 
 CREATE TABLE drawHub.reactionType (
@@ -69,13 +68,12 @@ CREATE TABLE drawHub.newComment (
     user                    VARCHAR(30)     NOT NULL,
     notificationID          INT             NOT NULL,
     newCommentUser          VARCHAR(30)     NOT NULL,
-    newCommentPostUser      VARCHAR(30)     NOT NULL,
     newCommentPostID        INT             NOT NULL,
     newCommentID            INT             NOT NULL,
     PRIMARY KEY (user, notificationID),
     CONSTRAINT FK_NewComment_User FOREIGN KEY (user) REFERENCES drawHub.user(username) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT FK_NewComment_Comment FOREIGN KEY (newCommentUser, newCommentPostID, newCommentPostUser, newCommentID) 
-        REFERENCES drawHub.comment(user, postID, postUser, commentID) ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT FK_NewComment_Comment FOREIGN KEY (newCommentUser, newCommentPostID, newCommentID) 
+        REFERENCES drawHub.comment(user, postID, commentID) ON DELETE CASCADE ON UPDATE CASCADE
 ) engine=InnoDB;
 
 CREATE TABLE drawHub.newReaction (

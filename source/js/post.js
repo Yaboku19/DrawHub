@@ -42,8 +42,11 @@ function generatePost(post_data) {
         </div>
     </div>
     <div class="card-footer">
-        <p>commenti (${post_data[i]["num_comments"]})</p>
-    </div>                    
+      <a data-bs-toggle="modal" data-bs-target="#commentModal" class="nav-link px-0 text-dark">
+        <i class="bi-chat-left-text"></i> <span class="fs-4 ms-2 d-sm-inline" id="comment${post_data[i]["postID"]}">Commenti (${post_data[i]["num_comments"]})</span>
+      </a>
+    </div>
+    <script src="comment.js"></script>               
   </div><!-- un Post finisce qui -->`;
   }
 
@@ -83,7 +86,7 @@ axios.get("api-showpost.php").then(response => {
   if (response.data["success"]) {
     num = response.data["posts"].length;
     showPost(response.data["posts"]);
-    enableAllButtons(response.data["posts"].length);
+    enableAllButtons(response.data["posts"].length, response.data["posts"]);
     /*if (num == 0) {
       let element = document.getElementById('adddiv');
       let newdiv = showEndPost();
@@ -109,13 +112,13 @@ axios.get("api-showpost.php").then(response => {
 
 });
 
-function enableAllButtons(i) {
-  for (let index = 1; index <= i; index++) {
-    enableButton(index ,"btn_cuore_", "cuore");
-    enableButton(index ,"btn_occhi_a_cuore_", "occhi_a_cuore");
-    enableButton(index ,"btn_occhi_neutri_", "occhi_neutri");
-    enableButton(index ,"btn_pollice_giu_", "pollice_giu");
-    
+function enableAllButtons(length, post_data) {
+  for (let i = 0; i < length; i++) {
+    enableButton(post_data[i]["postID"] ,"btn_cuore_", "cuore");
+    enableButton(post_data[i]["postID"] ,"btn_occhi_a_cuore_", "occhi_a_cuore");
+    enableButton(post_data[i]["postID"] ,"btn_occhi_neutri_", "occhi_neutri");
+    enableButton(post_data[i]["postID"] ,"btn_pollice_giu_", "pollice_giu");
+    enableComment(post_data[i]["postID"]);
   }
 }
 
@@ -139,6 +142,24 @@ function enableButton(postID, buttonType, reactionType) {
           button.classList.replace("btn-danger", "btn-outline-danger");
         }
     });
+  }
+}
+
+function enableComment(postID) {
+  let commentSpan = document.getElementById("comment" + postID);
+  if (commentSpan) {
+    commentSpan.addEventListener("click", () => {
+        let container = document.getElementById("prova");
+        if (container) {
+          container.innerHTML = `<p> ${postID} </p>`;
+        } else {
+          console.log("troia");
+        }
+        
+        console.log("ciaooo");
+    });
+  } else {
+  console.log("tua madre troia");
   }
 }
 
