@@ -23,4 +23,13 @@ INSERT INTO drawHub.reactionType (typeID, tagImage)
 VALUES ("pollice_giu", "bi-hand-thumbs-down-fill");
 
 INSERT INTO drawHub.reaction (user, typeID, postID)
-VALUES ("marcorossi", "cuore",  1)
+VALUES ("marcorossi", "cuore",  1);
+
+INSERT INTO drawhub.comment ()
+VALUES ;
+
+INSERT INTO drawhub.comment ()
+VALUES ;
+
+INSERT INTO drawhub.comment ()
+VALUES ;

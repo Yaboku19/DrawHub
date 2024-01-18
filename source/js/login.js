@@ -4,7 +4,7 @@ function generateForm(loginerror = null) {
       <div class="d-flex justify-content-center align-middle margin m-2 py-3 align-items-center ">
         <div class="flex-column border border-3 p-5 bg-secondary bg-opacity-10">
           <div class="pb-2 pt-0 text-center">
-              <img src="${uploadDir}drawhub.png" alt="" width="300" height="75">
+              <img src="../img/drawhub.png" alt="" width="300" height="75">
           </div>
           <div class="p-1">
             <div class="pb-2 my-2 text-center">

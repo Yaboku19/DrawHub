@@ -42,26 +42,9 @@ function generatePost(post_data) {
         </div>
     </div>
     <div class="card-footer">
-      <button id="btnCommenti${post_data[i]["postID"]}">Commenti (${post_data[i]["num_comments"]})</button>
-    </div>
-    <div class="modal fade" id="commentModal${post_data[i]["postID"]}" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-header">
-                <label for="commentInput" class="modal-title" id="commentModalLabel">Ricerca:</label>
-                <input type="comment" class="form-control" id="commentInput" placeholder="Cerca utente">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="container commentResult p-3">
-                    <p>Utilizza la barra di ricerca per cercare utenti in base al loro nome, cognome e/o username.</p>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-            </div>
-            </div>
-        </div>
+      <a data-bs-toggle="modal" data-bs-target="#commentModal" class="nav-link px-0 text-dark">
+        <i class="bi-chat-left-text"></i> <span class="fs-4 ms-2 d-sm-inline" id="comment${post_data[i]["postID"]}">Commenti (${post_data[i]["num_comments"]})</span>
+      </a>
     </div>
     <script src="comment.js"></script>               
   </div><!-- un Post finisce qui -->`;
@@ -163,8 +146,21 @@ function enableButton(postID, buttonType, reactionType) {
 }
 
 function enableComment(postID) {
-  btn = document.getElementById("btnCommenti" + postID);
-  console.log(btn);
+  let commentSpan = document.getElementById("comment" + postID);
+  if (commentSpan) {
+    commentSpan.addEventListener("click", () => {
+        let container = document.getElementById("prova");
+        if (container) {
+          container.innerHTML = `<p> ${postID} </p>`;
+        } else {
+          console.log("troia");
+        }
+        
+        console.log("ciaooo");
+    });
+  } else {
+  console.log("tua madre troia");
+  }
 }
 
 
