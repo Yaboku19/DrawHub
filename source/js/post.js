@@ -169,6 +169,7 @@ function enablePostComment() {
         } else {
           console.log(response.data["comment"]);
         }
+        document.getElementById("commentInput").value = "";
       });
     });
   } else {
