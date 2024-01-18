@@ -9,16 +9,20 @@ if (isset($_SESSION["username"])) {
     $username = $_SESSION["username"];
     if (isset($_POST["followed_user"])) {
         $followed_user = $_POST["followed_user"];
+        if(isset($_POST["check"])){
+            $result["isFollowing"] = $dbh->isUserFollowing($username, $followed_user);
+            $_POST["check"] = null;
+        }
         if ($username !== $followed_user) {
             if (isset($_POST["action"])) {
                 $action = $_POST["action"];
                 $isFollowing = $dbh->isUserFollowing($username, $followed_user);
-                $result["action"] = $action;
+                //$result["action"] = $isFollowing;
                 switch ($action) {
                     case "follow":
                         $result["success"] = !$isFollowing;
                         if ($result["success"]) {
-                            $dbh->addFollower($followed_user, $username);
+                            $dbh->addFollower($username, $followed_user);
                             //$dbh->addNotification($username, $followed_user, null, FOLLOW);
                         } else {
                             $result["errormsg"] = "Cannot follow already followed user";
