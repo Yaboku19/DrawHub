@@ -2,26 +2,19 @@
 
 require_once 'db_config.php';
 
-$res["valore"] = 0;
-$res["username"] = "";
-$res["postID"] = "";
-$res["reactionType"] = "";
 
-
-
-if (isset($_POST["postID"]) && isset($_SESSION["user_id"]) && isset($_POST["reactionType"])) {
-    if($dbh->isReactionAlreadyPresent($_POST["postID"], $_SESSION["user_id"], $_POST["reactionType"])) {
-        $res["valore"] = 1; //qua è gia presente la reazione, quindi devo toglierla
+if (isset($_POST["postID"]) && isset($_SESSION["username"]) && isset($_POST["reactionType"])) {
+    if($dbh->isReactionAlreadyPresent( $_SESSION["username"], $_POST["postID"], $_POST["reactionType"])) {
+        //qua è gia presente la reazione, quindi devo toglierla
+        $dbh->removeReaction($_SESSION["username"], $_POST["postID"] ,$_POST["reactionType"]);
     } else {
-        $res["valore"] = 2; //qua non è presente la reazione quindi devo aggiungerla
+        $dbh->addReaction($_SESSION["username"], $_POST["postID"], $_POST["reactionType"]);
+        //qua non è presente la reazione quindi devo aggiungerla
     }
-    $res["username"] =  $_SESSION["user_id"];
-    $res["postID"] = $_POST["postID"];
-    $res["reactionType"] = $_POST["reactionType"];
-
+    $reactCount = $dbh->getAllReactionCount($_POST["postID"]);
 
 }
 
 header("Content-Type: application/json");
-echo json_encode($res);
+echo json_encode($reactCount);
 ?>
