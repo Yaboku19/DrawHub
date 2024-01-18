@@ -5,7 +5,6 @@ function generatePost(post_data) {
     post_data[i]["user_has_occhi_a_cuore"] = chooseButtonColor(post_data[i], "user_has_occhi_a_cuore");
     post_data[i]["user_has_occhi_neutri"] = chooseButtonColor(post_data[i], "user_has_occhi_neutri");
     post_data[i]["user_has_pollice_giu"] = chooseButtonColor(post_data[i], "user_has_pollice_giu");
-    console.log("bottone:-->"+ post_data[i]["user_has_cuore"]);
     section+= `
     <div class="card my-4 bg-secondary bg-opacity-10 row"> <!-- un Post inizia da qua -->
     <div class="card-header">
