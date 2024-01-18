@@ -20,22 +20,22 @@ function generatePost(post_data) {
         <img src="${uploadDir}${post_data[i]["urlImage"]}" class="card-img-bottom img-fluid py-2 my-1" alt="...">
         <div class="my-3">
             <button type="button" class="btn ${post_data[i]["user_has_cuore"]} position-relative mx-3 fs-3" id="btn_cuore_${post_data[i]["postID"]}"><em class="bi-heart-fill"></em>
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cuore">
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cuore${post_data[i]["postID"]}">
                 ${post_data[i]["cuore"]}
               </span>
             </button>
             <button type="button" class="btn ${post_data[i]["user_has_occhi_a_cuore"]} position-relative mx-3 fs-3" id="btn_occhi_a_cuore_${post_data[i]["postID"]}"><em class="bi-emoji-heart-eyes-fill"></em>
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="occhi_a_cuore">
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="occhi_a_cuore${post_data[i]["postID"]}">
                 ${post_data[i]["occhi_a_cuore"]}
               </span>
             </button>
             <button type="button" class="btn ${post_data[i]["user_has_occhi_neutri"]} position-relative mx-3 fs-3" id="btn_occhi_neutri_${post_data[i]["postID"]}"><em class="bi-emoji-neutral-fill"></em>
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="occhi_neutri">
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="occhi_neutri${post_data[i]["postID"]}">
                 ${post_data[i]["occhi_neutri"]}
               </span>
             </button>
             <button type="button" class="btn ${post_data[i]["user_has_pollice_giu"]} position-relative mx-3 fs-3" id="btn_pollice_giu_${post_data[i]["postID"]}"><em class="bi-hand-thumbs-down-fill"></em>
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="pollice_giu">
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="pollice_giu${post_data[i]["postID"]}">
                   ${post_data[i]["pollice_giu"]}
               </span>
             </button>
@@ -121,12 +121,12 @@ function enableAllButtons(i) {
 
 function enableButton(postID, buttonType, reactionType) {
   let buttonID = buttonType+postID;
+  let spanID = reactionType + postID;
   const formData = new FormData();
   formData.append('postID', postID);
   formData.append('reactionType', reactionType);
   let button = document.getElementById(buttonID);
-  let span = document.getElementById(reactionType);
-  console.log(span);
+  let span = document.getElementById(spanID);
   
   if(button){
     button.addEventListener('click', function onclick() {
@@ -138,8 +138,6 @@ function enableButton(postID, buttonType, reactionType) {
         } else {
           button.classList.replace("btn-danger", "btn-outline-danger");
         }
-        
-
     });
   }
 }
