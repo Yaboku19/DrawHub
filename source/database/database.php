@@ -264,7 +264,7 @@ class DatabaseHelper{
     }
 
     public function getAllCommentOfAPost ($postID) {
-        $stmt = $this->db->prepare("SELECT * FROM comment WHERE postID = ?");
+        $stmt = $this->db->prepare("SELECT * FROM comment WHERE postID = ? ORDER BY dateComment DESC");
         $stmt->bind_param("i", $postID);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -281,10 +281,11 @@ class DatabaseHelper{
         } else {
             $commentID = 1;
         }
+        $date = date("Y-m-d");
         $comment_query = $this->db->prepare("INSERT INTO 
-                comment (user, postID, text, commentID)
-                VALUES (?, ?, ?, ?);");
-        $comment_query->bind_param("sisi", $user, $postID, $text, $commentID);
+                comment (user, postID, text, commentID, dateComment)
+                VALUES (?, ?, ?, ?, ?);");
+        $comment_query->bind_param("sisis", $user, $postID, $text, $commentID, $date);
         $result = $comment_query->execute();
         return  $result;
     }

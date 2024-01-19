@@ -215,11 +215,13 @@ function loadComments(postID) {
             container.innerHTML = `
               <div class="commento">
                 <div class="d-flex align-items-center">
-                    <div class="flex-grow-1 ms-4">
-                        <p class="d-block w-100 text-wrap text-primary">${response.data["comments"][i]["user"]}</p>
-                        <p class="d-block w-100 text-wrap">${response.data["comments"][i]["text"]}</p>
-                        <button data-toggle="button" class="btn btn-outline-danger" id="DeleteComment${response.data["comments"][i]["commentID"]}">Delete</button>
-                    </div>
+                  <div class="flex-grow-1 ms-4">
+                      <p class="d-block w-100 text-wrap text-primary fs-6">${response.data["comments"][i]["user"]}</p>
+                      <p class="d-block w-100 text-wrap fs-5">${response.data["comments"][i]["text"]}</p>
+                  </div>
+                  <div class="ms-auto">
+                      <button data-toggle="button" class="btn btn-outline-danger" id="DeleteComment${response.data["comments"][i]["commentID"]}">Delete</button>
+                  </div>
                 </div>
               </div>
               <hr/>
@@ -231,8 +233,8 @@ function loadComments(postID) {
               <div class="commento">
                 <div class="d-flex align-items-center">
                     <div class="flex-grow-1 ms-4">
-                        <p class="d-block w-100 text-wrap text-primary">${response.data["comments"][i]["user"]}</p>
-                        <p class="d-block w-100 text-wrap">${response.data["comments"][i]["text"]}</p>
+                        <p class="d-block w-100 text-wrap text-primary fs-6">${response.data["comments"][i]["user"]}</p>
+                        <p class="d-block w-100 text-wrap fs-5">${response.data["comments"][i]["text"]}</p>
                     </div>
                 </div>
               </div>

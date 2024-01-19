@@ -25,14 +25,14 @@ VALUES ("pollice_giu", "bi-hand-thumbs-down-fill");
 INSERT INTO drawHub.reaction (user, typeID, postID)
 VALUES ("marcorossi", "cuore",  1);
 
-INSERT INTO drawhub.comment (user, postID, text, commentID)
-VALUES ("marcorossi", 1,"bella immagine", 1);
+INSERT INTO drawhub.comment (user, postID, text, commentID, dateComment)
+VALUES ("marcorossi", 1,"bella immagine", 1, '2024-01-19');
 
-INSERT INTO drawhub.comment (user, postID, text, commentID)
-VALUES ("marcorossi", 2,"bella immagine copiata", 1);
+INSERT INTO drawhub.comment (user, postID, text, commentID, dateComment)
+VALUES ("marcorossi", 2,"bella immagine copiata", 1, '2024-01-17');
 
-INSERT INTO drawhub.comment (user, postID, text, commentID)
-VALUES ("marcorossi", 1, "adoro", 2);
+INSERT INTO drawhub.comment (user, postID, text, commentID, dateComment)
+VALUES ("marcorossi", 1, "adoro", 2, '2024-01-18');
 
-INSERT INTO drawhub.comment (user, postID, text, commentID)
-VALUES ("mariobalo", 1,"penso solo al pallone", 1);
+INSERT INTO drawhub.comment (user, postID, text, commentID, dateComment)
+VALUES ("mariobalo", 1,"penso solo al pallone", 1, '2024-01-18');
