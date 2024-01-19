@@ -25,14 +25,29 @@ VALUES ("pollice_giu", "bi-hand-thumbs-down-fill");
 INSERT INTO drawHub.reaction (user, typeID, postID)
 VALUES ("marcorossi", "cuore",  1);
 
+INSERT INTO drawHub.newReaction (user, notificationID, newReactionUser, newReactionTypeID, newReactionPostID, dateNotification)
+VALUES ("mariobalo", 1, "marcorossi", "cuore", 1, '2024-01-19');
+
 INSERT INTO drawhub.comment (user, postID, text, commentID, dateComment)
 VALUES ("marcorossi", 1,"bella immagine", 1, '2024-01-19');
+
+INSERT INTO drawHub.newComment (user, notificationID, newCommentUser, newCommentPostID, newCommentID, dateNotification)
+VALUES ("mariobalo", 1, "marcorossi", 1, 1, '2024-01-19');
 
 INSERT INTO drawhub.comment (user, postID, text, commentID, dateComment)
 VALUES ("marcorossi", 2,"bella immagine copiata", 1, '2024-01-17');
 
+INSERT INTO drawHub.newComment (user, notificationID, newCommentUser, newCommentPostID, newCommentID, dateNotification)
+VALUES ("marcorossi", 1, "marcorossi", 2, 1, '2024-01-17');
+
 INSERT INTO drawhub.comment (user, postID, text, commentID, dateComment)
 VALUES ("marcorossi", 1, "adoro", 2, '2024-01-18');
 
+INSERT INTO drawHub.newComment (user, notificationID, newCommentUser, newCommentPostID, newCommentID, dateNotification)
+VALUES ("mariobalo", 2, "marcorossi", 1, 2, '2024-01-18');
+
 INSERT INTO drawhub.comment (user, postID, text, commentID, dateComment)
 VALUES ("mariobalo", 1,"penso solo al pallone", 1, '2024-01-18');
+
+INSERT INTO drawHub.newComment (user, notificationID, newCommentUser, newCommentPostID, newCommentID, dateNotification)
+VALUES ("mariobalo", 3, "mariobalo", 1, 1, '2024-01-18');
