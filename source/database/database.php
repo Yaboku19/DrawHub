@@ -59,7 +59,7 @@ class DatabaseHelper{
      */
     public function getExplorePosts($username, $n) { 
         $stmt = $this->db->prepare("SELECT P.*, U.urlProfilePicture FROM post P
-        JOIN user U ON P.user = U.username WHERE U.username <> ?
+        JOIN user U ON P.user = U.username WHERE U.username <> ? ORDER BY  P.datePost DESC
         LIMIT ?;");
         $stmt->bind_param("si",$username, $n);
         $stmt->execute();
@@ -70,7 +70,7 @@ class DatabaseHelper{
     public function getHomePosts($username, $n) { 
         $stmt = $this->db->prepare("SELECT P.*, U.urlProfilePicture FROM post P
         JOIN user U ON P.user = U.username WHERE U.username 
-        IN (SELECT user AS username FROM follow WHERE followerUser = ?) LIMIT ?;");
+        IN (SELECT user AS username FROM follow WHERE followerUser = ?) ORDER BY  P.datePost DESC LIMIT ? ;");
         $stmt->bind_param("si", $username, $n);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -83,7 +83,7 @@ class DatabaseHelper{
      */
     public function getMoreExplorePosts($username, $posts, $numeropost) { 
         $placeholders = implode(',', array_fill(0, (count($posts)), '?'));
-        $stmt1 = "(SELECT U.username FROM user U WHERE U.username <> '".$username."') LIMIT ".strval($numeropost)." ;";
+        $stmt1 = "(SELECT U.username FROM user U WHERE U.username <> '".$username."') ORDER BY  P.datePost DESC LIMIT ".strval($numeropost)." ;";
 
         $stmt = $this->db->prepare("SELECT P.*, U.urlProfilePicture FROM post P, user U WHERE P.user = U.username AND P.postID NOT IN ( $placeholders ) AND P.user IN ".$stmt1);
         $stmt->bind_param(str_repeat('i', (count($posts))), ...$posts);
@@ -97,7 +97,7 @@ class DatabaseHelper{
      */
     public function getMoreHomePosts($username, $posts, $numeropost) { //da fare
         $placeholders = implode(',', array_fill(0, (count($posts)), '?'));
-        $stmt1 = "(SELECT user AS username FROM follow WHERE followerUser = '".$username."') LIMIT ".strval($numeropost)." ;";
+        $stmt1 = "(SELECT user AS username FROM follow WHERE followerUser = '".$username."') ORDER BY  P.datePost DESC LIMIT ".strval($numeropost)." ;";
 
         $stmt = $this->db->prepare("SELECT P.*, U.urlProfilePicture FROM post P, user U WHERE P.user = U.username AND P.postID NOT IN ( $placeholders ) AND P.user IN ".$stmt1);
         $stmt->bind_param(str_repeat('i', (count($posts))), ...$posts);
