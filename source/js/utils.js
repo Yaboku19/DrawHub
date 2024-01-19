@@ -10,10 +10,14 @@ function showPostList(posts, addModifyButton) {
     cardBody.classList = "card-body bg-white listElement rounded-3";
     middleColumn.appendChild(cardBody);
     posts.forEach(element => {
+        element["user_has_cuore"] = chooseButtonColor(element, "user_has_cuore");
+        element["user_has_occhi_a_cuore"] = chooseButtonColor(element, "user_has_occhi_a_cuore");
+        element["user_has_occhi_neutri"] = chooseButtonColor(element, "user_has_occhi_neutri");
+        element["user_has_pollice_giu"] = chooseButtonColor(element, "user_has_pollice_giu");
         let modifyButton = "";
         if (addModifyButton) {
             modifyButton = `
-                <button id="modify${element["postID"]}" class="btn btn-outline-primary position-relative me-2 ms-2 mb-2">
+                <button id="modify${element["postID"]}" class="btn btn-outline-primary position-relative m-2 mx-3">
                     Modifica post
                 </button>
             `;
@@ -27,9 +31,9 @@ function showPostList(posts, addModifyButton) {
         <div class="container">
             <div class="col d-flex justify-content-between p-2 px-3">
                 <div class="d-flex flex-row align-items-center">
-                    <img src="${uploadDir}${element["userProfilePicture"]}" width="50" class="rounded-circle" alt="">
+                    <img src="../img/${element["userProfilePicture"]}" width="50" class="rounded-circle" alt="">
                     <div class="d-flex flex-column ml-2">
-                        <a class="nav-link" href="profile.php?username=${element["user"]}">@${element["user"]}</a>
+                        <a class=" mx-2 nav-link" href="profile.php?username=${element["user"]}">@${element["user"]}</a>
                     </div>
                 </div>
                 <div class="d-flex flex-row mt-1 ellipsis">
@@ -39,31 +43,29 @@ function showPostList(posts, addModifyButton) {
                 </div>
                 <div class="px-4 mt-3 mb-3">
                 ${img}
-            <p class="text-justify">${element["description"]}.</p>
+            <p class=" my-2 text-justify">${element["description"]}.</p>
             </div>
             <div class="mt-4">
-            <button class="btnCuore btnCuoreL btn btn-outline-danger position-relative me-2 ms-2 mb-2"><em class="bi bi-heart-fill"></em>
-                <span class="numeroCuore position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+
+            <button type="button" class="btn ${element["user_has_cuore"]} position-relative mx-3 fs-5" id="btn_cuore_${element["postID"]}"><em class="bi-heart-fill"></em>
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cuore${element["postID"]}">
                 ${element["cuore"]}
-                </span>
+              </span>
             </button>
-
-            <button class="btnCuore btnCuoreL btn btn-outline-danger position-relative me-2 ms-2 mb-2"><em class="bi-emoji-heart-eyes-fill"></em>
-                <span class="numeroCuore position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            <button type="button" class="btn ${element["user_has_occhi_a_cuore"]} position-relative mx-3 fs-5" id="btn_occhi_a_cuore_${element["postID"]}"><em class="bi-emoji-heart-eyes-fill"></em>
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="occhi_a_cuore${element["postID"]}">
                 ${element["occhi_a_cuore"]}
-                </span>
+              </span>
             </button>
-
-            <button class="btnCuore btnCuoreL btn btn-outline-danger position-relative me-2 ms-2 mb-2"><em class="bi-emoji-neutral-fill"></em>
-                <span class="numeroCuore position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            <button type="button" class="btn ${element["user_has_occhi_neutri"]} position-relative mx-3 fs-5" id="btn_occhi_neutri_${element["postID"]}"><em class="bi-emoji-neutral-fill"></em>
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="occhi_neutri${element["postID"]}">
                 ${element["occhi_neutri"]}
-                </span>
+              </span>
             </button>
-
-            <button class="btnCuore btnCuoreL btn btn-outline-danger position-relative me-2 ms-2 mb-2"><em class="bi-hand-thumbs-down-fill"></em>
-                <span class="numeroCuore position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                ${element["pollice_giu"]}
-                </span>
+            <button type="button" class="btn ${element["user_has_pollice_giu"]} position-relative mx-3 fs-5" id="btn_pollice_giu_${element["postID"]}"><em class="bi-hand-thumbs-down-fill"></em>
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="pollice_giu${element["postID"]}">
+                  ${element["pollice_giu"]}
+              </span>
             </button>`
 
             + modifyButton +
@@ -85,6 +87,15 @@ function showPostList(posts, addModifyButton) {
         updateButton(posts, btnBacio, numeroBacio, 5, -5, "btnBacioLkd");*/
     });
 }
+
+function chooseButtonColor(data, index) {
+    if(data[index]) {
+      data[index]="btn-danger";
+    } else {
+      data[index]="btn-outline-danger";
+    }
+    return data[index];
+  }
 
 /**
  * Shows a list of users in the main section of html

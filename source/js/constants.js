@@ -1,4 +1,4 @@
-const btnLike = "bottoneL";
+/*const btnLike = "bottoneL";
 const numeroLike = "numeroLike"
 const btnFire = "btnFireL";
 const numeroFire = "numeroFire";
@@ -7,5 +7,5 @@ const numeroSmile = "numeroSmile";
 const btnCuore = "btnCuoreL";
 const numeroCuore = "numeroCuore";
 const btnBacio = "btnBacioL";
-const numeroBacio = "numeroBacio";
+const numeroBacio = "numeroBacio";*/
 const uploadDir = "../img/";
