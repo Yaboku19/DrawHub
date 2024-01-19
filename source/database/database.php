@@ -281,11 +281,18 @@ class DatabaseHelper{
         } else {
             $commentID = 1;
         }
-        $user_query = $this->db->prepare("INSERT INTO 
+        $comment_query = $this->db->prepare("INSERT INTO 
                 comment (user, postID, text, commentID)
                 VALUES (?, ?, ?, ?);");
-        $user_query->bind_param("sisi", $user, $postID, $text, $commentID);
-        $result = $user_query->execute();
+        $comment_query->bind_param("sisi", $user, $postID, $text, $commentID);
+        $result = $comment_query->execute();
+        return  $result;
+    }
+
+    public function deleteComment($user, $postID, $commentID) {
+        $comment_query = $this->db->prepare("DELETE FROM comment WHERE user = ? AND postID = ? AND commentID = ?");
+        $comment_query->bind_param("sii", $user, $postID, $commentID);
+        $result = $comment_query->execute();
         return  $result;
     }
 }

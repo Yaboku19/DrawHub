@@ -89,6 +89,7 @@ axios.get("api-showpost.php").then(response => {
     enableAllButtons(response.data["posts"].length, response.data["posts"]);
     console.log("enablePostCOmment");
     enablePostComment();
+    console.log("dopo");
     /*if (num == 0) {
       let element = document.getElementById('adddiv');
       let newdiv = showEndPost();
@@ -209,17 +210,36 @@ function loadComments(postID) {
         document.querySelectorAll("div.commentsList")?.forEach(element => element.remove());
         for (let i = 0; i < response.data["comments"].length; i++) {
           const container = document.createElement("div");
-          container.classList = "container commentsList p-3";
-          container.innerHTML = `
-            <div class="row">
+          container.classList = "container commentsList";
+          if (response.data["comments"][i]["user"] == response.data["user"]) {
+            container.innerHTML = `
+              <div class="commento">
                 <div class="d-flex align-items-center">
-                    <div class="flex-grow-1 ms-3">
-                        <p> ${response.data["comments"][i]["text"]}</p>
+                    <div class="flex-grow-1 ms-4">
+                        <p class="d-block w-100 text-wrap text-primary">${response.data["comments"][i]["user"]}</p>
+                        <p class="d-block w-100 text-wrap">${response.data["comments"][i]["text"]}</p>
+                        <button data-toggle="button" class="btn btn-outline-danger" id="DeleteComment${response.data["comments"][i]["commentID"]}">Delete</button>
                     </div>
                 </div>
-            </div>
-            `;
+              </div>
+              <hr/>
+              `;
             modalBody.appendChild(container);
+            enableDeleteBtn(response.data["comments"][i]);
+          } else {
+            container.innerHTML = `
+              <div class="commento">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1 ms-4">
+                        <p class="d-block w-100 text-wrap text-primary">${response.data["comments"][i]["user"]}</p>
+                        <p class="d-block w-100 text-wrap">${response.data["comments"][i]["text"]}</p>
+                    </div>
+                </div>
+              </div>
+              <hr/>
+              `;
+              modalBody.appendChild(container);
+          }
         }
       } else {
         console.log("modalBody commenti non valido");
@@ -230,6 +250,27 @@ function loadComments(postID) {
   });
 }
 
+function enableDeleteBtn($comment) {
+  let btn = document.getElementById("DeleteComment" + $comment["commentID"]);
+  if (btn) {
+    btn.addEventListener("click", () =>{
+      const formData = new FormData();
+      formData.append("postID", $comment["postID"]);
+      formData.append("user", $comment["user"]);
+      formData.append("commentID", $comment["commentID"]);
+      axios.post("api-deletecomment.php", formData).then(response => {
+        if (response.data["success"]) {
+          loadComments(document.getElementById("idPost").innerHTML);
+        } else {
+          console.log(response.data["comment"]);
+        }
+      });
+    });
+  } else {
+    console.log("delet button di id " + $comment["commentID"] + " non è stato caricato");
+  }
+}
+
 function addPostIDAlreadyShow(post_data) {
   for (let index = 0; index < post_data.length; index++) {
     num.push(post_data[index]["postID"]);
@@ -238,7 +279,8 @@ function addPostIDAlreadyShow(post_data) {
 }
 
 async function loadMore() {
-  if ((window.scrollY + window.innerHeight) >= document.body.scrollHeight) {
+  console.log("scorre??????");
+  if ((window.scrollY + window.innerHeight) >= document.body.scrollHeight - 1) {
     console.log("scorre");
     
     const formData = new FormData();

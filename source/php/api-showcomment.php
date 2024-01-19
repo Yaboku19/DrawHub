@@ -7,6 +7,7 @@
         } else {
             $result["success"] = true;
             $result["comments"] = $dbh->getAllCommentOfAPost($_POST["postID"]);
+            $result["user"] = $_SESSION["username"];
         }
         
     } else {

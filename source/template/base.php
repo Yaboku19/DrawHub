@@ -111,22 +111,20 @@ if ($templateParams["notifications"] === "link-secondary") {
             </div>
         </div>
     </div>
-    <div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <div class="modal fade modal-lg" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
-            <div class="modal-header justify-content-end">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                <p id="idPost" class="d-none"></p>
-            </div>
-            <div class="comment-body">
-                <div class="container commentResult p-3" id = "commentsList">
+                <div class="modal-header ">
                     <p>Commenti:</p>
+                    <button type="button" class="btn-close justify-content-end" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <p id="idPost" class="d-none"></p>
                 </div>
-            </div>
-            <div class="modal-footer ">
-                <input type="text" class="form-control" id="commentInput" placeholder="Scrivi un commento">
-                <button data-toggle="button" class="btn btn-outline-primary" id="postaCommento">posta</button>
-            </div>
+                <div class="modal-body text-wrap comment-body">
+                </div>
+                <div class="modal-footer">
+                    <input type="text" class="form-control" id="commentInput" placeholder="Scrivi un commento">
+                    <button data-toggle="button" class="btn btn-outline-primary" id="postaCommento">Posta</button>
+                </div>
             </div>
         </div>
     </div>
