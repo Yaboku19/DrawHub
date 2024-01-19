@@ -145,12 +145,57 @@
       deleteNotification(notification_id);
     });
   }*/
-  
+function loadfollower(follower) {
+  return `
+    <div>
+      <div class="container bg-info"> 
+        <div class="row d-flex align-items-center">
+          <p>${follower["newFollowerUser"]} ti ha seguito</p>
+        </div>
+      </div> 
+    </div>
+  `;
+}
+
+function loadcomment(comment) {
+  return `
+    <div>
+      <div class="container bg-info"> 
+        <div class="row d-flex align-items-center">
+          <p> hanno commentato in questo post: ${comment["newCommentPostID"]} </p>
+        </div>
+      </div> 
+    </div>
+  `;
+}
+
+function loadreaction(reaction) {
+  return `
+    <div>
+      <div class="container bg-info"> 
+        <div class="row d-flex align-items-center">
+        <p> hanno fatto reaction in questo post: ${reaction["newReactionPostID"]}  </p>
+        </div>
+      </div> 
+    </div>
+  `;
+}
+
+let div = document.getElementById("dinamic"); 
 axios.get("api-getnotification.php").then(response => {
+  console.log(div);
   if (response.data["success"]) {
-    console.log(response.data["followers"]);
-    console.log(response.data["comments"]);
-    console.log(response.data["reactions"]);
+    let array = response.data["followers"].concat(response.data["comments"], response.data["reactions"]);
+    let sortedArray = array.sort((a, b) => new Date(b["dateNotification"]) - new Date(a["dateNotification"]));
+    sortedArray.forEach(notification => {
+      if (notification["newFollowerUser"] !== undefined) {
+        div.innerHTML += loadfollower(notification);
+      }else if(notification["newCommentPostID"] !== undefined) {
+        div.innerHTML += loadcomment(notification);
+      } else {
+        div.innerHTML += loadreaction(notification);
+      }
+    });
   } else {
     console.log(response.data["comment"]);
   }
