@@ -210,18 +210,36 @@ function loadComments(postID) {
         document.querySelectorAll("div.commentsList")?.forEach(element => element.remove());
         for (let i = 0; i < response.data["comments"].length; i++) {
           const container = document.createElement("div");
-          container.classList = "container commentsList p-3";
-          container.innerHTML = `
-            <div class="commento">
-              <div class="d-flex align-items-center">
-                  <div class="flex-grow-1 ms-4">
-                      <p class="d-block w-100 text-wrap text-primary">${response.data["comments"][i]["user"]}</p>
-                      <p class="d-block w-100 text-wrap">${response.data["comments"][i]["text"]}</p>
-                  </div>
+          container.classList = "container commentsList";
+          if (response.data["comments"][i]["user"] == response.data["user"]) {
+            container.innerHTML = `
+              <div class="commento">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1 ms-4">
+                        <p class="d-block w-100 text-wrap text-primary">${response.data["comments"][i]["user"]}</p>
+                        <p class="d-block w-100 text-wrap">${response.data["comments"][i]["text"]}</p>
+                        <button data-toggle="button" class="btn btn-outline-danger" id="DeleteComment${response.data["comments"][i]["commentID"]}">Delete</button>
+                    </div>
+                </div>
               </div>
-            </div>
-            `;
+              <hr/>
+              `;
             modalBody.appendChild(container);
+            enableDeleteBtn(response.data["comments"][i]);
+          } else {
+            container.innerHTML = `
+              <div class="commento">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1 ms-4">
+                        <p class="d-block w-100 text-wrap text-primary">${response.data["comments"][i]["user"]}</p>
+                        <p class="d-block w-100 text-wrap">${response.data["comments"][i]["text"]}</p>
+                    </div>
+                </div>
+              </div>
+              <hr/>
+              `;
+              modalBody.appendChild(container);
+          }
         }
       } else {
         console.log("modalBody commenti non valido");
@@ -230,6 +248,23 @@ function loadComments(postID) {
       console.log(response.data["comment"]);
     }
   });
+}
+
+function enableDeleteBtn($comment) {
+  let btn = document.getElementById("DeleteComment" + $comment["commentID"]);
+  if (btn) {
+    btn.addEventListener("click", () =>{
+      const formData = new FormData();
+      formData.append("postID", $comment["postID"]);
+      formData.append("user", $comment["user"]);
+      formData.append("commentID", $comment["commentID"]);
+      axios.post("api-deletecomment.php", formData).then(response => {
+        console.log(response.data["comment"]);
+      });
+    });
+  } else {
+    console.log("delet button di id " + $comment["commentID"] + " non è stato caricato");
+  }
 }
 
 function addPostIDAlreadyShow(post_data) {
