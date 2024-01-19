@@ -147,6 +147,12 @@
   }*/
   
 axios.get("api-getnotification.php").then(response => {
+  if (response.data["success"]) {
+    console.log(response.data["followers"]);
+    console.log(response.data["comments"]);
+    console.log(response.data["reactions"]);
+  } else {
     console.log(response.data["comment"]);
+  }
 });
   

@@ -296,5 +296,29 @@ class DatabaseHelper{
         $result = $comment_query->execute();
         return  $result;
     }
+
+    public function getAllNewFollower($user) {
+        $stmt = $this->db->prepare("SELECT newFollowerUser, dateNotification FROM newfollower WHERE user = ?");
+        $stmt->bind_param("s", $user);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getAllNewComment($user) {
+        $stmt = $this->db->prepare("select newCommentPostID, dateNotification from newcomment where user = ?");
+        $stmt->bind_param("s", $user);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getAllNewReaction($user) {
+        $stmt = $this->db->prepare("SELECT newReactionPostID, dateNotification FROM newreaction WHERE user = ?");
+        $stmt->bind_param("s", $user);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }
 ?>

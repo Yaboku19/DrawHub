@@ -6,7 +6,10 @@ if (isset($_SESSION["username"])) {
         $result["success"] = false;
         $result["comment"] = "username della session vuota per le notifiche";
     } else {
-        $result["comment"] = $_SESSION["username"];
+        $result["followers"] = $dbh->getAllNewFollower($_SESSION["username"]);
+        $result["comments"] = $dbh->getAllNewComment($_SESSION["username"]);
+        $result["reactions"] = $dbh->getAllNewReaction($_SESSION["username"]);
+        $result["success"] = true;
     }
 } else {
     $result["success"] = false;
