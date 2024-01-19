@@ -25,6 +25,15 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getPasswordFromDB($email) {
+        $stmt = $this->db->prepare("SELECT password FROM user U WHERE U.email = ?");
+        $stmt->bind_param("s", $email,);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function checkValueInDb($table, $field, $id) {
         $stmt = $this->db->prepare("SELECT * FROM $table t WHERE t.$field = ?");
         $id = strval($id);

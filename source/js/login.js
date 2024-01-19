@@ -52,12 +52,18 @@ function generateForm(loginerror = null) {
   
   function login(email, password) {
     const formData = new FormData();
-  
+
+    console.log(email); 
+    console.log(password); 
     formData.append('email', email);
     formData.append('password', password);
   
     axios.post('api-login.php', formData).then(response => {
-        if (response.data["login-result"]) {
+      console.log(response.data["test"]);  
+      console.log(response.data["hash"]); 
+      console.log(response.data["login-result"]); 
+      if (response.data["login-result"]) {
+          console.log("funziona");  
           window.location.href = "../php/showhomepage.php";
         } else {
           document.getElementById("error-text").innerText = response.data["login-error"];
