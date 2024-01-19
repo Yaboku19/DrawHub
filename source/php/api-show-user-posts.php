@@ -10,15 +10,19 @@ if (isset($_POST["profileUsername"])) {
         $result["userPosts"] = $dbh->getAllUserPosts($username);
         $result["viewingLoggedUserPosts"] = $_SESSION["username"] === $username;
         $userInfo = $dbh->getUserInfo($username);
+
         for ($i = 0; $i < count($result["userPosts"]); $i++) {
             $id = $result["userPosts"][$i]["postID"];
             $result["userPosts"][$i]["datePost"] = date("F j, Y", strtotime($result["userPosts"][$i]["datePost"]));
             $reactCount = $dbh->getAllReactionCount($id);
-            //$userReactions = $dbh->hasReactedAll($_SESSION["username"], $id);
+            $userReactions = $dbh->hasReactedAll($_SESSION["username"], $id);
             $result["userPosts"][$i]["userProfilePicture"] = $userInfo["urlProfilePicture"];
             $result["userPosts"][$i] = array_merge($result["userPosts"][$i], $reactCount);
-            //$result["userPosts"][$i] = array_merge($result["userPosts"][$i], $userReactions);
-            //$result["userPosts"][$i]["num_comments"] = $dbh->getPostComments($id);
+            $result["userPosts"][$i] = array_merge($result["userPosts"][$i], $userReactions);            
+            $result["userPosts"][$i]["num_comments"] = $dbh->getPostComments($id);
+            /*
+            $userReactions = $dbh->hasReactedAll($_SESSION["username"], $post[$i]["postID"]);
+            $post[$i] = array_merge($post[$i] , $userReactions); */
         }
     } else {
         $result["errormsg"] = "User not found";

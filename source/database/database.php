@@ -114,6 +114,24 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC)[0]["comment"];
     }
 
+    public function updateBio($username, $bio) {
+        $stmt = $this->db->prepare("UPDATE user SET bio=? WHERE username=?");
+        $stmt->bind_param("ss", $bio, $username);
+        return $stmt->execute();
+    }
+
+    public function updateEmail($username, $newEmail) {
+        $stmt = $this->db->prepare("UPDATE user SET email=? WHERE username=?");
+        $stmt->bind_param("ss", $newEmail, $username);
+        return $stmt->execute();
+    }
+
+    public function updatePassword($username, $newPassword) {
+        $stmt = $this->db->prepare("UPDATE user U SET U.password = ? WHERE U.username = ?");
+        $stmt->bind_param("ss", $newPassword, $username);
+        return $stmt->execute();
+    }
+
     public function getAllReactionCount($post_id) {
         $allReactionsType = $this->getAllReactionType(); 
         foreach ($allReactionsType as $reactionType) {
@@ -330,6 +348,12 @@ class DatabaseHelper{
         $comment_query->bind_param("sii", $user, $postID, $commentID);
         $result = $comment_query->execute();
         return  $result;
+    }
+
+    public function setProfileImage($urlProfilePicture, $username) {
+        $stmt = $this->db->prepare("UPDATE user SET urlProfilePicture=? WHERE username=?");
+        $stmt->bind_param("ss", $urlProfilePicture, $username);
+        return $stmt->execute();
     }
 
     public function getAllNewFollower($user) {
