@@ -10,9 +10,8 @@
         } else if ($_POST["commentID"] == "") {
             $result["success"] = false;
             $result["comment"] = "commentID per eliminazione commenti vuoto";
-        } else if (true) {
+        } else if ($dbh->deleteComment($_POST["user"], $_POST["postID"], $_POST["commentID"])) {
             $result["success"] = true;
-            $result["comment"] = $_POST["commentID"];
         } else {
             $result["success"] = false;
             $result["comment"] = "query fallita";

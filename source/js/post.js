@@ -259,7 +259,11 @@ function enableDeleteBtn($comment) {
       formData.append("user", $comment["user"]);
       formData.append("commentID", $comment["commentID"]);
       axios.post("api-deletecomment.php", formData).then(response => {
-        console.log(response.data["comment"]);
+        if (response.data["success"]) {
+          loadComments(document.getElementById("idPost").innerHTML);
+        } else {
+          console.log(response.data["comment"]);
+        }
       });
     });
   } else {
