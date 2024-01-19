@@ -35,6 +35,7 @@ CREATE TABLE drawHub.comment (
     postID                  INT             NOT NULL,
     text                    VARCHAR(100)    NOT NULL,
     commentID               INT             NOT NULL,
+    dateComment             DATE            NOT NULL,
     PRIMARY Key (user, postID, commentID),
     CONSTRAINT FK_Comment_Author FOREIGN KEY (user) REFERENCES drawHub.user(username) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT FK_Comment_Post FOREIGN KEY (postID) REFERENCES drawHub.post(postID) ON DELETE CASCADE ON UPDATE CASCADE
@@ -59,6 +60,7 @@ CREATE TABLE drawHub.newFollower (
     user                    VARCHAR(30)     NOT NULL,
     notificationID          INT             NOT NULL,
     newFollowerUser         VARCHAR(30)     NOT NULL,
+    dateNotification        DATE            NOT NULL,
     PRIMARY KEY (user, notificationID),
     CONSTRAINT FK_NewFollow_User FOREIGN KEY (user) REFERENCES drawHub.user(username) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT FK_NewFollow_Follower FOREIGN KEY (newFollowerUser) REFERENCES drawHub.user(username) ON DELETE CASCADE ON UPDATE CASCADE
@@ -70,6 +72,7 @@ CREATE TABLE drawHub.newComment (
     newCommentUser          VARCHAR(30)     NOT NULL,
     newCommentPostID        INT             NOT NULL,
     newCommentID            INT             NOT NULL,
+    dateNotification        DATE            NOT NULL,
     PRIMARY KEY (user, notificationID),
     CONSTRAINT FK_NewComment_User FOREIGN KEY (user) REFERENCES drawHub.user(username) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT FK_NewComment_Comment FOREIGN KEY (newCommentUser, newCommentPostID, newCommentID) 
@@ -82,7 +85,7 @@ CREATE TABLE drawHub.newReaction (
     newReactionUser         VARCHAR(30)     NOT NULL,
     newReactionTypeID       VARCHAR(20)     NOT NULL,
     newReactionPostID       INT             NOT NULL,
-    newReactionPostUser     VARCHAR(30)     NOT NULL,
+    dateNotification        DATE            NOT NULL,
     PRIMARY KEY (user, notificationID),
     CONSTRAINT FK_NewReaction_User FOREIGN KEY (user) REFERENCES drawHub.user(username) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT FK_NewReaction_Reaction FOREIGN KEY (newReactionUser, newReactionTypeID, newReactionPostID) 

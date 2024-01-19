@@ -5,9 +5,9 @@ $numeropost = 1; //prende un post alla volta
 $var = false;
 if (isset($_SESSION["username"]) && isset($_POST["postsView"])) {
     if($_POST["postsView"] == "HomePage") {
-        $post = $dbh->getPosts($_SESSION["username"], $numeropost); //prende i post degli utenti che segue
+        $post = $dbh->getHomePosts($_SESSION["username"], $numeropost); //prende i post degli utenti che segue
     } else if($_POST["postsView"] == "Explore") {
-        $post = $dbh->getPosts($_SESSION["username"], $numeropost);
+        $post = $dbh->getExplorePosts($_SESSION["username"], $numeropost);
     }
     
     for($i = 0; $i < count($post); $i++) {

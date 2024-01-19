@@ -4,11 +4,23 @@ VALUES ('marcorossi', 'marcorossi', 'Questa è la mia bio.', 'defaultImage.png',
 INSERT INTO drawHub.user (username, password, bio, urlProfilePicture, birthDate, email, name, surname)
 VALUES ('mariobalo', 'mariobalo', 'Descrizione 2.', 'defaultImage.png', '1985-05-15', 'utente2@example.com', 'mario', 'balotelli');
 
+INSERT INTO drawHub.user (username, password, bio, urlProfilePicture, birthDate, email, name, surname)
+VALUES ('elecinti1', 'elecinti1', 'boccio tutti', 'defaultImage.png', '1956-05-15', 'utente3@example.com', 'eleonora', 'cinti');
+
+INSERT INTO drawHub.user (username, password, bio, urlProfilePicture, birthDate, email, name, surname)
+VALUES ('rickyfra11', 'rickyfra11', 'sono una bestia', 'defaultImage.png', '2002-05-15', 'utente4@example.com', 'riccardo', 'frascio');
+
 INSERT INTO drawHub.post (user, description, urlImage, datepost)
 VALUES ('mariobalo', 'Descrizione del primo post.', 'prova.jpg', '2024-01-17');
 
 INSERT INTO drawHub.post (user, description, urlImage, datePost)
 VALUES ('marcorossi', 'Descrizione del secondo post.', 'prova.jpg', '2024-01-17');
+
+INSERT INTO drawHub.post (user, description, urlImage, datepost)
+VALUES ('rickyfra11', 'Descrizione a caso.', 'photome.jpg', '2024-01-18');
+
+INSERT INTO drawHub.post (user, description, urlImage, datepost)
+VALUES ('elecinti1', 'easy kill.', 'pokemon.jpg', '2024-01-18');
 
 INSERT INTO drawHub.reactionType (typeID, tagImage)
 VALUES ("cuore", "bi-heart-fill");
@@ -25,14 +37,29 @@ VALUES ("pollice_giu", "bi-hand-thumbs-down-fill");
 INSERT INTO drawHub.reaction (user, typeID, postID)
 VALUES ("marcorossi", "cuore",  1);
 
-INSERT INTO drawhub.comment (user, postID, text, commentID)
-VALUES ("marcorossi", 1,"bella immagine", 1);
+INSERT INTO drawHub.newReaction (user, notificationID, newReactionUser, newReactionTypeID, newReactionPostID, dateNotification)
+VALUES ("mariobalo", 1, "marcorossi", "cuore", 1, '2024-01-19');
 
-INSERT INTO drawhub.comment (user, postID, text, commentID)
-VALUES ("marcorossi", 2,"bella immagine copiata", 1);
+INSERT INTO drawhub.comment (user, postID, text, commentID, dateComment)
+VALUES ("marcorossi", 1,"bella immagine", 1, '2024-01-19');
 
-INSERT INTO drawhub.comment (user, postID, text, commentID)
-VALUES ("marcorossi", 1, "adoro", 2);
+INSERT INTO drawHub.newComment (user, notificationID, newCommentUser, newCommentPostID, newCommentID, dateNotification)
+VALUES ("mariobalo", 1, "marcorossi", 1, 1, '2024-01-19');
 
-INSERT INTO drawhub.comment (user, postID, text, commentID)
-VALUES ("mariobalo", 1,"penso solo al pallone", 1);
+INSERT INTO drawhub.comment (user, postID, text, commentID, dateComment)
+VALUES ("marcorossi", 2,"bella immagine copiata", 1, '2024-01-17');
+
+INSERT INTO drawHub.newComment (user, notificationID, newCommentUser, newCommentPostID, newCommentID, dateNotification)
+VALUES ("marcorossi", 1, "marcorossi", 2, 1, '2024-01-17');
+
+INSERT INTO drawhub.comment (user, postID, text, commentID, dateComment)
+VALUES ("marcorossi", 1, "adoro", 2, '2024-01-18');
+
+INSERT INTO drawHub.newComment (user, notificationID, newCommentUser, newCommentPostID, newCommentID, dateNotification)
+VALUES ("mariobalo", 2, "marcorossi", 1, 2, '2024-01-18');
+
+INSERT INTO drawhub.comment (user, postID, text, commentID, dateComment)
+VALUES ("mariobalo", 1,"penso solo al pallone", 1, '2024-01-18');
+
+INSERT INTO drawHub.newComment (user, notificationID, newCommentUser, newCommentPostID, newCommentID, dateNotification)
+VALUES ("mariobalo", 3, "mariobalo", 1, 1, '2024-01-18');
