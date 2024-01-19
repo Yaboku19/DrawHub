@@ -216,7 +216,8 @@ function loadComments(postID) {
               <div class="commento">
                 <div class="d-flex align-items-center">
                   <div class="flex-grow-1 ms-4">
-                      <p class="d-block w-100 text-wrap text-primary fs-6">${response.data["comments"][i]["user"]}</p>
+                      <p class="d-block w-100 text-wrap text-primary fs-5">${response.data["comments"][i]["user"]} 
+                      <span class=" text-secondary fs-6 ms-4">${response.data["comments"][i]["dateComment"]}</span></p>
                       <p class="d-block w-100 text-wrap fs-5">${response.data["comments"][i]["text"]}</p>
                   </div>
                   <div class="ms-auto">
@@ -233,8 +234,9 @@ function loadComments(postID) {
               <div class="commento">
                 <div class="d-flex align-items-center">
                     <div class="flex-grow-1 ms-4">
-                        <p class="d-block w-100 text-wrap text-primary fs-6">${response.data["comments"][i]["user"]}</p>
-                        <p class="d-block w-100 text-wrap fs-5">${response.data["comments"][i]["text"]}</p>
+                      <p class="d-block w-100 text-wrap text-primary fs-5">${response.data["comments"][i]["user"]} 
+                      <span class=" text-secondary fs-6 ms-4">${response.data["comments"][i]["dateComment"]}</span></p>
+                      <p class="d-block w-100 text-wrap fs-5">${response.data["comments"][i]["text"]}</p>
                     </div>
                 </div>
               </div>
