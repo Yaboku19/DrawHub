@@ -10,7 +10,7 @@ $postsView = $data['postsView'];
 
 if (isset($_SESSION["username"]) && isset($num) && isset($postsView)) {
     if($postsView == "HomePage") {
-        $post = $dbh->getMoreExplorePosts($_SESSION["username"], $num, $numeropost); //prende i post degli utenti che segue
+        $post = $dbh->getMoreHomePosts($_SESSION["username"], $num, $numeropost); //prende i post degli utenti che segue
     } else if($postsView == "Explore") {
         $post = $dbh->getMoreExplorePosts($_SESSION["username"], $num, $numeropost); 
     }

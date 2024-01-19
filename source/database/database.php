@@ -54,14 +54,24 @@ class DatabaseHelper{
     }
 
     /**
-     * Prende i post di utenti che non segue, tranne
+     * Prende i post diegli utenti anche di chi non segue, tranne
      * quelli dell'utente loggato
      */
-    public function getPosts($username, $n) { 
+    public function getExplorePosts($username, $n) { 
         $stmt = $this->db->prepare("SELECT P.*, U.urlProfilePicture FROM post P
         JOIN user U ON P.user = U.username WHERE U.username <> ?
         LIMIT ?;");
         $stmt->bind_param("si",$username, $n);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getHomePosts($username, $n) { 
+        $stmt = $this->db->prepare("SELECT P.*, U.urlProfilePicture FROM post P
+        JOIN user U ON P.user = U.username WHERE U.username 
+        IN (SELECT user AS username FROM follow WHERE followerUser = ?) LIMIT ?;");
+        $stmt->bind_param("si", $username, $n);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
@@ -74,6 +84,20 @@ class DatabaseHelper{
     public function getMoreExplorePosts($username, $posts, $numeropost) { 
         $placeholders = implode(',', array_fill(0, (count($posts)), '?'));
         $stmt1 = "(SELECT U.username FROM user U WHERE U.username <> '".$username."') LIMIT ".strval($numeropost)." ;";
+
+        $stmt = $this->db->prepare("SELECT P.*, U.urlProfilePicture FROM post P, user U WHERE P.user = U.username AND P.postID NOT IN ( $placeholders ) AND P.user IN ".$stmt1);
+        $stmt->bind_param(str_repeat('i', (count($posts))), ...$posts);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    /**
+     * Prende i post degli utenti che segue
+     */
+    public function getMoreHomePosts($username, $posts, $numeropost) { //da fare
+        $placeholders = implode(',', array_fill(0, (count($posts)), '?'));
+        $stmt1 = "(SELECT user AS username FROM follow WHERE followerUser = '".$username."') LIMIT ".strval($numeropost)." ;";
 
         $stmt = $this->db->prepare("SELECT P.*, U.urlProfilePicture FROM post P, user U WHERE P.user = U.username AND P.postID NOT IN ( $placeholders ) AND P.user IN ".$stmt1);
         $stmt->bind_param(str_repeat('i', (count($posts))), ...$posts);

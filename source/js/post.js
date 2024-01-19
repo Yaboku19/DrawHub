@@ -112,7 +112,7 @@ axios.post("api-showpost.php", postsViewData).then(response => {
     getLoggedUserInfo()
     dynamicButtonPost();*/
   } else {
-    div.appendChild(showError());
+    //div.appendChild(showError());
   }
 
 });
