@@ -89,6 +89,7 @@ axios.get("api-showpost.php").then(response => {
     enableAllButtons(response.data["posts"].length, response.data["posts"]);
     console.log("enablePostCOmment");
     enablePostComment();
+    console.log("dopo");
     /*if (num == 0) {
       let element = document.getElementById('adddiv');
       let newdiv = showEndPost();
@@ -213,7 +214,8 @@ function loadComments(postID) {
           container.innerHTML = `
             <div class="commento">
               <div class="d-flex align-items-center">
-                  <div class="flex-grow-1 ms-3">
+                  <div class="flex-grow-1 ms-4">
+                      <p class="d-block w-100 text-wrap text-primary">${response.data["comments"][i]["user"]}</p>
                       <p class="d-block w-100 text-wrap">${response.data["comments"][i]["text"]}</p>
                   </div>
               </div>
@@ -238,7 +240,8 @@ function addPostIDAlreadyShow(post_data) {
 }
 
 async function loadMore() {
-  if ((window.scrollY + window.innerHeight) >= document.body.scrollHeight) {
+  console.log("scorre??????");
+  if ((window.scrollY + window.innerHeight) >= document.body.scrollHeight - 1) {
     console.log("scorre");
     
     const formData = new FormData();
