@@ -33,62 +33,49 @@ function generateOptions(values, selected, category) {
   return options;
 }
 
-function showPage(response_settings){//, response_select) {
-  /*uni_options = generateOptions(response_select["unis"], response_select["uni-selected"],"uni");
-  course_options = generateOptions(response_select["courses"], 1, "course");
-  residence_options = generateOptions(response_settings["cities"], response_settings["current-residence"], "residence");*/
+function showPage(currentSettings){//, response_select) {
   let form = `
     <div class="container justify-content-center align-middle ">
       <div class="p-lg-5 mb-5 bg-light">
         <div class="row p-2">
+          <div class="col-sm-6 mb-2">
+            <label for="username">Username</label>
+          </div>
+          <div class="col-sm-6 mb-2">
+            <label id="username" name="username">${currentSettings["username"]}</label>
+          </div>  
           <div class="col-sm-6">
             <label for="bio">Descrizione</label>
           </div>
           <div class="col-sm-6">
-            <textarea id="bio" name="bio" rows="5" cols="30">${response_settings["bio"]}</textarea>
+            <textarea id="bio" name="bio" rows="5" cols="30">${currentSettings["bio"]}</textarea>
           </div>
         <div class="w-100 p-2"></div>
           <div class="col-sm-6">
-            <label for="user_image">Immagine profilo</label>
+            <label for="urlProfilePicture">Immagine profilo</label>
           </div>
           <div class="col-sm-6">
-            <input type="file" name="user_image" id="user_image" class="form-control" />
+            <input type="file" name="urlProfilePicture" id="urlProfilePicture" class="form-control" />
           </div>
         <div class="w-100 p-2"></div>
           <div class="col-sm-6">
-            <label for="course">Corso</label>
+            <label for="email">Email</label>
           </div>
           <div class="col-sm-3">
-            <select id="uni" name="uni" class="justify-content-end">`
-              + uni_options + 
-            `</select>
-          </div>
-          <div class="col-sm-3">
-            <select id="course" name="course" class="justify-content-end">`
-              + course_options +
-            `</select>
-          </div>
-          <div class="w-100 p-2"></div>
-          <div class="col-sm-6">
-            <label for="residence">Residenza</label>
-          </div>
-          <div class="col-sm-6">
-            <select id="residence" name="Residence" class="justify-content-end">`
-              + residence_options +
-            `</select>
+            <input type="email" id="email" name="email" rows="1" cols="30" value="${currentSettings["email"]}"/>
           </div>
           <div class="w-100 p-2"></div>
           <div class="col-sm-6">
             <label for="passw">Password</label>
           </div>
           <div class="col-sm-6">
-            <input type="password" id="passw" name="passw" class="justify-content-end" />
+            <input type="password" id="passw" name="passw" class="justify-content-end" value="${currentSettings["email"]}" />
           </div>
         </div>
         <hr/>
         <div class="flex d-flex justify-content-between">
           <p class="text-danger" id="errormsg"></p>
-          <button type="submit" data-toggle="button" class="btn btn-outline-primary" id="apply_changes">Salva</button>
+          <button type="submit" data-toggle="button" class="btn btn-outline-primary" id="save">Salva</button>
         </div>
       </div> 
     </div>
@@ -101,19 +88,18 @@ function showErrorMsg(errormsg) {
   p.innerText = errormsg;
 }
 
-function saveChanges(bio, img, course, username, residence, password) {
-  var formData = new FormData();
+function saveChanges(bio, email, password, img, username){
+  const formData = new FormData();
   formData.append("bio", bio);
   formData.append("img", img); 
-  formData.append("course_id", course);
-  formData.append("residence", residence);
+  formData.append("email", email);
   formData.append("password", password);
 
-  select = document.querySelector("#uni");
-
-  axios.post('api-save-settings.php', formData).then(response => {
+  axios.post('api-update-settings.php', formData).then(response => {
+    console.log(username);
     if(response.data["success"]) {
       window.location.href = "../php/profile.php?username=" + username;
+      console.log("funziona");
     } else {
       showErrorMsg(response.data["errormsg"]);
     }
@@ -121,40 +107,38 @@ function saveChanges(bio, img, course, username, residence, password) {
 }
 
 function updateButton(username) {
-  document.querySelector("#apply_changes").addEventListener('click', function (event) {
+  document.querySelector("#save").addEventListener('click', function (event) {
     event.preventDefault();
     const bio = document.querySelector("#bio").value;
-    const img = document.querySelector("#user_image") != null ? document.querySelector("#user_image").files[0] : null;
-    const course = document.querySelector("#course").value;
-    const residence = document.querySelector("#residence").value;
+    const img = document.querySelector("#urlProfilePicture") != null ? document.querySelector("#urlProfilePicture").files[0] : null;
+    const email = document.querySelector("#email").value;
     const password = document.querySelector("#passw").value;
-
-    saveChanges(bio, img, course, username, residence, password);
+    //console.log(bio + img + email + password);
+    saveChanges(bio, email, password, img, username);
   });
 }
 
-function updateSelect(response_settings) {
+/*function updateSelect(response_settings) {
   var formData = new FormData();
   select = document.querySelector("#uni");
   select.addEventListener('change', function abstractFunction() {
     formData.append("uni-selected", select.value);
     axios.post("api-selector-controller.php", formData).then(response_selector => {
       showPage(response_settings.data, response_selector.data);
-      updateButton(response_settings.data["user_id"]);
+      updateButton(response_settings.data["username"]);
       updateSelect(response_settings);
     });
   });
-}
+}*/
 
-const main = document.querySelector("main");
-axios.get("api-get-current-settings.php").then(response_settings => {
-  /*axios.get("api-selector-controller.php").then(response_selector => {*/
-    if(response_settings.data["logged"]) {
-      showPage(response_settings.data, response_selector.data);
-      updateButton(response_settings.data["username"]);
-      updateSelect(response_settings);
+const main = document.getElementById("dinamic");
+axios.get("api-get-current-settings.php").then(currentSettings => {
+    if(currentSettings.data["logged"]) {
+      console.log("logged");
+      showPage(currentSettings.data);//, response_selector.data);
+      updateButton(currentSettings.data["username"]);
+      //updateSelect(currentSettings);*/
     } else {
       window.location.href = "../php/index.php";
     }
-  /*});*/
 });

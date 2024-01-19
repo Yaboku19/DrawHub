@@ -19,11 +19,10 @@ if (isset($_POST["profileUsername"])) {
             $result["userPosts"][$i]["userProfilePicture"] = $userInfo["urlProfilePicture"];
             $result["userPosts"][$i] = array_merge($result["userPosts"][$i], $reactCount);
             $result["userPosts"][$i] = array_merge($result["userPosts"][$i], $userReactions);            
+            $result["userPosts"][$i]["num_comments"] = $dbh->getPostComments($id);
             /*
             $userReactions = $dbh->hasReactedAll($_SESSION["username"], $post[$i]["postID"]);
             $post[$i] = array_merge($post[$i] , $userReactions); */
-
-            //$result["userPosts"][$i]["num_comments"] = $dbh->getPostComments($id);
         }
     } else {
         $result["errormsg"] = "User not found";
