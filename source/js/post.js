@@ -211,12 +211,12 @@ function loadComments(postID) {
           const container = document.createElement("div");
           container.classList = "container commentsList p-3";
           container.innerHTML = `
-            <div class="row">
-                <div class="d-flex align-items-center">
-                    <div class="flex-grow-1 ms-3">
-                        <p> ${response.data["comments"][i]["text"]}</p>
-                    </div>
-                </div>
+            <div class="commento">
+              <div class="d-flex align-items-center">
+                  <div class="flex-grow-1 ms-3">
+                      <p class="d-block w-100 text-wrap">${response.data["comments"][i]["text"]}</p>
+                  </div>
+              </div>
             </div>
             `;
             modalBody.appendChild(container);
