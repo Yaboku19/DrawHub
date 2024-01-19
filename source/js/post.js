@@ -79,17 +79,19 @@ document.addEventListener(
 
 let num = [];
 let rd;
+let loading = false;
 let div = document.getElementById("dinamic");
 let end = false;
-axios.get("api-showpost.php").then(response => {
+console.log(postsView);
+const postsViewData = new FormData();
+postsViewData.append('postsView', postsView);
+axios.post("api-showpost.php", postsViewData).then(response => {
   console.log(response.data);
   if (response.data["success"]) {
     showPost(response.data["posts"]);
     addPostIDAlreadyShow(response.data["posts"]);
-    enableAllButtons(response.data["posts"].length, response.data["posts"]);
-    console.log("enablePostCOmment");
+    enableAllButtons();
     enablePostComment();
-    console.log("dopo");
     /*if (num == 0) {
       let element = document.getElementById('adddiv');
       let newdiv = showEndPost();
@@ -115,16 +117,7 @@ axios.get("api-showpost.php").then(response => {
 
 });
 
-/*function enableAllButtons(length, post_data) {
-  for (let i = 0; i < length; i++) {
-    enableButton(post_data[i]["postID"] ,"btn_cuore_", "cuore");
-    enableButton(post_data[i]["postID"] ,"btn_occhi_a_cuore_", "occhi_a_cuore");
-    enableButton(post_data[i]["postID"] ,"btn_occhi_neutri_", "occhi_neutri");
-    enableButton(post_data[i]["postID"] ,"btn_pollice_giu_", "pollice_giu");
-    enableComment(post_data[i]["postID"]);
-  } */
-
-function enableAllButtons(length, post_data) {
+function enableAllButtons() {
   for (let i = 0; i < num.length; i++) {
     enableButton(num[i] ,"btn_cuore_", "cuore");
     enableButton(num[i] ,"btn_occhi_a_cuore_", "occhi_a_cuore");
@@ -145,7 +138,6 @@ function enableButton(postID, buttonType, reactionType) {
   
   if(button){
     button.addEventListener('click', function onclick() {
-      console.log("caio");
       axios.post("api-reaction.php", formData).then(response =>
         span.innerHTML=response.data[reactionType]);
         //quando viene cliccato il bottone, aggiorna dinamicamente il colore
@@ -283,22 +275,26 @@ function addPostIDAlreadyShow(post_data) {
 }
 
 async function loadMore() {
-  console.log("scorre??????");
-  if ((window.scrollY + window.innerHeight) >= document.body.scrollHeight - 1) {
+  if ((window.scrollY + window.innerHeight) >=(document.body.scrollHeight-1) && !loading) {
+    loading=true; //per farlo svolgere una volta sola
     console.log("scorre");
-    
-    const formData = new FormData();
+    /*const formData = new FormData();
     formData.append('num', num);
-    axios.post("api-loadMorePosts.php", {
-      numPost: num
+    formData.append('postsView', postsView);*/
+    await axios.post("api-loadMorePosts.php", {
+      numPost: num,
+      postsView: postsView
     }).then(response => {
-      //console.log(response.data);
+      console.log(response.data);
+      console.log(num);
       if (response.data["success"]) {
         showPost(response.data["posts"]);
         addPostIDAlreadyShow(response.data["posts"]);
         enableAllButtons(response.data["posts"].length, response.data["posts"]);
+        console.log(num);
       }
     });
+    loading=false;
   }
 }/*
 

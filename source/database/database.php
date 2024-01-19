@@ -53,19 +53,30 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC)[0];
     }
 
-    public function getPosts($username, $n) { //da sistemare
-        $stmt = $this->db->prepare("SELECT P.*, U.urlProfilePicture FROM post P, user U WHERE P.user = U.username LIMIT ? ;");
-        $stmt->bind_param("i", $n);
+    /**
+     * Prende i post di utenti che non segue, tranne
+     * quelli dell'utente loggato
+     */
+    public function getPosts($username, $n) { 
+        $stmt = $this->db->prepare("SELECT P.*, U.urlProfilePicture FROM post P
+        JOIN user U ON P.user = U.username WHERE U.username <> ?
+        LIMIT ?;");
+        $stmt->bind_param("si",$username, $n);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getMorePosts($username, $posts) { //da sistemare
-        $placeholders = implode(',', array_fill(0, count($posts), '?'));
-        $stmt = $this->db->prepare("SELECT P.*, U.urlProfilePicture FROM post P, user U WHERE P.user = U.username AND P.postID NOT IN ( $placeholders );");
-        $stmt->bind_param(str_repeat('i', count($posts)), ...$posts);
-        //$stmt->bind_param("s",$posts);
+    /**
+     * Prende post che non ho gia visualizzato, che non sono quelli che ha postato
+     *  l'utente, da usare nell'esplora
+     */
+    public function getMoreExplorePosts($username, $posts, $numeropost) { 
+        $placeholders = implode(',', array_fill(0, (count($posts)), '?'));
+        $stmt1 = "(SELECT U.username FROM user U WHERE U.username <> '".$username."') LIMIT ".strval($numeropost)." ;";
+
+        $stmt = $this->db->prepare("SELECT P.*, U.urlProfilePicture FROM post P, user U WHERE P.user = U.username AND P.postID NOT IN ( $placeholders ) AND P.user IN ".$stmt1);
+        $stmt->bind_param(str_repeat('i', (count($posts))), ...$posts);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
