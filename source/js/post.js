@@ -87,6 +87,7 @@ axios.get("api-showpost.php").then(response => {
     showPost(response.data["posts"]);
     addPostIDAlreadyShow(response.data["posts"]);
     enableAllButtons(response.data["posts"].length, response.data["posts"]);
+    console.log("enablePostCOmment");
     enablePostComment();
     /*if (num == 0) {
       let element = document.getElementById('adddiv');
@@ -163,6 +164,7 @@ function enablePostComment() {
       const formData = new FormData();
       formData.append("postID", document.getElementById("idPost").innerHTML);
       formData.append("text", document.getElementById("commentInput").value);
+      console.log(formData.get("text"));
       axios.post("api-addcomment.php", formData).then(response => {
         if (response.data["success"]) {
           loadComments(document.getElementById("idPost").innerHTML);
