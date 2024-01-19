@@ -1,5 +1,6 @@
 <?php
     require_once("db_config.php");
+    //$result["prova"] = $dbh->addComment($_SESSION["username"], $_POST["postID"], $_POST["text"]);
     if (isset($_POST["postID"]) || isset($_POST["text"])) {
         if ($_POST["postID"] == "") {
             $result["success"] = false;

@@ -273,7 +273,7 @@ class DatabaseHelper{
 
     public function addComment($user, $postID, $text) {
         $stmt = $this->db->prepare("SELECT commentID FROM comment WHERE user = ? AND postID = ? ORDER BY 1 DESC LIMIT 1");
-        $stmt->bind_param("ss", $user, $postID);
+        $stmt->bind_param("si", $user, $postID);
         $stmt->execute();
         $result = $stmt->get_result();
         if ($result->num_rows > 0) {
@@ -284,7 +284,7 @@ class DatabaseHelper{
         $user_query = $this->db->prepare("INSERT INTO 
                 comment (user, postID, text, commentID)
                 VALUES (?, ?, ?, ?);");
-        $user_query->bind_param("ssss", $user, $postID, $text, $commentID);
+        $user_query->bind_param("sisi", $user, $postID, $text, $commentID);
         $result = $user_query->execute();
         return  $result;
     }

@@ -4,7 +4,7 @@ $followBtnText = "<em class=\"bi bi-person-plus\"> Segui</em>";
 $followBtnClass = "primary";
 $followBtnDisable = "";
 if (isset($_SESSION["username"])) {
-    $isFollowing = $dbh->isUserFollowing($_SESSION["user_id"], $templateParams["username"]);
+    $isFollowing = $dbh->isUserFollowing($_SESSION["username"], $templateParams["username"]);
     if ($isFollowing) {
         $followBtnText = "<em class=\"bi bi-person-slash\"> Non seguire</em>";
         $followBtnClass = "danger";
