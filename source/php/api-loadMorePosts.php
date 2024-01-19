@@ -1,14 +1,19 @@
 <?php
 require_once("db_config.php");
 
-$numeropost = 5;
+$numeropost = 1;
 $var = false;
 $jsonData = file_get_contents("php://input");
 $data = json_decode($jsonData, true);
 $num = $data['numPost'];
+$postsView = $data['postsView'];
 
-if (isset($_SESSION["username"]) && isset($num)) {
-    $post = $dbh->getMorePosts($_SESSION["username"], $num); 
+if (isset($_SESSION["username"]) && isset($num) && isset($postsView)) {
+    if($postsView == "HomePage") {
+        $post = $dbh->getMoreExplorePosts($_SESSION["username"], $num, $numeropost); //prende i post degli utenti che segue
+    } else if($postsView == "Explore") {
+        $post = $dbh->getMoreExplorePosts($_SESSION["username"], $num, $numeropost); 
+    }
 
     for($i = 0; $i < count($post); $i++) {
         $post[$i]["datePost"] = date("F j, Y", strtotime($post[$i]["datePost"]));
@@ -21,7 +26,7 @@ if (isset($_SESSION["username"]) && isset($num)) {
         $post[$i] = array_merge($post[$i] , $userReactions);
         $var = true;
     }
-
+    
 }
 
 $post1["posts"] = $post;
