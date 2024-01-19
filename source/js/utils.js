@@ -74,8 +74,8 @@ function showPostList(posts, addModifyButton) {
             </div>
             </div>
             <div class="card-footer">
-            <a data-bs-toggle="modal" data-bs-target="#commentModal" class="nav-link px-0 text-dark">
-                <i class="bi-chat-left-text"></i> <span class="fs-4 ms-2 d-sm-inline" id="comment${element["postID"]}">Commenti (${element["num_comments"]})</span>
+            <a data-bs-toggle="modal" data-bs-target="#commentModal" class="nav-link px-0 text-dark mx-4">
+                <i class="bi-chat-left-text "></i> <span class="fs-6 ms-2 d-sm-inline" id="comment${element["postID"]}">Commenti (${element["num_comments"]})</span>
             </a>
             </div>
         `;
