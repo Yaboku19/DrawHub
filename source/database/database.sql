@@ -2,7 +2,7 @@ CREATE SCHEMA drawHub;
 
 CREATE TABLE drawHub.user ( 
     username                VARCHAR(30)     NOT NULL    PRIMARY KEY,
-    password                VARCHAR(30)     NOT NULL,
+    password                VARCHAR(100)     NOT NULL,
     bio                     VARCHAR(200)    NOT NULL,
     urlProfilePicture       VARCHAR(100)    NOT NULL,
     birthDate               Date            NOT NULL,
