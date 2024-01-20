@@ -1,39 +1,84 @@
-/*function addImageInput() {
-    const imageInput = document.createElement("div");
-    imageInput.id = "imgDiv";
-    imageInput.innerHTML = `
-        <label for="imgpost">Aggiungi immagine</label><input type="file" name="imgpost" id="imgpost" class="form-control"/>
-    `;
-    const lastFormCheck = document.querySelector("div.form-check.mb-2");
-    lastFormCheck.parentElement.insertBefore(imageInput, lastFormCheck.nextElementSibling);
-}
+function generatePost(post_data) {
+    let section = `
+    <div class="container mt-2 mb-5">
+        <div class="justify-content-center border bg-light">
+            <div class="p-5">
+                <!--<?php echo "modify-post.php?postId=" . $post_data["postID"]; ?>-->
+                <form action="modify-post.php" method="POST">
+                    <p class="fs-3 text-center"><strong><label for="post">Modifica il tuo post:</label></strong></p>
+                    <hr id="formContentDivider" />
+                    <div id="formContent">
+                        <input type="text" class="form-control" id="post" name="descrizione" value="<?php echo($post_data["description"]) ?>" >
+                    </div>
+                    <hr />
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" data-toggle="button" class="btn btn-outline-danger" id="deleteBtn"
+                            name="delete">Elimina post</button>
+                        <button type="submit" data-toggle="button" class="btn btn-outline-primary"  id="submitBtn"
+                            name="submit">Conferma</button>
+                    </div>
+                    <input type="hidden" name="postId" id="postId" value="<?php echo($post_data["postID"]) ?>">
+                </form>
+                <div>
+                    <p class="text-danger m-0" id="error-text"></p>
+                </div>
+            </div>
+        </div>
+    </div>`;
+  
+  return section;
+  }
 
-function removeImageInput() {
-    document.getElementById("imgDiv")?.remove();
-}*/
+  function showForm(post_data) {
+    let form = generatePost(post_data);
+    div.innerHTML += form; 
+  }
 
-function toggleDelete() {
-    if (!deleteToggled) {
-        // remove all other forms
-        document.getElementById("formContent")?.remove(); //il punto interrogativo serve per evitare eccezione: se non viente trovato l'elemento con id formContent non esegue il remove
-        deleteToggled = true;
+  function showErrorMsg(error){
+    let p = document.getElementById("error-text");
+    p.innerHTML = error;
+  }
+  
+  let div = document.getElementById("dinamic");
+  let description = document.getElementById("post");
+  let postId = document.getElementById("postId");
+
+  const formData = new FormData();
+  formData.append('postId', postId.value);
+  formData.append('descrizione', description.value);
+  axios.post("modify-post.php", formData).then(response => {
+    console.log(response.data);
+    if (response.data["success"]) {
+        showForm(response.data["posts"]);
     } else {
-        // add all forms
-        const formContent = document.createElement("div");
-        formContent.id = "formContent";
-        formContent.innerHTML = `
-            <textarea class="form-control" id="post" name="post" rows="4">${postContent}</textarea>
-        `;
-        const firstHr = document.getElementById("formContentDivider");
-        console.log(firstHr);
-        firstHr.parentElement.insertBefore(formContent, firstHr.nextElementSibling);
-        deleteToggled = false;
+        showErrorMsg(response.data["errormsg"]);
     }
-}
+  });
 
-const deleteButton = document.getElementById("deletePost");
-const postContent = document.querySelector("textarea").innerText;
-let deleteToggled = false;
-deleteButton.addEventListener("click", function(event) {
-    toggleDelete();
-});
+let submitBtn = document.getElementById("submitBtn");
+
+if(submitBtn){
+    submitBtn.addEventListener('click', function onclick() {
+        formData.append("submit", true);
+        axios.post("modify-post.php", formData).then(response => {
+            if(response["success"]) {
+                //devo aggiornare la pagina
+            } else {
+                showErrorMsg(response.data["errormsg"]);
+            }
+        });
+    })
+}
+let deleteBtn = document.getElementById("deleteBtn");
+if(deleteBtn){
+    deleteBtn.addEventListener('click', function onclick() {
+        formData.append("delete", true);
+        axios.post("modify-post.php", formData).then(response =>{
+            if(response["success"]) {
+                //mando alla pagina del profilo
+            } else {
+                showErrorMsg(response.data["errormsg"]);
+            }
+        });
+    })
+}

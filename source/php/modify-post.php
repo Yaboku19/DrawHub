@@ -4,64 +4,76 @@ require_once("db_config.php");
 $templateParams["title"] = "Modifica Post";
 $templateParams["homepage"] = "";
 $templateParams["notifications"] = "";
+$result["success"] = false;
+$postId = $_POST["postId"];//$templateParams["postID"];
+$descrizione = $_POST["descrizione"];//$templateParams["description"];
 
-/*if(isset($_POST["submit"]) && isset($_GET["postId"])) {
-    echo "vardump post " . $_GET["postId"] . "pippo";//mostra il contenuto di $_POST
+/*if(isset($_POST["submit"]) && isset($_POST["postId"])) {
+    echo "vardump post " . $_POST["postId"] . "pippo";//mostra il contenuto di $_POST
 }*/
-if(isset($_POST["submit"]) || isset($_POST["delete"]) && isset($_GET["postId"]) && isset($_SESSION["username"])) {
-    echo "sono qui\n";
+/*$result["success"] = true;*/
+//$templateParams["post_info"]["postID"]
+$result["check"]=isset($_POST["postId"]);
+if(isset($_POST["submit"]) || isset($_POST["delete"]) && isset($postId) && isset($_SESSION["username"])) {
+    $result["prova"]="primo if";
     $loggedUserId = $_SESSION["username"];
-    $postId = $_GET["postId"];
+    //$postId = $_POST["postId"];
     $post_exists = $dbh->checkValueInDb("post", "postID", $postId);
     if ($post_exists) {
         $postInfo = $dbh->getPostbyId($postId);
         if ($postInfo["user"] === $loggedUserId) {
             if(isset($_POST["submit"])) { //cliccato pulsante conferma->aggiorno post
-                echo "sono dentro submit\n";
-                if(isset($_POST["descrizione"]) && $_POST["descrizione"] != "" && $_POST["descrizione"] != $postInfo["description"]) {
-                    echo "sono dentro verifica descrizione\n";
-                    $dbh->updatePost($postId, $_POST["descrizione"]);
+                if(isset($descrizione) && $descrizione != "" && $descrizione != $postInfo["description"]) {
+                    $dbh->updatePost($postId, $descrizione);
                     header("Location: profile.php?username=".$loggedUserId);
+                    $result["success"] = true;
                 } else {
-                    echo "sono dentro ELSE upadte post";
-                    $templateParams["name"] = "show-error.php";
-                    //$templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js",  "../js/modify-post.js" , "../js/show-error.js");
-                    $templateParams["errormsg"] = "Descrizione post vuota o non modificata";
+                    $result["errormsg"] = "Descrizione post vuota o non modificata";
                 }
             } else if(isset($_POST["delete"])) { //cliccato pulsante eliminapost->elimino
-                echo "sono in delete";
+                $result["success"] = true;
                 $dbh->removePost($postId);
                 header("Location: profile.php?username=".$loggedUserId);
             }
         } else {
-            $templateParams["name"] = "show-error.php";
-            $templateParams["errormsg"] = "L'utente loggato non e' l'autore del post.";
+            //$templateParams["name"] = "show-error.php";
+            $result["errormsg"] = "L'utente loggato non e' l'autore del post.";
         }
     } else {
-        $templateParams["name"] = "show-error.php";
-        $templateParams["errormsg"] = "Post non trovato.";
+        $result["name"] = "show-error.php";
+        $result["errormsg"] = "Post non trovato.";
     }
-} else if (isset($_GET["postId"]) && isset($_SESSION["username"])) {
+} else {
+    //$templateParams["name"] = "show-error.php";
+    $result["errormsg"] = "Utente non loggato o id del post non presente.";
+}
+
+/*else if (isset($_POST["postId"]) && isset($_SESSION["username"])) {
     $loggedUserId = $_SESSION["username"];
-    $postId = $_GET["postId"];
+    $postId = $_POST["postId"];
     $post_exists = $dbh->checkValueInDb("post", "postID", $postId);
     if ($post_exists) {
         $postInfo = $dbh->getPostbyId($postId);
         if ($postInfo["user"] === $loggedUserId) {
+            //$result["check"]=$_POST["postId"];
             $templateParams["post_info"] = $postInfo;
-            $templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js", "../js/modify-post.js");
+            //$templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js", "../js/modify-post.js");
             $templateParams["name"] = "show-modify-post.php";
         } else {
-            $templateParams["name"] = "show-error.php";
+            //$templateParams["name"] = "show-error.php";
             $templateParams["errormsg"] = "L'utente loggato non e' l'autore del post.";
         }
     } else {
-        $templateParams["name"] = "show-error.php";
+        //$templateParams["name"] = "show-error.php";
         $templateParams["errormsg"] = "Post non trovato.";
     }
 } else {
-    $templateParams["name"] = "show-error.php";
+    //$templateParams["name"] = "show-error.php";
     $templateParams["errormsg"] = "Utente non loggato o id del post non presente.";
-}
-require '../template/base.php';
+}*/
+
+//$result["success"]=true;
+header("Content-Type: application/json");
+echo json_encode($result);
+//require '../template/base.php';
 ?>
