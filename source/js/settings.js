@@ -72,10 +72,14 @@ function showPage(currentSettings){//, response_select) {
             <input type="password" id="passw" name="passw" class="justify-content-end" value="${currentSettings["email"]}" />
           </div>
         </div>
-        <hr/>
         <div class="flex d-flex justify-content-between">
           <p class="text-danger" id="errormsg"></p>
           <button type="submit" data-toggle="button" class="btn btn-outline-primary" id="save">Salva</button>
+        </div>
+        <hr/>
+        <div class="flex d-flex justify-content-between">
+          <p class="text-danger" id="errormsg"></p>
+          <a class="btn btn-outline-danger" href="../php/login.php">Logout</a>
         </div>
       </div> 
     </div>
@@ -104,6 +108,10 @@ function saveChanges(bio, email, password, img, username){
       showErrorMsg(response.data["errormsg"]);
     }
   });
+}
+
+function logout() {
+  fetch("login.php");
 }
 
 function updateButton(username) {

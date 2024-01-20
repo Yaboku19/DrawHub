@@ -19,7 +19,9 @@ if(isset($_POST["username"], $_POST["email"], $_POST["password"], $_POST["name"]
           if(!empty($_POST["name"])) {
             if(!empty($_POST["surname"])) {
               if($_POST["date"] < $date) {
-                $result["sign-in-result"] = $dbh->addUser($_POST["username"], $_POST["email"], $_POST["password"], $_POST["name"], $_POST["surname"], $_POST["date"]);
+                $hashpassword = password_hash($_POST["password"], PASSWORD_BCRYPT); //cripto la password con algoritmo BCRYPT
+                $result["hash"] = $hashpassword;
+                $result["sign-in-result"] = $dbh->addUser($_POST["username"], $_POST["email"], $hashpassword, $_POST["name"], $_POST["surname"], $_POST["date"]);
               } else {
                 $result["sign-in-result"] = false;
                 $result["text-error"] = "L'età minima è 14 anni";
