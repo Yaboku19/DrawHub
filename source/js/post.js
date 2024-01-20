@@ -9,7 +9,7 @@ function generatePost(post_data) {
     <div class="card my-4 bg-secondary bg-opacity-10 row"> <!-- un Post inizia da qua -->
     <div class="card-header">
         <a href="../php/profile.php?username=${post_data[i]["user"]}" class="nav-link px-0 text-dark">
-            <img src="${uploadDir}${post_data[i]["urlProfilePicture"]}" class="rounded-circle py-0 mb-1" alt="..." width="40" height="40">
+            <img src="../img/${post_data[i]["urlProfilePicture"]}" class="rounded-circle py-0 mb-1" alt="foto profilo" width="40" height="40">
             <!--<i class="fs-3 bi-person-circle"></i>--> 
             <span class="fs-3 ms-2 mt-1 d-sm-inline">${post_data[i]["user"]}</span>
         </a>
@@ -17,7 +17,11 @@ function generatePost(post_data) {
     <div class="card-body">
         <p class="card-text">${post_data[i]["description"]}</p>
         <p class="card-text"><small class="text-body-secondary">${post_data[i]["datePost"]}</small></p>
-        <img src="${uploadDir}${post_data[i]["urlImage"]}" class="card-img-bottom img-fluid py-2 my-1" alt="...">
+        <div class="container m-0 p-0">
+        <div class="position-relative" id="post${post_data[i]["postID"]}">
+        <img src="../img/${post_data[i]["urlImage"]}" class="card-img-bottom img-fluid py-2 my-1 w-100" alt="foto post" >
+        </div>
+        </div>
         <div class=" container">
           <div class="row">
             <div class="col-9 px-0 mx-0 d-flex">
@@ -129,24 +133,25 @@ axios.post("api-showpost.php", postsViewData).then(response => {
 
 function enableAllButtons() {
   for (let i = 0; i < num.length; i++) {
-    enableButton(num[i] ,"btn_cuore_", "cuore");
-    enableButton(num[i] ,"btn_occhi_a_cuore_", "occhi_a_cuore");
-    enableButton(num[i] ,"btn_occhi_neutri_", "occhi_neutri");
-    enableButton(num[i] ,"btn_pollice_giu_", "pollice_giu");
+    enableButton(num[i] ,"btn_cuore_", "cuore", "bi-heart-fill");
+    enableButton(num[i] ,"btn_occhi_a_cuore_", "occhi_a_cuore", "bi-emoji-heart-eyes-fill");
+    enableButton(num[i] ,"btn_occhi_neutri_", "occhi_neutri", "bi-emoji-neutral-fill");
+    enableButton(num[i] ,"btn_pollice_giu_", "pollice_giu", "bi-hand-thumbs-down-fill");
     enableComment(num[i]);
     enableDownload(num[i]);
   }
 }
 
-function enableButton(postID, buttonType, reactionType) {
+function enableButton(postID, buttonType, reactionType, iconTag) {
   let buttonID = buttonType+postID;
   let spanID = reactionType + postID;
+  let postImage = "post"+postID;
   const formData = new FormData();
   formData.append('postID', postID);
   formData.append('reactionType', reactionType);
   let button = document.getElementById(buttonID);
   let span = document.getElementById(spanID);
-  
+  let postDiv = document.getElementById(postImage);
   if(button){
     button.addEventListener('click', function onclick() {
       axios.post("api-reaction.php", formData).then(response =>
@@ -154,6 +159,12 @@ function enableButton(postID, buttonType, reactionType) {
         //quando viene cliccato il bottone, aggiorna dinamicamente il colore
         if(button.classList.contains("btn-outline-danger")) {
           button.classList.replace("btn-outline-danger", "btn-danger");
+          const react= document.createElement('em');
+          react.classList.add(iconTag, "position-absolute" ,"top-50", "start-50", "text-white", "animation", "display-4");
+          postDiv.appendChild(react);
+          react.offsetWidth;
+          react.classList.add('clicked');
+          setTimeout(() => {postDiv.removeChild(react)}, 800);
         } else {
           button.classList.replace("btn-danger", "btn-outline-danger");
         }
