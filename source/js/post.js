@@ -51,7 +51,7 @@ function generatePost(post_data) {
         </div>
     </div>
     <div class="card-footer">
-      <a data-bs-toggle="modal" data-bs-target="#commentModal" class="nav-link px-0 text-dark">
+      <a data-bs-toggle="modal" data-bs-target="#commentModal" class="nav-link px-0 text-dark" href="#">
         <i class="bi-chat-left-text"></i> <span class="fs-4 ms-2 d-sm-inline" id="comment${post_data[i]["postID"]}">Commenti (${post_data[i]["num_comments"]})</span>
       </a>
     </div>
@@ -101,6 +101,7 @@ axios.post("api-showpost.php", postsViewData).then(response => {
     addPostIDAlreadyShow(response.data["posts"]);
     enableAllButtons();
     enablePostComment();
+    loadMore();
     /*if (num == 0) {
       let element = document.getElementById('adddiv');
       let newdiv = showEndPost();
