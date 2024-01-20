@@ -37,10 +37,7 @@ class DatabaseHelper{
     public function removePost($postID) {
         $stmt = $this->db->prepare("DELETE FROM post WHERE postID = ?");
         $stmt->bind_param("i", $postID);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        return $result->fetch_all(MYSQLI_ASSOC);
+        return $stmt->execute();
     }
 
     public function updatePost($postId, $descrizione) {
