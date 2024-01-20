@@ -8,7 +8,7 @@ function generatePost(post_data) {
     section+= `
     <div class="card my-4 bg-secondary bg-opacity-10 row"> <!-- un Post inizia da qua -->
     <div class="card-header">
-        <a href="#" class="nav-link px-0 text-dark">
+        <a href="../php/profile.php?username=${post_data[i]["user"]}" class="nav-link px-0 text-dark">
             <img src="${uploadDir}${post_data[i]["urlProfilePicture"]}" class="rounded-circle py-0 mb-1" alt="..." width="40" height="40">
             <!--<i class="fs-3 bi-person-circle"></i>--> 
             <span class="fs-3 ms-2 mt-1 d-sm-inline">${post_data[i]["user"]}</span>
