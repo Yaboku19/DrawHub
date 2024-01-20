@@ -34,12 +34,12 @@ if ($templateParams["notifications"] === "link-secondary") {
 <body>
     <header>
     <div class="container p-0 m-0">
-    <div class="d-sm-block d-md-none fixed-top z-index-master w-100 bg-white bg-opacity-100 p-0 m-0">
-        <button class="navbar-toggler fs-1 my-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-            <i class="bi bi-list text-dark"></i>
-        </button>
-        <hr class="p-0 m-0">
-    </div>
+        <div class="d-sm-block d-md-none fixed-top z-index-master w-100 bg-white bg-opacity-100 p-0 m-0">
+            <button class="navbar-toggler fs-1 my-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                <i class="bi bi-list text-dark"></i>
+            </button>
+            <hr class="p-0 m-0">
+        </div>
     </div>
     </header>
     <main>

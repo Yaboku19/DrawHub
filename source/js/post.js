@@ -300,7 +300,7 @@ function addPostIDAlreadyShow(post_data) {
 }
 
 async function loadMore() {
-  if ((window.scrollY + window.innerHeight) >=(document.body.scrollHeight-1) && !loading) {
+  if ((window.scrollY + window.innerHeight) >=(document.body.scrollHeight-10) && !loading) {
     loading=true; //per farlo svolgere una volta sola
     console.log("scorre");
     /*const formData = new FormData();
