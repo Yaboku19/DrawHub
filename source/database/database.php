@@ -349,7 +349,7 @@ class DatabaseHelper{
                 VALUES (?, ?, ?, ?, ?);");
         $comment_query->bind_param("sisis", $user, $postID, $text, $commentID, $date);
         $result = $comment_query->execute();
-        return  $result;
+        return  $result && $this->addCommentNotification($user, $postID, $commentID, $date);
     }
 
     public function deleteComment($user, $postID, $commentID) {
@@ -387,6 +387,30 @@ class DatabaseHelper{
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    private function addCommentNotification ($newCommentUser, $newCommentPostID, $newCommentID, $date) {
+        $user = ;
+        $notificationID = $this->getNotificationId("newcomment", $user);
+        $comment_query = $this->db->prepare("INSERT INTO 
+                newcomment (user, notificationID, newCommentUser, newCommentPostID , newCommentID, dateNotification)
+                VALUES (?, ?, ?, ?, ?, ?);");
+        $comment_query->bind_param("sisiis",$user ,$notificationID ,$newCommentUser ,$newCommentPostID, ,$newCommentID ,$date);
+        $result = $comment_query->execute();
+        return  $result;
+    }
+
+    private function getNotificationId ($tableName, $user) {
+        $stmt = $this->db->prepare("SELECT notificationID FROM newcomment WHERE user = ? ORDER BY 1 DESC LIMIT 1");
+        $stmt->bind_param("s", $user);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $commentID = $result->fetch_all(MYSQLI_ASSOC)[0]["commentID"] + 1;
+        } else {
+            $commentID = 1;
+        }
+        return $commentID;
     }
 }
 ?>
