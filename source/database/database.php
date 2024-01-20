@@ -25,6 +25,30 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getPostbyId($postID) {
+        $stmt = $this->db->prepare("SELECT * FROM post WHERE postID = ?");
+        $stmt->bind_param("i", $postID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC)[0];
+    }
+
+    public function removePost($postID) {
+        $stmt = $this->db->prepare("DELETE FROM post WHERE postID = ?");
+        $stmt->bind_param("i", $postID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function updatePost($postId, $descrizione) {
+        $stmt = $this->db->prepare("UPDATE post SET description = ?  WHERE postID = ?");
+        $stmt->bind_param("si", $descrizione, $postId);
+        return $stmt->execute();
+    }
+
     public function getPasswordFromDB($email) {
         $stmt = $this->db->prepare("SELECT password FROM user U WHERE U.email = ?");
         $stmt->bind_param("s", $email,);
