@@ -97,7 +97,7 @@ function generateForm() {
     
     axios.post('sign-in.php', formData).then(response => {
         if (response.data["sign-in-result"]) {
-          //visualizeSuccess();
+          visualizeSuccess();
         } else {
           document.getElementById("error-text").innerText = response.data["text-error"];
         }
