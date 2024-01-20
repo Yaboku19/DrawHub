@@ -82,7 +82,8 @@ function showPostList(posts, addModifyButton) {
         cardBody.appendChild(newPost);
         if (addModifyButton) {
             document.getElementById("modify" + element["postID"]).addEventListener("click", function() {
-                window.location.href = `../php/modify-post.php?post_id=${element["postID"]}`;
+                console.log("chiamo modifypost.php");
+                window.location.href = `../php/modify-post.php?postId=${element["postID"]}`;
             });
         }
         /*updateButton(posts, btnLike, numeroLike, 1, -1, "btnlkd");
