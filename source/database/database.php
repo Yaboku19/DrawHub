@@ -232,7 +232,7 @@ class DatabaseHelper{
         $stmt = $this->db->prepare("INSERT INTO follow (followerUser, user) VALUES (?, ?)");
         $stmt->bind_param("ss", $user_follower, $user_followed);
         $result = $stmt->execute();
-        return $result;
+        return $result && $this->addFollowerNotification($user_followed, $user_follower);
     }
 
     /**
@@ -241,7 +241,7 @@ class DatabaseHelper{
     public function removeFollower($user_follower, $user_followed) {
         $stmt = $this->db->prepare("DELETE FROM follow WHERE followerUser = ? AND user = ?");
         $stmt->bind_param("ss", $user_follower, $user_followed);
-        return $stmt->execute();
+        return $stmt->execute() && $this->removeFollowerNotification($user_followed, $user_follower);
     }
 
     /**
@@ -311,7 +311,7 @@ class DatabaseHelper{
         $stmt = $this->db->prepare("INSERT INTO reaction (user, typeID, postID) VALUES (?, ?, ?)");
         $stmt->bind_param("ssi", $username, $reactionType, $postID);
         $result = $stmt->execute();
-        return $result;
+        return $result && $this->addReactionNotification($username, $postID, $reactionType);
     }
 
     public function removeReaction($username, $postID, $reactionType) {
@@ -414,27 +414,65 @@ class DatabaseHelper{
     }
 
     private function addCommentNotification ($newCommentUser, $newCommentPostID, $newCommentID, $date) {
-        $user = ;
+        $user = $this->getPostbyId($newCommentPostID)["user"];
         $notificationID = $this->getNotificationId("newcomment", $user);
         $comment_query = $this->db->prepare("INSERT INTO 
                 newcomment (user, notificationID, newCommentUser, newCommentPostID , newCommentID, dateNotification)
-                VALUES (?, ?, ?, ?, ?, ?);");
-        $comment_query->bind_param("sisiis",$user ,$notificationID ,$newCommentUser ,$newCommentPostID, ,$newCommentID ,$date);
+                VALUES (?, ?, ?, ?, ?, ?)");
+        $comment_query->bind_param("sisiis", $user ,$notificationID ,$newCommentUser ,$newCommentPostID ,$newCommentID ,$date);
         $result = $comment_query->execute();
         return  $result;
     }
 
-    private function getNotificationId ($tableName, $user) {
-        $stmt = $this->db->prepare("SELECT notificationID FROM newcomment WHERE user = ? ORDER BY 1 DESC LIMIT 1");
+    private function addReactionNotification ($newReactionUser, $newReactionPostID, $newReactionTypeID) {
+        $user = $this->getPostbyId($newReactionPostID)["user"];
+        $notificationID = $this->getNotificationId("newreaction", $user);
+        $date = date("Y-m-d");
+
+        $comment_query = $this->db->prepare("INSERT INTO newreaction (user, notificationID, newReactionUser, newReactionTypeID, newReactionPostID, dateNotification) VALUES (?, ?, ?, ?, ?, ?)");
+
+        $comment_query->bind_param("sissis", $user, $notificationID, $newReactionUser, $newReactionTypeID, $newReactionPostID, $date);
+        $result = $comment_query->execute();
+
+        return $result;
+    }
+
+    private function addFollowerNotification ($user, $follower) {
+        $notificationID = $this->getNotificationId("newfollower", $user);
+        $date = date("Y-m-d");
+
+        $comment_query = $this->db->prepare("INSERT INTO newfollower (user, notificationID, newFollowerUser, dateNotification) 
+            VALUES (?, ?, ?, ?)");
+        $comment_query->bind_param("siss", $user, $notificationID, $follower, $date);
+        $result = $comment_query->execute();
+
+        return $result;
+    }
+
+    private function removeFollowerNotification($user, $follower) {
+        $stmt = $this->db->prepare("SELECT notificationID FROM newfollower WHERE user = ? AND newFollowerUser = ?");
+        $stmt->bind_param("ss", $user, $follower);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $notificationID = $result->fetch_all(MYSQLI_ASSOC)[0]["notificationID"];
+        $stmt = $this->db->prepare("DELETE FROM newfollower WHERE user = ? AND notificationID = ?");
+        $stmt->bind_param("si", $user, $notificationID);
+        return $stmt->execute();
+    }
+
+    private function getNotificationId($tableName, $user) {
+        $escapedTableName = $this->db->real_escape_string($tableName);
+        $stmt = $this->db->prepare("SELECT notificationID FROM $escapedTableName WHERE user = ? ORDER BY 1 DESC LIMIT 1");
         $stmt->bind_param("s", $user);
         $stmt->execute();
         $result = $stmt->get_result();
         if ($result->num_rows > 0) {
-            $commentID = $result->fetch_all(MYSQLI_ASSOC)[0]["commentID"] + 1;
+            $notificationID = $result->fetch_all(MYSQLI_ASSOC)[0]["notificationID"] + 1;
         } else {
-            $commentID = 1;
+            $notificationID = 1;
         }
-        return $commentID;
+        return $notificationID;
     }
+    
 }
 ?>
