@@ -48,7 +48,6 @@ function generatePost(post_data) {
                 </button>
               </div>
             </div>
-          </div>
         </div>
     </div>
     <div class="card-footer">
