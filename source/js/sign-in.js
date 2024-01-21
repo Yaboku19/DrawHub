@@ -96,9 +96,12 @@ function generateForm() {
     formData.append('password', password);
     
     axios.post('sign-in.php', formData).then(response => {
+      console.log(response.data);      
         if (response.data["sign-in-result"]) {
+          console.log("sono qua");
           visualizeSuccess();
         } else {
+          console.log("sono qua2");
           document.getElementById("error-text").innerText = response.data["text-error"];
         }
     }).catch(err => {

@@ -7,7 +7,8 @@ $result["login-error"] = "";
 if(isset($_POST["email"]) && isset($_POST["password"])) {
   $storedHash = $dbh->getPasswordFromDB($_POST["email"]);
 
-  $result["test"] = "arrivoqui";
+  $result["test"] = password_verify($_POST["password"], $storedHash[0]["password"]);
+  $result["pwd"] = $_POST["password"];
   $result["hash"] = $storedHash[0]["password"];
   try {
   if(password_verify($_POST["password"], $storedHash[0]["password"])) {

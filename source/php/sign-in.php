@@ -2,8 +2,25 @@
 require_once("db_config.php");
 //$datiRicevuti = json_decode(file_get_contents("php://input"), true);
 
+require __DIR__ . '\PHPMailer\src\PHPMailer.php';
+require __DIR__ . '\PHPMailer\src\SMTP.php';
+require __DIR__ . '\PHPMailer\src\Exception.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+$mail = new PHPMailer();
+$mail->isSMTP();
+$mail->Host = 'smtp.libero.it';
+$mail->SMTPAuth = true;
+$mail->Username = 'drawhub@libero.it';
+$mail->Password = 'Drawhub!2024';
+$mail->SMTPSecure = 'ssl';
+$mail->Port = 465;
+$mail->SMTPDebug = SMTP::DEBUG_SERVER;
+
 $result["sign-in-result"] = false;
-$result["text-error"] = "errore"; //errore che comparirà se sbaglia i campi
 
 //create minimum date allowed to sign in
 $date = new DateTime('now');
@@ -21,7 +38,20 @@ if(isset($_POST["username"], $_POST["email"], $_POST["password"], $_POST["name"]
               if($_POST["date"] < $date) {
                 $hashpassword = password_hash($_POST["password"], PASSWORD_BCRYPT); //cripto la password con algoritmo BCRYPT
                 $result["hash"] = $hashpassword;
-                $result["sign-in-result"] = $dbh->addUser($_POST["username"], $_POST["email"], $hashpassword, $_POST["name"], $_POST["surname"], $_POST["date"]);
+                //$result["sign-in-result"] = $dbh->addUser($_POST["username"], $_POST["email"], $hashpassword, $_POST["name"], $_POST["surname"], $_POST["date"]);
+                $result["dbh"] = $dbh->addUser($_POST["username"], $_POST["email"], $hashpassword, $_POST["name"], $_POST["surname"], $_POST["date"]);
+                $result["sign-in-result"] = true;
+                $mail->setFrom('drawhub@libero.it', 'DrawHub');
+                $mail->addAddress($_POST["email"], "DrawHub");
+                $mail->Subject = 'DrawHub - Iscrizione avvenuta con successo';
+                $mail->Body = 'Iscrizione avvenuta con successo';
+                try {
+                  $mail->send();
+                  $result["email"] = 'Connessione SMTP riuscita';
+              } catch (\Exception $e) {
+                  $result["email"] = 'Errore nella connessione SMTP: ' . $e->getMessage();
+              }
+
               } else {
                 $result["sign-in-result"] = false;
                 $result["text-error"] = "L'età minima è 14 anni";

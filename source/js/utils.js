@@ -16,15 +16,20 @@ function showPostList(posts, addModifyButton) {
         element["user_has_pollice_giu"] = chooseButtonColor(element, "user_has_pollice_giu");
         let modifyButton = "";
         if (addModifyButton) {
-            modifyButton = `
+            /*modifyButton = `
                 <button id="modify${element["postID"]}" class="btn btn-outline-primary position-relative m-2 mx-3">
                     Modifica post
                 </button>
+            `;*/
+            modifyButton = `
+                <a href="../php/showModifyPost.php?postId=${element["postID"]}&descrizione=${element["description"]}"><button id="modify${element["postID"]}" class="btn btn-outline-primary position-relative m-2 mx-3">
+                    Modifica post
+                </button></a>
             `;
         }
         let img = "";
         if (element["urlImage"] != null) {
-            img = `<img src="${uploadDir}${element["urlImage"]}" alt="immagine del post" class="img-fluid">`;
+            img = `<img src="../img/${element["urlImage"]}" alt="immagine del post" class="img-fluid">`;
         }
         const newPost = document.createElement("div");
         newPost.innerHTML = `
@@ -80,12 +85,25 @@ function showPostList(posts, addModifyButton) {
             </div>
         `;
         cardBody.appendChild(newPost);
-        if (addModifyButton) {
+        /*if (addModifyButton) {
             document.getElementById("modify" + element["postID"]).addEventListener("click", function() {
-                console.log("chiamo modifypost.php");
-                window.location.href = `../php/modify-post.php?postId=${element["postID"]}`;
+                //console.log("chiamo modifypost.php");
+                const formData = new FormData();
+                formData.append("postId", element["postID"]);
+                formData.append("descrizione", element["description"]);
+
+                axios.post("showModifyPost.php", formData).then(response => {
+                    if(response.data["success"]){
+                        console.log("funziona");
+                        console.log(response.data["check"]);
+                    } else {
+                        console.log("mostro errore");
+                        //document.getElementById("error-text").innerText = "Descrizione non valida";
+                    }
+                });
+                //window.location.href = `../php/modify-post.php?postId=${element["postID"]}`;
             });
-        }
+        }*/
         /*updateButton(posts, btnLike, numeroLike, 1, -1, "btnlkd");
         updateButton(posts, btnFire, numeroFire, 2, -2, "btnFireLkd");
         updateButton(posts, btnSmile, numeroSmile, 3, -3, "btnSmileLkd");

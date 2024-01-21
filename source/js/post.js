@@ -1,4 +1,4 @@
-function generatePost(post_data) {
+function generateForm(post_data) {
   let section = ``;
   for (let i = 0; i < post_data.length && i < 10; i++) { 
     post_data[i]["user_has_cuore"] = chooseButtonColor(post_data[i], "user_has_cuore");
@@ -76,8 +76,8 @@ function chooseButtonColor(data, index) {
 }
 
 
-function showPost(post_data) {
-  let form = generatePost(post_data);
+function showForm(post_data) {
+  let form = generateForm(post_data);
   div.innerHTML += form; 
 }
 
@@ -101,7 +101,7 @@ postsViewData.append('postsView', postsView);
 axios.post("api-showpost.php", postsViewData).then(response => {
   console.log(response.data);
   if (response.data["success"]) {
-    showPost(response.data["posts"]);
+    showForm(response.data["posts"]);
     addPostIDAlreadyShow(response.data["posts"]);
     enableAllButtons();
     enablePostComment();
@@ -324,7 +324,7 @@ async function loadMore() {
       console.log(response.data);
       console.log(num);
       if (response.data["success"]) {
-        showPost(response.data["posts"]);
+        showForm(response.data["posts"]);
         addPostIDAlreadyShow(response.data["posts"]);
         enableAllButtons(response.data["posts"].length, response.data["posts"]);
         console.log(num);
