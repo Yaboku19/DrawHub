@@ -36,7 +36,7 @@ function showPostList(posts, addModifyButton) {
         <div class="container">
             <div class="col d-flex justify-content-between p-2 px-3">
                 <div class="d-flex flex-row align-items-center">
-                    <img src="../img/${element["userProfilePicture"]}" width="50" class="rounded-circle" alt="">
+                    <img src="../img/${element["userProfilePicture"]}" class="rounded-circle py-0 mb-1" alt="foto profilo" width="40" height="40">
                     <div class="d-flex flex-column ml-2">
                         <a class=" mx-2 nav-link" href="profile.php?username=${element["user"]}">@${element["user"]}</a>
                     </div>
