@@ -1,0 +1,13 @@
+.animation {
+    width: 100px;
+    height: 100px;
+    opacity: 0;
+    filter: blur(5px); 
+    transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out, filter 0.2s ease-in-out;
+  }
+
+  .animation.clicked {
+    transform: scale(1.2);
+    opacity: 1;
+    filter: blur(0);
+  }
