@@ -36,7 +36,7 @@ function showPostList(posts, addModifyButton) {
         <div class="container">
             <div class="col d-flex justify-content-between p-2 px-3">
                 <div class="d-flex flex-row align-items-center">
-                    <img src="../img/${element["userProfilePicture"]}" width="50" class="rounded-circle" alt="">
+                    <img src="../img/${element["userProfilePicture"]}" class="rounded-circle py-0 mb-1" alt="foto profilo" style="width: 40px; height: 40px; object-fit: cover;">
                     <div class="d-flex flex-column ml-2">
                         <a class=" mx-2 nav-link" href="profile.php?username=${element["user"]}">@${element["user"]}</a>
                     </div>
@@ -138,7 +138,7 @@ function showUserList(users) {
             <div class="row">
                 <div class="d-flex align-items-center">
                     <div class="flex-shrink-0">
-                    <img src="${uploadDir}${element["urlProfilePicture"]}" class="rounded-circle" width="50" hight="50" alt="">
+                    <img src="${uploadDir}${element["urlProfilePicture"]}" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;" alt="">
                     </div>
                     <div class="flex-grow-1 ms-3">
                         <a href="profile.php?username=${element["username"]}">${element["name"]} ${element["surname"]} @${element["username"]}</a> 
