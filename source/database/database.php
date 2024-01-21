@@ -387,7 +387,7 @@ class DatabaseHelper{
     }
 
     public function getAllNewFollower($user) {
-        $stmt = $this->db->prepare("SELECT newFollowerUser, dateNotification FROM newfollower WHERE user = ?");
+        $stmt = $this->db->prepare("SELECT * FROM newfollower WHERE user = ?");
         $stmt->bind_param("s", $user);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -395,7 +395,7 @@ class DatabaseHelper{
     }
 
     public function getAllNewComment($user) {
-        $stmt = $this->db->prepare("select newCommentPostID, dateNotification from newcomment where user = ?");
+        $stmt = $this->db->prepare("SELECT NC.*, P.urlImage FROM newcomment NC, post P WHERE NC.user = ? AND NC.newCommentPostID=P.postID");
         $stmt->bind_param("s", $user);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -403,7 +403,7 @@ class DatabaseHelper{
     }
 
     public function getAllNewReaction($user) {
-        $stmt = $this->db->prepare("SELECT newReactionPostID, dateNotification FROM newreaction WHERE user = ?");
+        $stmt = $this->db->prepare("SELECT NR.*, P.urlImage, R.tagImage FROM newreaction NR, post P, reactionType R WHERE NR.user = ? AND NR.newReactionPostID=P.postID AND NR.newReactionTypeID=R.typeID");
         $stmt->bind_param("s", $user);
         $stmt->execute();
         $result = $stmt->get_result();

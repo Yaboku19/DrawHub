@@ -11,31 +11,20 @@
 </head>
 <body>
     <header>
-    <div class="container p-0">
-        <div class="d-sm-block d-md-none fixed-top z-index-master w-100 bg-white bg-opacity-100 p-0 m-0">
-            <div class="row">
-            <div class="col-auto pe-0 mx-0">
-                <!-- Pulsante -->
-                <button class="navbar-toggler fs-1 mx-0 my-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                    <i class="bi bi-list text-dark"></i>
-                </button>
-            </div>    
-            <div class="col text-center px-0 mx-0">
-                    <!-- Immagine -->
-                    <img src="../img/drawhub.png" class="pt-2 me-5 img-fluid" alt="Immagine" class="img-fluid" width="120">
+        <div class="d-sm-block d-md-none container p-3">
+            <div class=" fixed-top z-index-master w-100 bg-white bg-opacity-100 p-0 m-0">
+                <div class="row">
+                    <div class="col-auto pe-0 mx-0">
+                        <button class="navbar-toggler fs-1 mx-0 my-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                            <i class="bi bi-list text-dark"></i>
+                        </button>
+                    </div>    
+                    <div class="col text-center px-0 mx-0">
+                            <img src="../img/drawhub.png" class="pt-2 me-5 img-fluid" alt="Immagine" class="img-fluid" width="120">
+                    </div>
                 </div>
-                
             </div>
         </div>
-    </div>
-    <!--<div class="container p-0 m-0">
-        <div class="d-sm-block d-md-none fixed-top z-index-master w-100 bg-white bg-opacity-100 p-0 m-0">
-            <button class="navbar-toggler fs-1 my-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                <i class="bi bi-list text-dark"></i>
-            </button>
-            <hr class="p-0 m-0">
-        </div>
-    </div>-->
     </header>
     <main>
         <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
