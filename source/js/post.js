@@ -1,4 +1,4 @@
-function generatePost(post_data) {
+function generateForm(post_data) {
   let section = ``;
   for (let i = 0; i < post_data.length && i < 10; i++) { 
     post_data[i]["user_has_cuore"] = chooseButtonColor(post_data[i], "user_has_cuore");
@@ -73,7 +73,7 @@ function chooseButtonColor(data, index) {
 
 
 function showForm(post_data) {
-  let form = generatePost(post_data);
+  let form = generateForm(post_data);
   div.innerHTML += form; 
 }
 

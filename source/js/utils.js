@@ -85,12 +85,14 @@ function showPostList(posts, addModifyButton) {
             </div>
         `;
         cardBody.appendChild(newPost);
-        if (addModifyButton) {
-            /*document.getElementById("modify" + element["postID"]).addEventListener("click", function() {
-                console.log("chiamo modifypost.php");
+        /*if (addModifyButton) {
+            document.getElementById("modify" + element["postID"]).addEventListener("click", function() {
+                //console.log("chiamo modifypost.php");
                 const formData = new FormData();
                 formData.append("postId", element["postID"]);
-                axios.post("modify-post.php", formData).then(response => {
+                formData.append("descrizione", element["description"]);
+
+                axios.post("showModifyPost.php", formData).then(response => {
                     if(response.data["success"]){
                         console.log("funziona");
                         console.log(response.data["check"]);
@@ -100,8 +102,8 @@ function showPostList(posts, addModifyButton) {
                     }
                 });
                 //window.location.href = `../php/modify-post.php?postId=${element["postID"]}`;
-            });*/
-        }
+            });
+        }*/
         /*updateButton(posts, btnLike, numeroLike, 1, -1, "btnlkd");
         updateButton(posts, btnFire, numeroFire, 2, -2, "btnFireLkd");
         updateButton(posts, btnSmile, numeroSmile, 3, -3, "btnSmileLkd");
