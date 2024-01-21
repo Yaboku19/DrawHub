@@ -118,37 +118,37 @@
                         </div>
                         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
                             <li class="nav-item">
-                                <a href="../php/showHomepage.php" class="nav-link px-0 text-dark">
+                                <a href="../php/showHomepage.php" class="nav-link px-0 text-dark d-flex flex-nowrap">
                                     <i class="fs-4 bi-house-fill"></i> <span class="fs-4 ms-2 d-none d-sm-inline">Home</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="../php/profile.php?username=<?php echo $_SESSION["username"];?>" class="nav-link px-0 text-dark">
+                                <a href="../php/profile.php?username=<?php echo $_SESSION["username"];?>" class="nav-link px-0 text-dark d-flex flex-nowrap">
                                     <i class="fs-4 bi-person-circle"></i> <span class="fs-4 ms-2 d-none d-sm-inline">Account</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="../php/showNotification.php" class="nav-link px-0 text-dark">
+                                <a href="../php/showNotification.php" class="nav-link px-0 text-dark d-flex flex-nowrap">
                                     <i class="fs-4 bi-bell-fill"></i> <span class="fs-4 ms-2 d-none d-sm-inline">Notifiche</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a data-bs-toggle="modal" data-bs-target="#searchModal" class="nav-link px-0 text-dark" href="#">
+                                <a data-bs-toggle="modal" data-bs-target="#searchModal" class="nav-link px-0 text-dark d-flex flex-nowrap" href="#">
                                     <i class="fs-4 bi-search"></i> <span class="fs-4 ms-2 d-none d-sm-inline">Cerca</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="../php/showAddPost.php" class="nav-link px-0 text-dark">
+                                <a href="../php/showAddPost.php" class="nav-link px-0 text-dark d-flex flex-nowrap">
                                     <i class="fs-4 bi-plus-circle-fill"></i> <span class="fs-4 ms-2 d-none d-sm-inline">Nuovo post</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="../php/showExplore.php" class="nav-link px-0 text-dark">
+                                <a href="../php/showExplore.php" class="nav-link px-0 text-dark d-flex flex-nowrap">
                                     <i class="fs-4 bi-compass-fill"></i> <span class="fs-4 ms-2 d-none d-sm-inline">Esplora</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="../php/showSettings.php" class="nav-link px-0 text-dark">
+                                <a href="../php/showSettings.php" class="nav-link px-0 text-dark d-flex flex-nowrap">
                                     <i class="fs-4 bi-gear-fill"></i> <span class="fs-4 ms-2 d-none d-sm-inline">Impostazioni</span>
                                 </a>
                             </li>
