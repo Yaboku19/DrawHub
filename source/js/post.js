@@ -236,6 +236,10 @@ function loadComments(postID) {
       modalheader.innerHTML = postID;
       if (modalBody) {
         document.querySelectorAll("div.commentsList")?.forEach(element => element.remove());
+        let commentSpan = document.getElementById("comment"+postID);
+        if (commentSpan) {
+          commentSpan.innerHTML = "commenti ("+ response.data["comments"].length +")";
+        }
         for (let i = 0; i < response.data["comments"].length; i++) {
           const container = document.createElement("div");
           container.classList = "container commentsList";
@@ -244,8 +248,10 @@ function loadComments(postID) {
               <div class="commento">
                 <div class="d-flex align-items-center">
                   <div class="flex-grow-1 ms-4">
-                      <p class="d-block w-100 text-wrap text-primary fs-5">${response.data["comments"][i]["user"]} 
-                      <span class=" text-secondary fs-6 ms-4">${response.data["comments"][i]["dateComment"]}</span></p>
+                      <p>
+                        <a href="../php/profile.php?username=${response.data["comments"][i]["user"]}" class=" text-wrap text-primary fs-5 d-inline-block text-decoration-none">${response.data["comments"][i]["user"]}</a>
+                        <span class=" text-secondary fs-6 ms-4">${response.data["comments"][i]["dateComment"]}</span>
+                      </p>
                       <p class="d-block w-100 text-wrap fs-5">${response.data["comments"][i]["text"]}</p>
                   </div>
                   <div class="ms-auto">
@@ -262,8 +268,10 @@ function loadComments(postID) {
               <div class="commento">
                 <div class="d-flex align-items-center">
                     <div class="flex-grow-1 ms-4">
-                      <p class="d-block w-100 text-wrap text-primary fs-5">${response.data["comments"][i]["user"]} 
-                      <span class=" text-secondary fs-6 ms-4">${response.data["comments"][i]["dateComment"]}</span></p>
+                      <p>
+                        <a href="../php/profile.php?username=${response.data["comments"][i]["user"]}" class=" text-wrap text-primary fs-5 d-inline-block text-decoration-none">${response.data["comments"][i]["user"]}</a>
+                        <span class=" text-secondary fs-6 ms-4">${response.data["comments"][i]["dateComment"]}</span>
+                      </p>
                       <p class="d-block w-100 text-wrap fs-5">${response.data["comments"][i]["text"]}</p>
                     </div>
                 </div>
