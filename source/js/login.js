@@ -62,6 +62,7 @@ function generateForm(loginerror = null) {
       console.log(response.data["test"]);  
       console.log(response.data["hash"]); 
       console.log(response.data["login-result"]); 
+      console.log(response.data); 
       if (response.data["login-result"]) {
           console.log("funziona");  
           window.location.href = "../php/showhomepage.php";
