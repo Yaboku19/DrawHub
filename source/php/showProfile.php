@@ -20,7 +20,7 @@ if (isset($_SESSION["username"])) {
             <div class="left-column">
                 <div class="card mb-4">
                     <div class="card-body text-center">
-                        <img src="<?php echo($templateParams["user_image"]) ?>" id="profileImage" class="rounded-circle py-0 mb-1 px-2" alt="foto profilo" style="width: 110px; height: 110px; object-fit: cover;">
+                        <img src="<?php echo($templateParams["user_image"]) ?>" id="profileImage" class="rounded-circle py-0 mb-1 img-fluid" alt="foto profilo" style="width: 110px; height: 110px; object-fit: cover;">
                         <p class="card-title mt-2"><?php echo($templateParams["u_name"]." ".$templateParams["surname"]) ?></p>
                         <p class="card-text">@<?php echo($templateParams["username"]) ?></p>
                         <p class="card-text text-justify mb-2"><?php echo($templateParams["bio"]) ?></p>
