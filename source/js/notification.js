@@ -145,59 +145,94 @@
       deleteNotification(notification_id);
     });
   }*/
-function loadfollower(follower) {
+
+
+function loadfollower(follower, color) {
   return `
     <div>
-      <div class="container bg-info"> 
-        <div class="row d-flex align-items-center">
-          <p>${follower["newFollowerUser"]} ti ha seguito</p>
+      <div class="container ${color} border"> 
+        <div class="row d-flex align-items-center mt-2">
+          <p>
+          <a href="../php/profile.php?username=${follower["newFollowerUser"]}" class="d-inline-block text-decoration-none text-primary">${follower["newFollowerUser"]}</a> ti ha seguito
+          </p>
         </div>
       </div> 
     </div>
   `;
 }
 
-function loadcomment(comment) {
+function loadcomment(comment, color) {
   return `
-    <div>
-      <div class="container bg-info"> 
-        <div class="row d-flex align-items-center">
-          <p> hanno commentato in questo post: ${comment["newCommentPostID"]} </p>
+      <div class="container ${color} border"> 
+        <div class="row align-items-center">
+          <div class="col-auto">
+            <p class="mt-2">
+              <a href="../php/profile.php?username=${comment["newCommentUser"]}" class="d-inline-block text-decoration-none text-primary">${comment["newCommentUser"]} </a> ha commentato in questo post:  
+            </p> 
+          </div>
+          <div class="col-auto">
+            <img class="my-2" src="../img/${comment["urlImage"]}" alt="immagine del post" height="70" >
+          </div>
         </div>
-      </div> 
+      </div>
     </div>
   `;
 }
 
-function loadreaction(reaction) {
+function containerBase() {
   return `
-    <div>
-      <div class="container bg-info"> 
-        <div class="row d-flex align-items-center">
-        <p> hanno fatto reaction in questo post: ${reaction["newReactionPostID"]}  </p>
-        </div>
-      </div> 
+    <div class="container mt-3" id="notificationContainer">
+      
     </div>
   `;
 }
 
+function loadreaction(reaction, color) {
+  return `
+    <div>
+      <div class="container ${color} border"> 
+        <div class="row align-items-center">
+        <div class="col-auto">
+        <p class="mt-2"><a href="../php/profile.php?username=${reaction["newReactionUser"]}" class="d-inline-block text-decoration-none text-primary">${reaction["newReactionUser"]} </a> ha reagito al post con:  <em class="${reaction["tagImage"]} text-danger"></em></p> 
+        </div>
+        <div class="col-auto">
+        <img class="my-2" src="../img/${reaction["urlImage"]}" alt="immagine del post" height="70" >
+        </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+const background = "bg-secondary bg-opacity-10";
 let div = document.getElementById("dinamic"); 
+div.innerHTML += containerBase();
+div = document.getElementById("notificationContainer");
 axios.get("api-getnotification.php").then(response => {
   console.log(div);
   if (response.data["success"]) {
     let array = response.data["followers"].concat(response.data["comments"], response.data["reactions"]);
     let sortedArray = array.sort((a, b) => new Date(b["dateNotification"]) - new Date(a["dateNotification"]));
+    let color = background;
     sortedArray.forEach(notification => {
+      color = chooseColor(color);
       if (notification["newFollowerUser"] !== undefined) {
-        div.innerHTML += loadfollower(notification);
+        div.innerHTML += loadfollower(notification, color);
       }else if(notification["newCommentPostID"] !== undefined) {
-        div.innerHTML += loadcomment(notification);
+        div.innerHTML += loadcomment(notification, color);
       } else {
-        div.innerHTML += loadreaction(notification);
+        div.innerHTML += loadreaction(notification, color);
       }
     });
   } else {
     console.log(response.data["comment"]);
   }
 });
+
+function chooseColor(color) {
+  if(color == background) {
+    return "bg-white"
+  } else {
+    return background;
+  }
+}
   
