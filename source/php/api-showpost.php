@@ -11,7 +11,9 @@ if (isset($_SESSION["username"]) && isset($_POST["postsView"])) {
         $post = $dbh->getExplorePosts($_SESSION["username"], $numeropost);
     } else if($_POST["postsView"] == "Profile") {
         $post = $dbh->getAllUserPosts($_POST["username"]); //query post utente
-        $modifyButton = true;
+        if($_POST["username"] === $_SESSION["username"]) {
+            $modifyButton = true;
+        }
     }
     
     for($i = 0; $i < count($post); $i++) {
