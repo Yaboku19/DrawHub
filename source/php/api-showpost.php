@@ -10,7 +10,7 @@ if (isset($_SESSION["username"]) && isset($_POST["postsView"])) {
     } else if($_POST["postsView"] == "Explore") {
         $post = $dbh->getExplorePosts($_SESSION["username"], $numeropost);
     } else if($_POST["postsView"] == "Profile") {
-        $post = $dbh->getAllUserPosts($_SESSION["username"]); //query post utente
+        $post = $dbh->getAllUserPosts($_POST["username"]); //query post utente
         $modifyButton = true;
     }
     

@@ -44,7 +44,7 @@ function showUserList(users) {
           <div class="row">
               <div class="d-flex align-items-center">
                   <div class="flex-shrink-0">
-                  <img src="${uploadDir}${element["urlProfilePicture"]}" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;" alt="">
+                  <img src="../img/${element["urlProfilePicture"]}" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;" alt="">
                   </div>
                   <div class="flex-grow-1 ms-3">
                       <a href="profile.php?username=${element["username"]}">${element["name"]} ${element["surname"]} @${element["username"]}</a> 
@@ -66,7 +66,8 @@ function showErrorMsg(errorMsg) {
           <p class="text-center">${errorMsg}</p>
       </div>
   `;
-  main.appendChild(errorNode);
+  const cardBody = document.createElement("div");
+  cardBody.appendChild(errorNode);
 }
 
 function deactivateAll(listElements) {
@@ -131,9 +132,12 @@ function enableFollowersButton() {
           //addPostIDAlreadyShow(response.data["posts"]);
           enableAllButtons();
           enableFollowersButton();
+          enableFollow();
           //enablePostComment();
           loadMore();
         } else {
+          enableFollowersButton();
+          enableFollow();
           //div.appendChild(showError());
         }
       });

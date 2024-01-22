@@ -69,7 +69,7 @@ function showPage(currentSettings){//, response_select) {
             <label for="passw">Password</label>
           </div>
           <div class="col-sm-6">
-            <input type="password" id="passw" name="passw" class="justify-content-end" value="${currentSettings["email"]}" />
+            <input type="password" id="passw" name="passw" class="justify-content-end" value=""/>
           </div>
         </div>
         <div class="flex d-flex justify-content-between">

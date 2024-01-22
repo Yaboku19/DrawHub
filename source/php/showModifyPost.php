@@ -14,7 +14,7 @@ $_SESSION["description"] = $_GET["descrizione"];
 if(isset($_GET["errormsg"])) {
     $_SESSION["errormsg"] = $_GET["errormsg"];
 }
-$templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js", "../js/modify-post.js");
+$templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js", "../js/updateNotification.js", "../js/modify-post.js");
 //$templateParams["name"] = "show-modify-post.php";
 
 require("../template/base.php");

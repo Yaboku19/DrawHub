@@ -83,6 +83,20 @@ function generateForm(post_data) {
 return section;
 }
 
+function showError() {
+  return `<div>
+        <div class="container bg-secondary bg-opacity-10 border"> 
+          <div class="row d-flex align-items-center my-1">
+            <div class="col-12">
+              <p class="my-1">
+              Non hai post da visualizzare, inizia a <a href="../php/showExplore.php"> cercare</a>
+              </p>
+            </div>
+          </div>
+        </div> 
+      </div>`;
+}
+
 function chooseButtonColor(data, index) {
   if(data[index]) {
     data[index]="btn-danger";
@@ -116,6 +130,7 @@ console.log(postsView);
 const postsViewData = new FormData();
 postsViewData.append('postsView', postsView);
 
+postsViewData.append('username', usernameprofileprova);
 axios.post("api-showpost.php", postsViewData).then(response => {
   console.log(response.data);
   if (response.data["success"]) {
@@ -123,11 +138,21 @@ axios.post("api-showpost.php", postsViewData).then(response => {
     addPostIDAlreadyShow(response.data["posts"]);
     enableAllButtons();
     enablePostComment();
-    if(postsView =="Profile") {
+    if(postsView == "Profile") {
       enableFollowersButton();
+      enableFollow();
     }
     loadMore();
   } else {
+    if(postsView=="HomePage") {
+      let formErr = showError();
+      div.innerHTML += formErr; 
+      
+    }
+    if(postsView =="Profile") {
+      enableFollowersButton();
+      enableFollow();
+    }
     //div.appendChild(showError());
   }
 
@@ -327,9 +352,6 @@ async function loadMore() {
   if ((window.scrollY + window.innerHeight) >=(document.body.scrollHeight-10) && !loading) {
     loading=true; //per farlo svolgere una volta sola
     console.log("scorre");
-    /*const formData = new FormData();
-    formData.append('num', num);
-    formData.append('postsView', postsView);*/
     await axios.post("api-loadMorePosts.php", {
       numPost: num,
       postsView: postsView
@@ -345,22 +367,4 @@ async function loadMore() {
     });
     loading=false;
   }
-}/*
-
-function showEndPost() {
-  let newdiv = `<div class="d-flex justify-content-between p-2 px-3">
-    <p>Non ci sono più post da mostrare</p>
-  </div>`
-  let div = document.createElement("div");
-  div.innerHTML = newdiv;
-  return div;
 }
-
-function showError() {
-  let newdiv = `<div class="d-flex justify-content-between p-2 px-3 bg-light">
-    <p class="fs-3">Errore! Si prega di riprovare o ripetere l'accesso. </p>
-  </div>`
-  let div = document.createElement("div");
-  div.innerHTML = newdiv;
-  return div;
-}*/
