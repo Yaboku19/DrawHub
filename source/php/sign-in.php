@@ -18,7 +18,7 @@ $mail->Username = 'drawhub@libero.it';
 $mail->Password = 'Drawhub!2024';
 $mail->SMTPSecure = 'ssl';
 $mail->Port = 465;
-$mail->SMTPDebug = SMTP::DEBUG_SERVER;
+//$mail->SMTPDebug = SMTP::DEBUG_SERVER;
 
 $result["sign-in-result"] = false;
 
@@ -48,10 +48,9 @@ if(isset($_POST["username"], $_POST["email"], $_POST["password"], $_POST["name"]
                 try {
                   $mail->send();
                   $result["email"] = 'Connessione SMTP riuscita';
-              } catch (\Exception $e) {
-                  $result["email"] = 'Errore nella connessione SMTP: ' . $e->getMessage();
-              }
-
+                } catch (\Exception $e) {
+                    $result["email"] = 'Errore nella connessione SMTP: ' . $e->getMessage();
+                }
               } else {
                 $result["sign-in-result"] = false;
                 $result["text-error"] = "L'età minima è 14 anni";
