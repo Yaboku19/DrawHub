@@ -461,7 +461,8 @@ class DatabaseHelper{
 
     private function getNotificationId($tableName, $user) {
         $escapedTableName = $this->db->real_escape_string($tableName);
-        $stmt = $this->db->prepare("SELECT notificationID FROM $escapedTableName WHERE user = ? ORDER BY 1 DESC LIMIT 1");
+        $stmt = $this->db->prepare("SELECT notificationID FROM $escapedTableName WHERE user = ? 
+                                    ORDER BY 1 DESC LIMIT 1");
         $stmt->bind_param("s", $user);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -471,6 +472,13 @@ class DatabaseHelper{
             $notificationID = 1;
         }
         return $notificationID;
+    }
+
+    public function removeNotification($tableName, $user, $notificationID) {
+        $escapedTableName = $this->db->real_escape_string($tableName);
+        $stmt = $this->db->prepare("DELETE FROM $escapedTableName WHERE user = ? AND notificationID = ?");
+        $stmt->bind_param("si", $user, $notificationID);
+        return $stmt->execute();
     }
     
 }
