@@ -33,7 +33,7 @@ function showPostList(posts, addModifyButton) {
         }
         const newPost = document.createElement("div");
         newPost.innerHTML = `
-        <div class="container">
+        <div class="container mt-2">
             <div class="col d-flex justify-content-between p-2 px-3">
                 <div class="d-flex flex-row align-items-center">
                     <img src="../img/${element["userProfilePicture"]}" class="rounded-circle py-0 mb-1" alt="foto profilo" style="width: 40px; height: 40px; object-fit: cover;">
@@ -41,16 +41,16 @@ function showPostList(posts, addModifyButton) {
                         <a class=" mx-2 nav-link" href="profile.php?username=${element["user"]}">@${element["user"]}</a>
                     </div>
                 </div>
-                <div class="d-flex flex-row mt-1 ellipsis">
-                    <small class="mr-2">${element["datePost"]}</small>
+                <div class="d-flex flex-row mt-1 ml-2 ellipsis">
+                    <small class="">${element["datePost"]}</small>
                     <em class="fa fa-ellipsis-h"></em>
                 </div>
-                </div>
-                <div class="px-4 mt-3 mb-3">
-                ${img}
-            <p class=" my-2 text-justify">${element["description"]}.</p>
             </div>
-            <div class="mt-4">
+            <div class="px-4 mt-3 mb-3">
+                ${img}
+                <p class=" my-2 text-justify">${element["description"]}.</p>
+            </div>
+            <div class="mt-2">
 
             <button type="button" class="btn ${element["user_has_cuore"]} position-relative mx-3 fs-5" id="btn_cuore_${element["postID"]}"><em class="bi-heart-fill"></em>
               <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cuore${element["postID"]}">

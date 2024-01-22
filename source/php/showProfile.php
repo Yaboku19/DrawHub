@@ -35,9 +35,9 @@ if (isset($_SESSION["username"])) {
                 <div class="card border-primary">
                     <div class="card-header">
                         <ul class="list-group list-group-horizontal p-0 text-center">
-                            <li class="col-4 list-group-item align-items-center"><a class="link-primary" id="posts" href="#">Post</a> <span id="postCount" class="badge bg-primary rounded-pill text-light"><?php echo($templateParams["post_count"]) ?></span></li>
-                            <li class="col-4 list-group-item align-items-center"><a class="link-primary" id="followers" href="#">Seguaci</a> <span id="followerCount" class="badge bg-primary rounded-pill text-light"><?php echo($templateParams["follower_count"]) ?></span></li>
-                            <li class="col-4 list-group-item align-items-center"><a class="link-primary" id="following" href="#">Seguiti</a> <span id="followingCount" class="badge bg-primary rounded-pill text-light"><?php echo($templateParams["followed_count"]) ?></span></li>
+                            <li class="col-4 list-group-item align-items-center text-nowrap"><a class="link-primary text-decoration-none" id="posts" href="#">Post</a><div class="d-block"><span id="postCount" class="badge bg-white rounded-pill text-primary"><?php echo($templateParams["post_count"]) ?></span></div></li>
+                            <li class="col-4 list-group-item align-items-center text-nowrap"><a class="link-primary text-decoration-none" id="followers" href="#">Seguaci</a> <div class="d-block"><span id="followerCount" class="badge bg-primary rounded-pill text-light"><?php echo($templateParams["follower_count"]) ?></span></div></li>
+                            <li class="col-4 list-group-item align-items-center text-nowrap"><a class="link-primary text-decoration-none" id="following" href="#">Seguiti</a> <div class="d-block"><span id="followingCount" class="badge bg-primary rounded-pill text-light"><?php echo($templateParams["followed_count"]) ?></span></div></li>
                         </ul>
                     </div>
                 </div>
