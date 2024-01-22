@@ -238,7 +238,7 @@ function loadComments(postID) {
         document.querySelectorAll("div.commentsList")?.forEach(element => element.remove());
         let commentSpan = document.getElementById("comment"+postID);
         if (commentSpan) {
-          commentSpan.innerHTML = "commenti ("+ response.data["comments"].length +")";
+          commentSpan.innerHTML = "Commenti ("+ response.data["comments"].length +")";
         }
         for (let i = 0; i < response.data["comments"].length; i++) {
           const container = document.createElement("div");
