@@ -122,6 +122,8 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    
+
     /**
      * Prende i post degli utenti che segue
      */
@@ -257,7 +259,7 @@ class DatabaseHelper{
      * The are ordered from the most recent to the least recent
      */
     public function getAllUserPosts($username) {
-        $stmt = $this->db->prepare("SELECT * FROM post WHERE user = ? ORDER BY datePost DESC");
+        $stmt = $this->db->prepare("SELECT P.*, U.urlProfilePicture FROM post P, user U WHERE P.user = ? AND P.user=U.username ORDER BY P.datePost DESC");
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();

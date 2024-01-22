@@ -1,18 +1,35 @@
 function generateForm(post_data) {
   let section = ``;
   for (let i = 0; i < post_data.length && i < 10; i++) { 
+    let modifyButton = "";
+    if (post_data[i]["modifyButton"]) {
+        modifyButton = `
+            <a href="../php/showModifyPost.php?postId=${post_data[i]["postID"]}&descrizione=${post_data[i]["description"]}" class="d-block"><button id="modify${post_data[i]["postID"]}" class="btn btn-outline-primary position-relative mx-0 px-1 py-1 mt-2 mb-1">
+                Modifica post
+            </button></a>
+        `;
+    }
     post_data[i]["user_has_cuore"] = chooseButtonColor(post_data[i], "user_has_cuore");
     post_data[i]["user_has_occhi_a_cuore"] = chooseButtonColor(post_data[i], "user_has_occhi_a_cuore");
     post_data[i]["user_has_occhi_neutri"] = chooseButtonColor(post_data[i], "user_has_occhi_neutri");
     post_data[i]["user_has_pollice_giu"] = chooseButtonColor(post_data[i], "user_has_pollice_giu");
     section+= `
-    <div class="card my-4 bg-secondary bg-opacity-10 row"> <!-- un Post inizia da qua -->
+    <div class="card my-4 bg-secondary bg-opacity-10 row postCard"> <!-- un Post inizia da qua -->
     <div class="card-header">
-        <a href="../php/profile.php?username=${post_data[i]["user"]}" class="nav-link px-0 text-dark">
-            <img src="../img/${post_data[i]["urlProfilePicture"]}" class="rounded-circle py-0 mb-1" alt="foto profilo" width="40" height="40">
-            <!--<i class="fs-3 bi-person-circle"></i>--> 
-            <span class="fs-3 ms-2 mt-1 d-sm-inline">${post_data[i]["user"]}</span>
-        </a>
+      <div class="container">
+        <div class="row">
+          <div class="col-7">
+            <a href="../php/profile.php?username=${post_data[i]["user"]}" class="nav-link px-0 mx-0 my-1  text-dark">
+                <img src="../img/${post_data[i]["urlProfilePicture"]}" class="rounded-circle py-0 mb-1" alt="foto profilo" width="40" height="40">
+                <!--<i class="fs-3 bi-person-circle"></i>--> 
+                <span class="fs-3 ms-2 pt-1 mt-2 d-sm-inline">${post_data[i]["user"]}</span>
+            </a>
+          </div>
+          <div class="col-5 text-end">
+          ${modifyButton}
+          </div>
+        </div>
+      </div>
     </div>
     <div class="card-body">
         <p class="card-text">${post_data[i]["description"]}</p>
@@ -98,6 +115,7 @@ let end = false;
 console.log(postsView);
 const postsViewData = new FormData();
 postsViewData.append('postsView', postsView);
+
 axios.post("api-showpost.php", postsViewData).then(response => {
   console.log(response.data);
   if (response.data["success"]) {
@@ -105,26 +123,10 @@ axios.post("api-showpost.php", postsViewData).then(response => {
     addPostIDAlreadyShow(response.data["posts"]);
     enableAllButtons();
     enablePostComment();
+    if(postsView =="Profile") {
+      enableFollowersButton();
+    }
     loadMore();
-    /*if (num == 0) {
-      let element = document.getElementById('adddiv');
-      let newdiv = showEndPost();
-      element.append(newdiv);
-      end = true;
-    } else if (num < 10) {
-      let element = document.getElementById('adddiv');
-      let newdiv = showEndPost();
-      element.append(newdiv);
-      end = true;
-      enableButtons(response);
-    } else {
-      enableButtons(response);
-    }*/
-    //console.log(response.data);
-    //rd = response.data["posts"];
-    /*sendPost();
-    getLoggedUserInfo()
-    dynamicButtonPost();*/
   } else {
     //div.appendChild(showError());
   }
@@ -222,7 +224,10 @@ function enableComment(postID) {
 
 function addPostIDAlreadyShow(post_data) {
   for (let index = 0; index < post_data.length; index++) {
-    num.push(post_data[index]["postID"]);
+    if (!num.contains(post_data[index]["postID"])) {
+      console.log("aggiungo il post id" + post_data[index]["postID"]);
+      num.push(post_data[index]["postID"]);
+    }
   }
   //console.log(num);
 }
@@ -307,7 +312,7 @@ function enableDeleteBtn($comment) {
       });
     });
   } else {
-    console.log("delet button di id " + $comment["commentID"] + " non è stato caricato");
+    console.log("delete button di id " + $comment["commentID"] + " non è stato caricato");
   }
 }
 
@@ -329,7 +334,7 @@ async function loadMore() {
       numPost: num,
       postsView: postsView
     }).then(response => {
-      console.log(response.data);
+      //console.log(response.data);
       console.log(num);
       if (response.data["success"]) {
         showForm(response.data["posts"]);

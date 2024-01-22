@@ -7,12 +7,14 @@ $jsonData = file_get_contents("php://input");
 $data = json_decode($jsonData, true);
 $num = $data['numPost'];
 $postsView = $data['postsView'];
-
+$modifyButton= false;
 if (isset($_SESSION["username"]) && isset($num) && isset($postsView)) {
     if($postsView == "HomePage") {
         $post = $dbh->getMoreHomePosts($_SESSION["username"], $num, $numeropost); //prende i post degli utenti che segue
     } else if($postsView == "Explore") {
         $post = $dbh->getMoreExplorePosts($_SESSION["username"], $num, $numeropost); 
+    } else if($postsView == "Profile") {
+        $post = [];
     }
 
     for($i = 0; $i < count($post); $i++) {
@@ -24,6 +26,7 @@ if (isset($_SESSION["username"]) && isset($num) && isset($postsView)) {
         $userReactions = $dbh->hasReactedAll($_SESSION["username"], $post[$i]["postID"]);
         
         $post[$i] = array_merge($post[$i] , $userReactions);
+        $post[$i]["modifyButton"] = $modifyButton;
         $var = true;
     }
     

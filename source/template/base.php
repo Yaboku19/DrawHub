@@ -22,6 +22,7 @@
                     <div class="col text-center px-0 mx-0">
                             <img src="../img/drawhub.png" class="pt-2 me-5 img-fluid" alt="Immagine" class="img-fluid" width="120">
                     </div>
+                    <hr class="p-0 m-0">
                 </div>
             </div>
         </div>
@@ -65,6 +66,7 @@
         </div>
         <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                 <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 min-vh-100 sticky-top">
+                <button type="button" class="btn-close btn-close-dark align-self-end" data-bs-dismiss="offcanvas" aria-label="Chiudi"></button>
                 <div class="mt-5">
                     <img class="img-fluid mb-3" src="../img/drawhub.png" alt="immagine del logo">
                     <hr>
