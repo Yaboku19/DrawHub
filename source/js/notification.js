@@ -2,14 +2,14 @@ function loadfollower(follower, color) {
   return `
     <div>
       <div class="container ${color} border"> 
-        <div class="row d-flex align-items-center mt-2">
-          <div class="col-auto">
-            <p>
+        <div class="row d-flex align-items-center my-1">
+          <div class="col-9">
+            <p class="my-1">
             <a href="../php/profile.php?username=${follower["newFollowerUser"]}" class="d-inline-block text-decoration-none text-primary">${follower["newFollowerUser"]}</a> ti ha seguito
             </p>
           </div>
-          <div class="col-auto ms-auto">
-            <button data-toggle="button" class="btn btn-outline-danger" id="delete-follower${follower["notificationID"]}">Delete</button>
+          <div class="col-3 pe-1 ps-0 ms-0 text-end">
+            <button data-toggle="button" class="btn btn-outline-danger fs-6 m-1 p-1" id="delete-follower${follower["notificationID"]}"><i class="bi bi-trash"></i></button>
           </div>
         </div>
       </div> 
@@ -21,16 +21,16 @@ function loadcomment(comment, color) {
   return `
       <div class="container ${color} border"> 
         <div class="row align-items-center">
-          <div class="col-auto">
+          <div class="col-5">
             <p class="mt-2">
               <a href="../php/profile.php?username=${comment["newCommentUser"]}" class="d-inline-block text-decoration-none text-primary">${comment["newCommentUser"]} </a> ha commentato in questo post:  
             </p> 
           </div>
-          <div class="col-auto">
-            <img class="my-2" src="../img/${comment["urlImage"]}" alt="immagine del post" height="70" >
+          <div class="col-4 px-0 my-0">
+            <img class="my-1 mx-1" src="../img/${comment["urlImage"]}" alt="immagine del post" height="70" >
           </div>
-          <div class="col-auto ms-auto">
-            <button data-toggle="button" class="btn btn-outline-danger" id="delete-comment${comment["notificationID"]}">Delete</button>
+          <div class="col-3 pe-1 ps-0 ms-0 text-end">
+            <button data-toggle="button" class="btn btn-outline-danger fs-6 m-1 p-1 ms-0" id="delete-comment${comment["notificationID"]}"><i class="bi bi-trash"></i></button>
           </div>
         </div>
       </div>
@@ -42,14 +42,14 @@ function loadreaction(reaction, color) {
     <div>
       <div class="container ${color} border"> 
         <div class="row align-items-center">
-          <div class="col-auto">
+          <div class="col-5">
             <p class="mt-2"><a href="../php/profile.php?username=${reaction["newReactionUser"]}" class="d-inline-block text-decoration-none text-primary">${reaction["newReactionUser"]} </a> ha reagito al post con:  <em class="${reaction["tagImage"]} text-danger"></em></p> 
           </div>
-          <div class="col-auto">
-            <img class="my-2" src="../img/${reaction["urlImage"]}" alt="immagine del post" height="70" >
+          <div class="col-4 px-0 my-0">
+            <img class="my-1 mx-1" src="../img/${reaction["urlImage"]}" alt="immagine del post" height="70" >
           </div>
-          <div class="col-auto ms-auto">
-            <button data-toggle="button" class="btn btn-outline-danger" id="delete-reaction${reaction["notificationID"]}">Delete</button>
+          <div class="col-3 pe-1 ps-0 ms-0 text-end">
+            <button data-toggle="button" class="btn btn-outline-danger fs-6 m-1 p-1" id="delete-reaction${reaction["notificationID"]}"><i class="bi bi-trash"></i></button>
           </div>
         </div>
       </div>
