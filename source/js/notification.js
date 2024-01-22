@@ -57,6 +57,22 @@ function loadreaction(reaction, color) {
   `;
 }
 
+function loadNoNotification(color) {
+  return `
+    <div>
+      <div class="container ${color} border"> 
+        <div class="row d-flex align-items-center my-1">
+          <div class="col-12">
+            <p class="my-1">
+            Non hai notifiche da visualizzare
+            </p>
+          </div>
+        </div>
+      </div> 
+    </div>
+  `;
+}
+
 function containerBase() {
   return `
     <div class="container mt-3" id="notificationContainer">
@@ -79,6 +95,7 @@ function enableDeleteButton (btn, notification) {
       axios.post("api-deletenotification.php", formData).then(response => {
         if (response.data["success"]) {
           showNotification();
+          updateNotificationNumber();
         } else {
           console.log(response.data["comment"]);
         }
@@ -96,6 +113,7 @@ function showNotification () {
       let array = response.data["followers"].concat(response.data["comments"], response.data["reactions"]);
       let sortedArray = array.sort((a, b) => new Date(b["dateNotification"]) - new Date(a["dateNotification"]));
       let color = background;
+      
       sortedArray.forEach(notification => {
         color = chooseColor(color);
         if (notification["newFollowerUser"] !== undefined) {
@@ -106,6 +124,10 @@ function showNotification () {
           div.innerHTML += loadreaction(notification, color);
         }
       });
+      console.log(sortedArray.length);
+      if (sortedArray.length == 0) {
+        div.innerHTML += loadNoNotification(color);
+      }
       sortedArray.forEach(notification => {
         if (notification["newFollowerUser"] !== undefined) {
           enableDeleteButton(document.getElementById("delete-follower" + notification["notificationID"]), notification);

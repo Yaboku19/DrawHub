@@ -8,6 +8,7 @@
     <title><?php echo $templateParams["title"]?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <header>
@@ -83,8 +84,9 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="../php/showNotification.php" class="nav-link px-0 text-dark">
+                        <a href="../php/showNotification.php" class="nav-link px-0 text-dark position-relative">
                             <i class="fs-3 bi-bell-fill"></i> <span class="fs-3 ms-2 d-sm-inline">Notifiche</span>
+                            <span class="position-absolute top-0 start-100  badge rounded-pill bg-danger fs-7" id="offCanvasNotificationSpan"></span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -130,8 +132,9 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="../php/showNotification.php" class="nav-link px-0 text-dark d-flex flex-nowrap">
-                                    <i class="fs-4 bi-bell-fill"></i> <span class="fs-4 ms-2 d-none d-sm-inline">Notifiche</span>
+                                <a href="../php/showNotification.php" class="nav-link px-0 text-dark d-flex flex-nowrap position-relative">
+                                    <i class="fs-4 bi-bell-fill"></i> <span class="fs-4 ms-2 d-none d-sm-inline me-0">Notifiche</span>
+                                    <span class="position-absolute top-0 start-100  badge rounded-pill bg-danger fs-7" id="baseNotificationSpan"></span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -182,7 +185,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
 </script>
-<script src="../js/constants.js"></script>
 <script src="../js/search.js"></script>
 
 </html>
