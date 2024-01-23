@@ -1,39 +1,4 @@
-function generateOptions(values, selected, category) {
-  let options = `<option value='0'></option>`;
-  let add_selected = ``;
-  if(values == null && category == 'course') {
-    return options;
-  }
-  if(category != 'uni') {
-    options = ``;
-  }
-  values.forEach(element => {
-    add_selected = ``;
-    switch (category) {
-      case 'uni':
-        if(selected == element["uni_id"]) {
-          add_selected = `selected='selected'`;
-        }
-        options += `<option value='${element["uni_id"]}' ` + add_selected + `>${element["nome"]}</option>`;
-        break;
-      case 'course':
-        if(selected == element["corso_id"]) {
-          add_selected = `selected='selected'`;
-        }
-        options += `<option value='${element["corso_id"]}' ` + add_selected + `>${element["nome"]}</option>`;
-        break;
-      case 'residence':
-        if(selected == element) {
-          add_selected = `selected='selected'`;
-        }
-        options += `<option value='${element}' ` + add_selected + `>${element}</option>`;
-        break;
-    }
-  });
-  return options;
-}
-
-function showPage(currentSettings){//, response_select) {
+function showPage(currentSettings) {
   let form = `
     <div class="container justify-content-center align-middle p-0 m-0 my-1">
       <div class="container p-1 mb-2 bg-secondary bg-opacity-10 p-0 m-0 border">
