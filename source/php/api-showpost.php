@@ -1,9 +1,10 @@
 <?php
 require_once("db_config.php");
 
-$numeropost = 1; //prende un post alla volta
+$numeropost = 2; //prende un post alla volta
 $var = false;
 $modifyButton= false;
+$loggedUser= true;
 if (isset($_SESSION["username"]) && isset($_POST["postsView"])) {
     if($_POST["postsView"] == "HomePage") {
         $post = $dbh->getHomePosts($_SESSION["username"], $numeropost); //prende i post degli utenti che segue
@@ -13,6 +14,8 @@ if (isset($_SESSION["username"]) && isset($_POST["postsView"])) {
         $post = $dbh->getAllUserPosts($_POST["username"]); //query post utente
         if($_POST["username"] === $_SESSION["username"]) {
             $modifyButton = true;
+        } else {
+            $loggedUser = false;
         }
     }
     
@@ -29,12 +32,12 @@ if (isset($_SESSION["username"]) && isset($_POST["postsView"])) {
         $var = true;
     }
 }
-
-$post1["posts"] = $post;
-$post1["success"] = $var;
+$posts["loggedUser"] = $loggedUser;
+$posts["posts"] = $post;
+$posts["success"] = $var;
 
 $templateParams["title"] = "Show Post";
 header("Content-Type: application/json");
-echo json_encode($post1);
+echo json_encode($posts);
 
 ?>

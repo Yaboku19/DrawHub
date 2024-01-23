@@ -57,7 +57,7 @@ function enableFollow() {
     const followBtn = document.querySelector("button#followBtn");
     const followerCount = document.querySelector("span#followerCount");
     const username = getParameter("username");
-    console.log(username);
+    console.log("folloe enable" + username);
     followBtn.addEventListener("click", function(event) {
         event.preventDefault();
         const formData = new FormData();

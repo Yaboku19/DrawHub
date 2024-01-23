@@ -132,12 +132,16 @@ function enableFollowersButton() {
           //addPostIDAlreadyShow(response.data["posts"]);
           enableAllButtons();
           enableFollowersButton();
-          enableFollow();
+          if (!response.data["loggedUser"]) {
+            enableFollow();
+          }
           //enablePostComment();
           loadMore();
         } else {
           enableFollowersButton();
-          enableFollow();
+          if (!response.data["loggedUser"]) {
+            enableFollow();
+          }
           //div.appendChild(showError());
         }
       });
