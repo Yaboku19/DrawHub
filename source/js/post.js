@@ -5,8 +5,7 @@ function generateForm(post_data) {
     if (post_data[i]["modifyButton"]) {
         modifyButton = `
             <a href="../php/showModifyPost.php?postId=${post_data[i]["postID"]}&descrizione=${post_data[i]["description"]}" class="d-block"><button id="modify${post_data[i]["postID"]}" class="btn btn-outline-primary position-relative mx-0 px-1 py-1 mt-2 mb-1">
-                Modifica post
-            </button></a>
+                Modifica</button></a>
         `;
     }
     post_data[i]["user_has_cuore"] = chooseButtonColor(post_data[i], "user_has_cuore");
@@ -18,14 +17,14 @@ function generateForm(post_data) {
     <div class="card-header">
       <div class="container">
         <div class="row">
-          <div class="col-7">
+          <div class="col-8 p-0 m-0">
             <a href="../php/profile.php?username=${post_data[i]["user"]}" class="nav-link px-0 mx-0 my-1  text-dark">
                 <img src="../img/${post_data[i]["urlProfilePicture"]}" class="rounded-circle py-0 mb-1" alt="foto profilo" width="40" height="40">
                 <!--<i class="fs-3 bi-person-circle"></i>--> 
                 <span class="fs-3 ms-2 pt-1 mt-2 d-sm-inline">${post_data[i]["user"]}</span>
             </a>
           </div>
-          <div class="col-5 text-end">
+          <div class="col-4 text-end pl-0">
           ${modifyButton}
           </div>
         </div>
