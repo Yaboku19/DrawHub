@@ -1,83 +1,53 @@
-function generateOptions(values, selected, category) {
-  let options = `<option value='0'></option>`;
-  let add_selected = ``;
-  if(values == null && category == 'course') {
-    return options;
-  }
-  if(category != 'uni') {
-    options = ``;
-  }
-  values.forEach(element => {
-    add_selected = ``;
-    switch (category) {
-      case 'uni':
-        if(selected == element["uni_id"]) {
-          add_selected = `selected='selected'`;
-        }
-        options += `<option value='${element["uni_id"]}' ` + add_selected + `>${element["nome"]}</option>`;
-        break;
-      case 'course':
-        if(selected == element["corso_id"]) {
-          add_selected = `selected='selected'`;
-        }
-        options += `<option value='${element["corso_id"]}' ` + add_selected + `>${element["nome"]}</option>`;
-        break;
-      case 'residence':
-        if(selected == element) {
-          add_selected = `selected='selected'`;
-        }
-        options += `<option value='${element}' ` + add_selected + `>${element}</option>`;
-        break;
-    }
-  });
-  return options;
-}
-
-function showPage(currentSettings){//, response_select) {
+function showPage(currentSettings) {
   let form = `
-    <div class="container justify-content-center align-middle ">
-      <div class="p-lg-5 mb-5 bg-light">
-        <div class="row p-2">
-          <div class="col-sm-6 mb-2">
-            <label for="username">Username</label>
+    <div class="container justify-content-center align-middle p-0 m-0 my-1">
+      <div class="container p-1 mb-2 bg-secondary bg-opacity-10 p-0 m-0 border">
+        <div class="row p-0 m-0">
+          <div class="col-6 d-flex mb-2">
+            <label for="username" class="fw-bold">Username:</label>
           </div>
-          <div class="col-sm-6 mb-2">
+          <div class="col-6 d-flex mb-2">
             <label id="username" name="username">${currentSettings["username"]}</label>
-          </div>  
-          <div class="col-sm-6">
-            <label for="bio">Descrizione</label>
           </div>
-          <div class="col-sm-6">
+        </div>
+        <div class="row p-0 m-0 my-1 py-1">
+          <div class="col-sm-6 d-flex">
+            <label for="bio" class="fw-bold">Descrizione:</label>
+          </div>
+          <div class="col-sm-6 d-flex ">
             <textarea id="bio" name="bio" rows="5" cols="30">${currentSettings["bio"]}</textarea>
           </div>
-        <div class="w-100 p-2"></div>
+        </div>
+        <div class="row p-0 m-0 my-1 py-1">
           <div class="col-sm-6">
-            <label for="urlProfilePicture">Immagine profilo</label>
+            <label for="urlProfilePicture" class="fw-bold">Immagine profilo:</label>
           </div>
           <div class="col-sm-6">
             <input type="file" name="urlProfilePicture" id="urlProfilePicture" class="form-control" />
           </div>
-        <div class="w-100 p-2"></div>
+        </div>
+        <div class="row p-0 m-0 my-1 py-1">
           <div class="col-sm-6">
-            <label for="email">Email</label>
+            <label for="email" class="fw-bold">Email:</label>
           </div>
-          <div class="col-sm-3">
+          <div class="col-sm-6">
             <input type="email" id="email" name="email" rows="1" cols="30" value="${currentSettings["email"]}"/>
           </div>
-          <div class="w-100 p-2"></div>
+        </div>
+        <div class="row p-0 m-0 my-1 py-1">
           <div class="col-sm-6">
-            <label for="passw">Password</label>
+            <label for="passw" class="fw-bold">Password:</label>
           </div>
           <div class="col-sm-6">
-            <input type="password" id="passw" name="passw" class="justify-content-end" value=""/>
+            <input type="password" id="passw" name="passw" value=""/>
           </div>
         </div>
-        <div class="flex d-flex justify-content-between">
+        <div class="flex d-flex justify-content-between m-2">
           <p class="text-danger" id="errormsg"></p>
           <button type="submit" data-toggle="button" class="btn btn-outline-primary" id="save">Salva</button>
         </div>
         <hr/>
-        <div class="flex d-flex justify-content-between">
+        <div class="flex d-flex justify-content-between me-2 mb-2">
           <p class="text-danger" id="errormsg"></p>
           <a class="btn btn-outline-danger" href="../php/login.php">Logout</a>
         </div>
