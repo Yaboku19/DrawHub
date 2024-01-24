@@ -341,12 +341,6 @@ function enableDeleteBtn($comment) {
   }
 }
 
-/*function addPostIDAlreadyShow(post_data) {
-  for (let index = 0; index < post_data.length; index++) {
-    num.push(post_data[index]["postID"]);
-  }
-}*/
-
 async function loadMore() {
   if ((window.scrollY + window.innerHeight) >=(document.body.scrollHeight-10) && !loading) {
     loading=true;
