@@ -5,7 +5,6 @@ define("IMG_PATH", "../img/");
 $templateParams["title"] = "Profile";
 $templateParams["user_exists"] = false;
 $templateParams["errormsg"] = "Missing username";
-//$templateParams["paginaprofilouser"]=$_SESSION["username"];
 $templateParams["name"]=null;
 $templateParams["homepage"] = "";
 $templateParams["notifications"] = "";

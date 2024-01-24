@@ -68,7 +68,6 @@ function saveChanges(bio, email, password, img, username){
   formData.append("img", img); 
   formData.append("email", email);
   formData.append("password", password);
-
   axios.post('api-update-settings.php', formData).then(response => {
     console.log(username);
     if(response.data["success"]) {
@@ -80,10 +79,6 @@ function saveChanges(bio, email, password, img, username){
   });
 }
 
-function logout() {
-  fetch("login.php");
-}
-
 function updateButton(username) {
   document.querySelector("#save").addEventListener('click', function (event) {
     event.preventDefault();
@@ -91,31 +86,16 @@ function updateButton(username) {
     const img = document.querySelector("#urlProfilePicture") != null ? document.querySelector("#urlProfilePicture").files[0] : null;
     const email = document.querySelector("#email").value;
     const password = document.querySelector("#passw").value;
-    //console.log(bio + img + email + password);
     saveChanges(bio, email, password, img, username);
   });
 }
-
-/*function updateSelect(response_settings) {
-  var formData = new FormData();
-  select = document.querySelector("#uni");
-  select.addEventListener('change', function abstractFunction() {
-    formData.append("uni-selected", select.value);
-    axios.post("api-selector-controller.php", formData).then(response_selector => {
-      showPage(response_settings.data, response_selector.data);
-      updateButton(response_settings.data["username"]);
-      updateSelect(response_settings);
-    });
-  });
-}*/
 
 const main = document.getElementById("dinamic");
 axios.get("api-get-current-settings.php").then(currentSettings => {
     if(currentSettings.data["logged"]) {
       console.log("logged");
-      showPage(currentSettings.data);//, response_selector.data);
+      showPage(currentSettings.data);
       updateButton(currentSettings.data["username"]);
-      //updateSelect(currentSettings);*/
     } else {
       window.location.href = "../php/index.php";
     }

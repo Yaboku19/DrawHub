@@ -8,8 +8,6 @@ $result["success"] = false;
 $postId = $_SESSION["postID"];
 $descrizione = $_SESSION["description"];
 
-$result["check"]=isset($_POST["postId"]);
-$result["_POST"] = $_POST;
 if(isset($_POST["descrizione"])) {
     $descrizione = $_POST["descrizione"];
 }
@@ -20,24 +18,17 @@ if(isset($_POST["postId"])) {
 $postInfo = $dbh->getPostbyId($postId);
 if(!isset($_SESSION["errormsg"])) {
     if(isset($postId) && isset($_SESSION["username"])) {
-        $result["prova"]="primo if";
         $loggedUserId = $_SESSION["username"];
         $post_exists = $dbh->checkValueInDb("post", "postID", $postId);
         if ($post_exists) {
             if ($postInfo["user"] === $loggedUserId) {
-                $result["prova"]="terzo if";
                 $result["issetSubmit"]=isset($_POST["submit"]);
                 if(isset($_POST["submit"])) { //cliccato pulsante conferma->aggiorno post
-                    $result["issetDescrizione"]=isset($descrizione);
-                    $result["oldDescription"]=$postInfo["description"];
-                    $result["user"] = $postInfo["user"];
                     if(isset($descrizione) && $descrizione != "" && $descrizione != $postInfo["description"]) {
-                        $result["prova"]="quarto if";
                         $dbh->updatePost($postId, $descrizione);
                         $result["success"] = true;
                         header("Location: profile.php?username=".$loggedUserId);
                     } else {
-                        $result["prova"]="error if";
                         $result["errormsg"] = "Descrizione post vuota o non modificata";
                         $_SESSION["errormsg"] = "Descrizione post vuota o non modificata";
                         $result["success"] = false;
@@ -54,7 +45,6 @@ if(!isset($_SESSION["errormsg"])) {
                 }
                 if(!isset($_POST["submit"]) && !isset($_POST["delete"])) {//questa parte di codice serve per far mostrare il form la prima volta
                     $result["success"] = true;
-                    $result["prova"]="sesto if";
                     $result["postInfo"]= $postInfo;
                 }
             } else {

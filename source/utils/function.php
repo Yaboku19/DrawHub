@@ -17,7 +17,7 @@ function uploadImage($path, $image){
   if($imageSize === false) {
       $msg .= "File caricato non è un'immagine! ";
   }
-  //Controllo dimensione dell'immagine < 500KB
+  //Controllo dimensione dell'immagine < 2000KB
   if ($image["size"] > $maxKB * 1024) {
       $msg .= "File caricato pesa troppo! Dimensione massima è $maxKB KB. ";
   }
@@ -44,7 +44,7 @@ function uploadImage($path, $image){
       if(!move_uploaded_file($image["tmp_name"], $fullPath)){
           $msg.= "Errore nel caricamento dell'immagine.";
       }
-      else{
+      else {
           $result = 1;
           $msg = $imageName;
       }

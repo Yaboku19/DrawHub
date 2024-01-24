@@ -12,11 +12,10 @@ getParameter = (key) => {
  * @param {string} username The username of the user of the current profile page
  * @param {string} requestedList The type of list requested either followers or following
 */
-function makeRequestAndEdit(username, requestedList) {
+function showList(username, requestedList) {
     const formData = new FormData();
     formData.append("profileUsername", username);
     if (requestedList != "posts") {
-        console.log("req" + requestedList);
         formData.append("requestedList", requestedList);
         axios.post("api-user-list.php", formData).then(response => {
             if (!response.data["success"]) {
@@ -44,7 +43,7 @@ function showUserList(users) {
           <div class="row">
               <div class="d-flex align-items-center">
                   <div class="flex-shrink-0">
-                  <img src="../img/${element["urlProfilePicture"]}" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;" alt="">
+                  <img src="../img/${element["urlProfilePicture"]}" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;" alt="foto profilo ${element["username"]}"/>
                   </div>
                   <div class="flex-grow-1 ms-3">
                       <a href="profile.php?username=${element["username"]}">${element["name"]} ${element["surname"]} @${element["username"]}</a> 
@@ -90,8 +89,6 @@ function activateElement(toActivate) {
   toActivate.classList.add("disabled");
   toActivate.nextElementSibling.querySelector('span').classList.replace("bg-primary", "bg-light");
   toActivate.nextElementSibling.querySelector('span').classList.replace("text-light", "text-primary");
-  //toActivate.nextElementSibling.nextElementSibling.classList.replace("bg-primary", "bg-light");
-  //toActivate.nextElementSibling.nextElementSibling.classList.replace("text-light", "text-primary");
 }
 
 function updateLinks(listElements, currentLink) {
@@ -113,40 +110,32 @@ function enableFollowersButton() {
   const linkList = [postsLink, followersLink, followingLink];
   followersLink.addEventListener("click", function(event) {
     event.preventDefault();
-    makeRequestAndEdit(profileUsername, "followers");
+    showList(profileUsername, "followers");
     updateLinks(linkList, followersLink);
   });
   followingLink.addEventListener("click", function(event) {
       event.preventDefault();
-      console.log("aggiunt2112o");
-      makeRequestAndEdit(profileUsername, "following");
+      showList(profileUsername, "following");
       updateLinks(linkList, followingLink);
   });
   postsLink.addEventListener("click", function(event) {
       event.preventDefault();
       document.querySelectorAll("div.listElement")?.forEach(x => x.remove());
       axios.post("api-showpost.php", postsViewData).then(response => {
-        console.log(response.data);
         if (response.data["success"]) {
           showForm(response.data["posts"]);
-          //addPostIDAlreadyShow(response.data["posts"]);
           enableAllButtons();
           enableFollowersButton();
           if (!response.data["loggedUser"]) {
             enableFollow();
           }
-          //enablePostComment();
-          loadMore();
         } else {
           enableFollowersButton();
           if (!response.data["loggedUser"]) {
             enableFollow();
           }
-          //div.appendChild(showError());
         }
       });
       updateLinks(linkList, postsLink);
-      //makeRequestAndEdit(profileUsername, "posts");
-      //updateLinks(linkList, postsLink);
 });
 }

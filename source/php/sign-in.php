@@ -1,14 +1,12 @@
 <?php
 require_once("db_config.php");
-//$datiRicevuti = json_decode(file_get_contents("php://input"), true);
 
 require __DIR__ . '\PHPMailer\src\PHPMailer.php';
 require __DIR__ . '\PHPMailer\src\SMTP.php';
 require __DIR__ . '\PHPMailer\src\Exception.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
+
 
 $mail = new PHPMailer();
 $mail->isSMTP();
@@ -18,11 +16,9 @@ $mail->Username = 'drawhub@libero.it';
 $mail->Password = 'Drawhub!2024';
 $mail->SMTPSecure = 'ssl';
 $mail->Port = 465;
-//$mail->SMTPDebug = SMTP::DEBUG_SERVER;
 
 $result["sign-in-result"] = false;
 
-//create minimum date allowed to sign in
 $date = new DateTime('now');
 $date->modify("-14 years");
 $date = date_format($date, "Y-m-d");
@@ -38,7 +34,6 @@ if(isset($_POST["username"], $_POST["email"], $_POST["password"], $_POST["name"]
               if($_POST["date"] < $date) {
                 $hashpassword = password_hash($_POST["password"], PASSWORD_BCRYPT); //cripto la password con algoritmo BCRYPT
                 $result["hash"] = $hashpassword;
-                //$result["sign-in-result"] = $dbh->addUser($_POST["username"], $_POST["email"], $hashpassword, $_POST["name"], $_POST["surname"], $_POST["date"]);
                 $result["dbh"] = $dbh->addUser($_POST["username"], $_POST["email"], $hashpassword, $_POST["name"], $_POST["surname"], $_POST["date"]);
                 $result["sign-in-result"] = true;
                 $mail->setFrom('drawhub@libero.it', 'DrawHub');
@@ -87,12 +82,7 @@ if(isset($_POST["username"], $_POST["email"], $_POST["password"], $_POST["name"]
     $result["text-error"] = "Qualcosa è andato storto";
   }
 }
-//$risposta["risultato"] = $result["sign-in-result"];
-//$risposta["errore"]= $result["text-error"];
-/*$risposta =array (
-  'risultato' => false,
-  'errore' => "inserire il dio"
-);*/
+
 header('Content-Type: application/json');
 echo json_encode($result);
 

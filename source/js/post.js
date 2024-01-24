@@ -13,77 +13,77 @@ function generateForm(post_data) {
     post_data[i]["user_has_occhi_neutri"] = chooseButtonColor(post_data[i], "user_has_occhi_neutri");
     post_data[i]["user_has_pollice_giu"] = chooseButtonColor(post_data[i], "user_has_pollice_giu");
     section+= `
-    <div class="card my-4 bg-secondary bg-opacity-10 row postCard"> <!-- un Post inizia da qua -->
-    <div class="card-header">
-      <div class="container">
-        <div class="row">
-          <div class="col-8 p-0 m-0">
-            <a href="../php/profile.php?username=${post_data[i]["user"]}" class="nav-link px-0 mx-0 my-1  text-dark">
-                <img src="../img/${post_data[i]["urlProfilePicture"]}" class="rounded-circle py-0 mb-1" alt="foto profilo" width="40" height="40" style="object-fit:cover;">
-                <!--<i class="fs-3 bi-person-circle"></i>--> 
-                <span class="fs-3 ms-2 pt-1 mt-2 d-sm-inline">${post_data[i]["user"]}</span>
-            </a>
-          </div>
-          <div class="col-4 text-end pl-0">
-          ${modifyButton}
+    <div class="card my-4 bg-secondary bg-opacity-10 row postCard">
+      <div class="card-header">
+        <div class="container">
+          <div class="row">
+            <div class="col-8 p-0 m-0">
+              <a href="../php/profile.php?username=${post_data[i]["user"]}" class="nav-link px-0 mx-0 my-1  text-dark">
+                  <img src="../img/${post_data[i]["urlProfilePicture"]}" class="rounded-circle py-0 mb-1" alt="foto profilo" width="40" height="40" style="object-fit:cover;"/>
+                  <span class="fs-3 ms-2 pt-1 mt-2 d-sm-inline">${post_data[i]["user"]}</span>
+              </a>
+            </div>
+            <div class="col-4 text-end pl-0">
+              ${modifyButton}
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="card-body pb-0">
+      <div class="card-body pb-0">
         <p class="card-text">${post_data[i]["description"]}</p>
         <p class="card-text"><small class="text-body-secondary">${post_data[i]["datePost"]}</small></p>
         <div class="container m-0 p-0">
-        <div class="position-relative" id="post${post_data[i]["postID"]}">
-        <img src="../img/${post_data[i]["urlImage"]}" class="card-img-bottom img-fluid py-2 my-1 w-100" alt="foto post" style="max-height: 700px; object-fit:cover;">
-        </div>
+          <div class="position-relative" id="post${post_data[i]["postID"]}">
+            <img src="../img/${post_data[i]["urlImage"]}" class="card-img-bottom img-fluid py-2 my-1 w-100" alt="foto post" style="max-height: 700px; object-fit:cover;"/>
+          </div>
         </div>
         <div class=" container">
           <div class="row">
             <div class="col-10 px-0 mx-0 d-flex flex-wrap">
-                <button type="button" class="btn ${post_data[i]["user_has_cuore"]} position-relative my-2 ms-0 me-2 pl-0 fs-6" id="btn_cuore_${post_data[i]["postID"]}"><em class="bi-heart-fill"></em>
-                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cuore${post_data[i]["postID"]}">
-                    ${post_data[i]["cuore"]}
-                  </span>
-                </button>
-                <button type="button" class="btn ${post_data[i]["user_has_occhi_a_cuore"]} position-relative my-2 mx-2 fs-6" id="btn_occhi_a_cuore_${post_data[i]["postID"]}"><em class="bi-emoji-heart-eyes-fill"></em>
-                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="occhi_a_cuore${post_data[i]["postID"]}">
-                    ${post_data[i]["occhi_a_cuore"]}
-                  </span>
-                </button>
-                <button type="button" class="btn ${post_data[i]["user_has_occhi_neutri"]} position-relative my-2 mx-2 fs-6" id="btn_occhi_neutri_${post_data[i]["postID"]}"><em class="bi-emoji-neutral-fill"></em>
-                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="occhi_neutri${post_data[i]["postID"]}">
-                    ${post_data[i]["occhi_neutri"]}
-                  </span>
-                </button>
-                <button type="button" class="btn ${post_data[i]["user_has_pollice_giu"]} position-relative my-2 ms-2 fs-6" id="btn_pollice_giu_${post_data[i]["postID"]}"><em class="bi-hand-thumbs-down-fill"></em>
-                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="pollice_giu${post_data[i]["postID"]}">
-                      ${post_data[i]["pollice_giu"]}
-                  </span>
-                </button>
-              </div>
-              <div class="text-end col-2 px-0 mx-0">
-                <button type="button" class="btn ml-5 my-2 mx-0 fs-5" id="download${post_data[i]["postID"]}"><em class="bi-download"></em>
-                <a href="../img/${post_data[i]["urlImage"]}" id="image${post_data[i]["postID"]}" download="${post_data[i]["urlImage"]}"></a>
-                </button>
-              </div>
+              <button type="button" class="btn ${post_data[i]["user_has_cuore"]} position-relative my-2 ms-0 me-2 pl-0 fs-6" id="btn_cuore_${post_data[i]["postID"]}"><em class="bi-heart-fill"></em>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cuore${post_data[i]["postID"]}">
+                  ${post_data[i]["cuore"]}
+                </span>
+              </button>
+              <button type="button" class="btn ${post_data[i]["user_has_occhi_a_cuore"]} position-relative my-2 mx-2 fs-6" id="btn_occhi_a_cuore_${post_data[i]["postID"]}"><em class="bi-emoji-heart-eyes-fill"></em>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="occhi_a_cuore${post_data[i]["postID"]}">
+                  ${post_data[i]["occhi_a_cuore"]}
+                </span>
+              </button>
+              <button type="button" class="btn ${post_data[i]["user_has_occhi_neutri"]} position-relative my-2 mx-2 fs-6" id="btn_occhi_neutri_${post_data[i]["postID"]}"><em class="bi-emoji-neutral-fill"></em>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="occhi_neutri${post_data[i]["postID"]}">
+                  ${post_data[i]["occhi_neutri"]}
+                </span>
+              </button>
+              <button type="button" class="btn ${post_data[i]["user_has_pollice_giu"]} position-relative my-2 ms-2 fs-6" id="btn_pollice_giu_${post_data[i]["postID"]}"><em class="bi-hand-thumbs-down-fill"></em>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="pollice_giu${post_data[i]["postID"]}">
+                    ${post_data[i]["pollice_giu"]}
+                </span>
+              </button>
             </div>
+            <div class="text-end col-2 px-0 mx-0">
+              <button type="button" class="btn ml-5 my-2 mx-0 fs-5" id="download${post_data[i]["postID"]}"><em class="bi-download"></em>
+                <a href="../img/${post_data[i]["urlImage"]}" id="image${post_data[i]["postID"]}" download="${post_data[i]["urlImage"]}"></a>
+              </button>
+            </div>
+          </div>
         </div>
-    </div>
-    <div class="card-footer">
-      <a data-bs-toggle="modal" data-bs-target="#commentModal" class="nav-link px-0 text-dark" href="#">
-        <i class="bi-chat-left-text"></i> <span class="fs-4 ms-2 d-sm-inline" id="comment${post_data[i]["postID"]}">Commenti (${post_data[i]["num_comments"]})</span>
-      </a>
-    </div>
-    <script src="comment.js"></script>               
-  </div><!-- un Post finisce qui -->`;
+      </div>
+      <div class="card-footer">
+        <a data-bs-toggle="modal" data-bs-target="#commentModal" class="nav-link px-0 text-dark" href="#">
+          <i class="bi-chat-left-text"></i> <span class="fs-4 ms-2 d-sm-inline" id="comment${post_data[i]["postID"]}">Commenti (${post_data[i]["num_comments"]})</span>
+        </a>
+      </div>
+      <script src="comment.js"></script>               
+    </div>`;
   }
 
 return section;
 }
 
 function showError() {
-  return `<div>
+  return `
+      <div>
         <div class="container bg-secondary bg-opacity-10 border"> 
           <div class="row d-flex align-items-center my-1">
             <div class="col-12">

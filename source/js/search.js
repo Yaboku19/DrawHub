@@ -1,7 +1,3 @@
-/**
- * Removes previous search results and adds the new ones
- * @param {*} userList List of users to show
- */
 function showResults(userList) {
     document.querySelectorAll("div.searchResult")?.forEach(element => element.remove());
     if (userList.length <= 0) {
@@ -23,7 +19,7 @@ function showResults(userList) {
                 <div class="row">
                     <div class="d-flex align-items-center">
                         <div class="flex-shrink-0">
-                            <img src="../img/${user["urlProfilePicture"]}" class="rounded-circle py-0 mb-1" alt="foto profilo" style="width: 40px; height: 40px; object-fit: cover;">
+                            <img src="../img/${user["urlProfilePicture"]}" class="rounded-circle py-0 mb-1" alt="foto profilo" style="width: 40px; height: 40px; object-fit: cover;"/>
                         </div>
                         <div class="flex-grow-1 ms-3">
                             <a href="profile.php?username=${user["username"]}">${user["name"]} ${user["surname"]} </a> 
@@ -34,7 +30,7 @@ function showResults(userList) {
             modalBody.appendChild(container);
         });
     }
-    }
+}
 
 /**
  * Returns the results for the given search term

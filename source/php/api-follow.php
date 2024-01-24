@@ -1,6 +1,5 @@
 <?php
 require_once("db_config.php");
-//A constant for notification tipology
 define("FOLLOW", 1);
 
 $result["success"] = false;
@@ -17,15 +16,13 @@ if (isset($_SESSION["username"])) {
             if (isset($_POST["action"])) {
                 $action = $_POST["action"];
                 $isFollowing = $dbh->isUserFollowing($username, $followed_user);
-                //$result["action"] = $isFollowing;
                 switch ($action) {
                     case "follow":
                         $result["success"] = !$isFollowing;
                         if ($result["success"]) {
                             $dbh->addFollower($username, $followed_user);
-                            //$dbh->addNotification($username, $followed_user, null, FOLLOW);
                         } else {
-                            $result["errormsg"] = "Cannot follow already followed user";
+                            $result["errormsg"] = "Non puoi seguire un utente già seguito";
                         }
                         break;
                     case "unfollow":
@@ -33,24 +30,24 @@ if (isset($_SESSION["username"])) {
                         if ($result["success"]) {
                             $dbh->removeFollower($username, $followed_user);
                         } else {
-                            $result["errormsg"] = "Tried to unfollow not followed user";
+                            $result["errormsg"] = "Provando unfollow su un utente non seguito";
                         }
                         break;
                     default:
-                        $result["errormsg"] = "Uknown action";
+                        $result["errormsg"] = "azione sconosciuta";
                         break;
                 }
             } else {
-                $result["action"] = "action not set";
+                $result["action"] = "azione non settata";
             }
         } else {
-            $result["errormsg"] = "Users can't follow themselves";
+            $result["errormsg"] = "Non puoi seguire te stesso";
         }
     } else {
-        $result["errormsg"] = "followed_user not set";
+        $result["errormsg"] = "followed_user non settato";
     }
 } else {
-    $result["errormsg"] = "User not logged";
+    $result["errormsg"] = "User non loggato";
 }
 
 header("Content-Type: application/json");

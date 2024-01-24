@@ -1,17 +1,17 @@
 <?php
 require_once("db_config.php");
 
-$numeropost = 2; //prende un post alla volta
+$numeropost = 2;
 $var = false;
 $modifyButton= false;
 $loggedUser= true;
 if (isset($_SESSION["username"]) && isset($_POST["postsView"])) {
     if($_POST["postsView"] == "HomePage") {
-        $post = $dbh->getHomePosts($_SESSION["username"], $numeropost); //prende i post degli utenti che segue
+        $post = $dbh->getHomePosts($_SESSION["username"], $numeropost);
     } else if($_POST["postsView"] == "Explore") {
         $post = $dbh->getExplorePosts($_SESSION["username"], $numeropost);
     } else if($_POST["postsView"] == "Profile") {
-        $post = $dbh->getAllUserPosts($_POST["username"]); //query post utente
+        $post = $dbh->getAllUserPosts($_POST["username"]); 
         if($_POST["username"] === $_SESSION["username"]) {
             $modifyButton = true;
         } else {
