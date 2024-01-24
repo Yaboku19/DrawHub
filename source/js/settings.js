@@ -12,7 +12,7 @@ function showPage(currentSettings) {
         </div>
         <div class="row p-0 m-0 my-1 py-1">
           <div class="col-sm-6 d-flex">
-            <label for="bio" class="fw-bold">Descrizione:</label>
+            <label for="bio" class="fw-bold">Biografia:</label>
           </div>
           <div class="col-sm-6 d-flex ">
             <textarea id="bio" name="bio" rows="5" cols="30">${currentSettings["bio"]}</textarea>

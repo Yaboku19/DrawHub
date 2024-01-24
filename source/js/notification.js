@@ -5,7 +5,7 @@ function loadfollower(follower, color) {
         <div class="row d-flex align-items-center my-1">
           <div class="col-9">
             <p class="my-1">
-            <a href="../php/profile.php?username=${follower["newFollowerUser"]}" class="d-inline-block text-decoration-none text-primary">${follower["newFollowerUser"]}</a> ti ha seguito
+            <a href="../php/profile.php?username=${follower["newFollowerUser"]}" class="d-inline-block text-decoration-none text-primary text-break">${follower["newFollowerUser"]}</a> ti ha seguito
             </p>
           </div>
           <div class="col-3 pe-1 ps-0 ms-0 text-end">
@@ -23,7 +23,7 @@ function loadcomment(comment, color) {
         <div class="row align-items-center">
           <div class="col-5">
             <p class="mt-2">
-              <a href="../php/profile.php?username=${comment["newCommentUser"]}" class="d-inline-block text-decoration-none text-primary">${comment["newCommentUser"]} </a> ha commentato in questo post:  
+              <a href="../php/profile.php?username=${comment["newCommentUser"]}" class="d-inline-block text-decoration-none text-primary text-break">${comment["newCommentUser"]} </a> ha commentato in questo post:  
             </p> 
           </div>
           <div class="col-4 px-0 my-0">
@@ -43,7 +43,7 @@ function loadreaction(reaction, color) {
       <div class="container ${color} border"> 
         <div class="row align-items-center">
           <div class="col-5">
-            <p class="mt-2"><a href="../php/profile.php?username=${reaction["newReactionUser"]}" class="d-inline-block text-decoration-none text-primary">${reaction["newReactionUser"]} </a> ha reagito al post con:  <em class="${reaction["tagImage"]} text-danger"></em></p> 
+            <p class="mt-2"><a href="../php/profile.php?username=${reaction["newReactionUser"]}" class="d-inline-block text-decoration-none text-primary text-break">${reaction["newReactionUser"]} </a> ha reagito al post con:  <em class="${reaction["tagImage"]} text-danger"></em></p> 
           </div>
           <div class="col-4 px-0 my-0">
             <img class="my-1 img-fluid mx-1" src="../img/${reaction["urlImage"]}" alt="immagine del post" style="max-height: 70px; object-fit:cover;" >

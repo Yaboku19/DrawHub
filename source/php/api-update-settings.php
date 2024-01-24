@@ -25,7 +25,8 @@ if(isset($_SESSION["username"])) {
   if(isset($_POST["password"]) && $_POST["password"] != $userInfo["password"] && strlen($_POST["password"]) != 0) {
     if(strlen($_POST["password"]) >= 8 && strlen($_POST["password"]) <= 16) {
       $result["success"] = true;
-      $dbh->updatePassword($_SESSION["username"], $_POST["password"]);
+      $hashpassword = password_hash($_POST["password"], PASSWORD_BCRYPT); //cripto la password con algoritmo BCRYPT
+      $dbh->updatePassword($_SESSION["username"], $hashpassword);
     } else {
       $result["errormsg"] = "La password non rispetta il range di caratteri";
     }
