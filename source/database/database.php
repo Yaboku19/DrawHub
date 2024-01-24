@@ -16,9 +16,9 @@ class DatabaseHelper{
         $this->db->close();
     }
 
-    public function login($email, $passw) {
-        $stmt = $this->db->prepare("SELECT * FROM user U WHERE U.email = ? AND U.password = ?");
-        $stmt->bind_param("ss", $email, $passw); //ss sta per string string
+    public function login($username, $passw) {
+        $stmt = $this->db->prepare("SELECT * FROM user U WHERE U.username = ? AND U.password = ?");
+        $stmt->bind_param("ss", $username, $passw); //ss sta per string string
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -46,9 +46,9 @@ class DatabaseHelper{
         return $stmt->execute();
     }
 
-    public function getPasswordFromDB($email) {
-        $stmt = $this->db->prepare("SELECT password FROM user U WHERE U.email = ?");
-        $stmt->bind_param("s", $email,);
+    public function getPasswordFromDB($username) {
+        $stmt = $this->db->prepare("SELECT password FROM user U WHERE U.username = ?");
+        $stmt->bind_param("s", $username,);
         $stmt->execute();
         $result = $stmt->get_result();
 

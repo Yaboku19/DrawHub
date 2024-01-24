@@ -12,7 +12,7 @@ function generateForm(loginerror = null) {
             </div>
             <form action="../php/Login.php" method="POST">
             <ul class="list-group-flush">
-              <li class="list-group-item m-1 p-0"><label for="email" class="fw-semibold fst-italic">E-mail</label><input type="email" class="d-flex justify-content-end rounded" id="email" name="email"/></li>
+              <li class="list-group-item m-1 p-0"><label for="username" class="fw-semibold fst-italic">Username</label><input type="text" class="d-flex justify-content-end rounded" id="username" name="username"/></li>
               <li class="list-group-item m-1 p-0"><label for="password" class="fw-semibold fst-italic">Password</label><input type="password" class="d-flex justify-content-end rounded" id="password" name="password"/></li>
             </ul>
             <hr/>
@@ -44,18 +44,18 @@ function generateForm(loginerror = null) {
     // Gestisco tentativo di login
     document.querySelector("main form").addEventListener("submit", function (event) {
         event.preventDefault();
-        const email = document.querySelector("#email").value;
+        const username = document.querySelector("#username").value;
         const password = document.querySelector("#password").value;
-        login(email, password);
+        login(username, password);
     });
   }
   
-  function login(email, password) {
+  function login(username, password) {
     const formData = new FormData();
 
-    console.log(email); 
+    console.log(username); 
     console.log(password); 
-    formData.append('email', email);
+    formData.append('username', username);
     formData.append('password', password);
   
     axios.post('api-login.php', formData).then(response => {
