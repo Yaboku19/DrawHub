@@ -5,6 +5,7 @@ $numeropost = 2;
 $var = false;
 $modifyButton= false;
 $loggedUser= true;
+$message="";
 if (isset($_SESSION["username"]) && isset($_POST["postsView"])) {
     if($_POST["postsView"] == "HomePage") {
         $post = $dbh->getHomePosts($_SESSION["username"], $numeropost);
@@ -29,12 +30,17 @@ if (isset($_SESSION["username"]) && isset($_POST["postsView"])) {
         
         $post[$i] = array_merge($post[$i] , $userReactions);
         $post[$i]["modifyButton"] = $modifyButton;
+    }
+    if(count($post) == 0) {
+        $message="Non hai post da visualizzare, inizia a <a href='../php/showExplore.php'> cercare</a>";
+    } else {
         $var = true;
     }
 }
 $posts["loggedUser"] = $loggedUser;
 $posts["posts"] = $post;
 $posts["success"] = $var;
+$posts["message"] = $message;
 
 $templateParams["title"] = "Show Post";
 header("Content-Type: application/json");

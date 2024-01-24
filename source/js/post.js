@@ -81,14 +81,14 @@ function generateForm(post_data) {
 return section;
 }
 
-function showError() {
+function showMessage(msg) {
   return `
       <div>
         <div class="container bg-secondary bg-opacity-10 border"> 
           <div class="row d-flex align-items-center my-1">
             <div class="col-12">
               <p class="my-1">
-              Non hai post da visualizzare, inizia a <a href="../php/showExplore.php"> cercare</a>
+              ${msg}
               </p>
             </div>
           </div>
@@ -125,13 +125,16 @@ let rd;
 let loading = false;
 let div = document.getElementById("dinamic");
 let end = false;
-console.log(postsView);
+let postsView = "";
+let username_profile = "";
+postsView = selectPage();
+username_profile = selectUsername();
+//console.log(postsView);
 const postsViewData = new FormData();
 postsViewData.append('postsView', postsView);
 
-postsViewData.append('username', usernameprofileprova);
+postsViewData.append('username', username_profile);
 axios.post("api-showpost.php", postsViewData).then(response => {
-  console.log(response.data);
   if (response.data["success"]) {
     showForm(response.data["posts"]);
     addPostIDAlreadyShow(response.data["posts"]);
@@ -143,12 +146,10 @@ axios.post("api-showpost.php", postsViewData).then(response => {
     if (!response.data["loggedUser"]) {
       enableFollow();
     }
-    //loadMore();
   } else {
     if(postsView=="HomePage") {
-      let formErr = showError();
-      div.innerHTML += formErr; 
-      
+      let formMsg = showMessage(response.data["message"]);
+      div.innerHTML += formMsg;
     }
     if(postsView =="Profile") {
       enableFollowersButton();
@@ -156,7 +157,6 @@ axios.post("api-showpost.php", postsViewData).then(response => {
     if (!response.data["loggedUser"]) {
       enableFollow();
     }
-    //div.appendChild(showError());
   }
 
 });
@@ -182,11 +182,10 @@ function enableButton(postID, buttonType, reactionType, iconTag) {
   let button = document.getElementById(buttonID);
   let span = document.getElementById(spanID);
   let postDiv = document.getElementById(postImage);
-  if(button){
+  if(button) {
     button.addEventListener('click', function onclick() {
       axios.post("api-reaction.php", formData).then(response =>
         span.innerHTML=response.data[reactionType]);
-        //quando viene cliccato il bottone, aggiorna dinamicamente il colore
         if(button.classList.contains("btn-outline-danger")) {
           button.classList.replace("btn-outline-danger", "btn-danger");
           const react= document.createElement('em');
@@ -223,18 +222,17 @@ function enablePostComment() {
       const formData = new FormData();
       formData.append("postID", document.getElementById("idPost").innerHTML);
       formData.append("text", document.getElementById("commentInput").value);
-      console.log(formData.get("text"));
       axios.post("api-addcomment.php", formData).then(response => {
         if (response.data["success"]) {
           loadComments(document.getElementById("idPost").innerHTML);
         } else {
-          console.log(response.data["comment"]);
+          showMessage(response.data["comment"]);
         }
         document.getElementById("commentInput").value = "";
       });
     });
   } else {
-    console.log("errore nel caricamento del pulsante posta");
+    showMessage("errore nel caricamento del pulsante posta");
   }
 }
 
@@ -246,19 +244,18 @@ function enableComment(postID) {
       loadComments(postID);
     });
   } else {
-    console.log("errore nel caricamento del commentspan");
+    showMessage("errore nel caricamento del commentspan");
   }
 }
 
 function addPostIDAlreadyShow(post_data) {
   for (let index = 0; index < post_data.length; index++) {
-    if (!num.contains(post_data[index]["postID"])) {
-      console.log("aggiungo il post id" + post_data[index]["postID"]);
+    if (!num.includes(post_data[index]["postID"])) {
       num.push(post_data[index]["postID"]);
     }
   }
-  //console.log(num);
 }
+
 function loadComments(postID) {
   const formData = new FormData();
   formData.append("postID", postID);
@@ -281,15 +278,14 @@ function loadComments(postID) {
               <div class="commento">
                 <div class="d-flex align-items-center">
                   <div class="flex-grow-1 ms-4">
-                      <p>
-                        <a href="../php/profile.php?username=${response.data["comments"][i]["user"]}" class=" text-wrap text-primary fs-5 d-inline-block text-decoration-none">${response.data["comments"][i]["user"]}</a>
-                        <span class=" text-secondary fs-6 ms-4">${response.data["comments"][i]["dateComment"]}</span>
-                      </p>
-                      <p class="d-block w-100 text-break text-wrap fs-5">${response.data["comments"][i]["text"]}</p>
+                    <p>
+                      <a href="../php/profile.php?username=${response.data["comments"][i]["user"]}" class=" text-wrap text-primary fs-5 d-inline-block text-decoration-none">${response.data["comments"][i]["user"]}</a>
+                      <span class=" text-secondary fs-6 ms-4">${response.data["comments"][i]["dateComment"]}</span>
+                    </p>
+                    <p class="d-block w-100 text-break text-wrap fs-5">${response.data["comments"][i]["text"]}</p>
                   </div>
                   <div class="ms-auto">
-                  <button data-toggle="button" class="btn btn-outline-danger fs-6 m-1 p-1" id="DeleteComment${response.data["comments"][i]["commentID"]}"><i class="bi bi-trash"></i></button>
-                      <!--<button data-toggle="button" class="btn btn-outline-danger" id="DeleteComment${response.data["comments"][i]["commentID"]}">Delete</button>-->
+                    <button data-toggle="button" class="btn btn-outline-danger fs-6 m-1 p-1" id="DeleteComment${response.data["comments"][i]["commentID"]}"><i class="bi bi-trash"></i></button>
                   </div>
                 </div>
               </div>
@@ -301,13 +297,13 @@ function loadComments(postID) {
             container.innerHTML = `
               <div class="commento">
                 <div class="d-flex align-items-center">
-                    <div class="flex-grow-1 ms-4">
-                      <p>
-                        <a href="../php/profile.php?username=${response.data["comments"][i]["user"]}" class=" text-wrap text-primary fs-5 d-inline-block text-decoration-none">${response.data["comments"][i]["user"]}</a>
-                        <span class=" text-secondary fs-6 ms-4">${response.data["comments"][i]["dateComment"]}</span>
-                      </p>
-                      <p class="d-block w-100 text-wrap fs-5">${response.data["comments"][i]["text"]}</p>
-                    </div>
+                  <div class="flex-grow-1 ms-4">
+                    <p>
+                      <a href="../php/profile.php?username=${response.data["comments"][i]["user"]}" class=" text-wrap text-primary fs-5 d-inline-block text-decoration-none">${response.data["comments"][i]["user"]}</a>
+                      <span class=" text-secondary fs-6 ms-4">${response.data["comments"][i]["dateComment"]}</span>
+                    </p>
+                    <p class="d-block w-100 text-wrap fs-5">${response.data["comments"][i]["text"]}</p>
+                  </div>
                 </div>
               </div>
               <hr/>
@@ -316,10 +312,10 @@ function loadComments(postID) {
           }
         }
       } else {
-        console.log("modalBody commenti non valido");
+        showMessage("modalBody commenti non valido");
       }
     } else {
-      console.log(response.data["comment"]);
+      showMessage(response.data["comment"]);
     }
   });
 }
@@ -345,28 +341,23 @@ function enableDeleteBtn($comment) {
   }
 }
 
-function addPostIDAlreadyShow(post_data) {
+/*function addPostIDAlreadyShow(post_data) {
   for (let index = 0; index < post_data.length; index++) {
     num.push(post_data[index]["postID"]);
   }
-  //console.log(num);
-}
+}*/
 
 async function loadMore() {
   if ((window.scrollY + window.innerHeight) >=(document.body.scrollHeight-10) && !loading) {
-    loading=true; //per farlo svolgere una volta sola
-    console.log("scorre");
+    loading=true;
     await axios.post("api-loadMorePosts.php", {
       numPost: num,
       postsView: postsView
     }).then(response => {
-      //console.log(response.data);
-      console.log(num);
       if (response.data["success"]) {
         showForm(response.data["posts"]);
         addPostIDAlreadyShow(response.data["posts"]);
         enableAllButtons(response.data["posts"].length, response.data["posts"]);
-        console.log(num);
       }
     });
     loading=false;

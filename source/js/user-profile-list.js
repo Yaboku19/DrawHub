@@ -119,23 +119,23 @@ function enableFollowersButton() {
       updateLinks(linkList, followingLink);
   });
   postsLink.addEventListener("click", function(event) {
-      event.preventDefault();
-      document.querySelectorAll("div.listElement")?.forEach(x => x.remove());
-      axios.post("api-showpost.php", postsViewData).then(response => {
-        if (response.data["success"]) {
-          showForm(response.data["posts"]);
-          enableAllButtons();
-          enableFollowersButton();
-          if (!response.data["loggedUser"]) {
-            enableFollow();
-          }
-        } else {
-          enableFollowersButton();
-          if (!response.data["loggedUser"]) {
-            enableFollow();
-          }
+    event.preventDefault();
+    document.querySelectorAll("div.listElement")?.forEach(x => x.remove());
+    axios.post("api-showpost.php", postsViewData).then(response => {
+      if (response.data["success"]) {
+        showForm(response.data["posts"]);
+        enableAllButtons();
+        enableFollowersButton();
+        if (!response.data["loggedUser"]) {
+          enableFollow();
         }
-      });
-      updateLinks(linkList, postsLink);
-});
+      } else {
+        enableFollowersButton();
+        if (!response.data["loggedUser"]) {
+          enableFollow();
+        }
+      }
+    });
+    updateLinks(linkList, postsLink);
+  });
 }

@@ -7,31 +7,6 @@ getParameter = (key) => {
     return parameterList.get(key)
 }
 
-/**
- * Update event listener for follow button, delete-btn
- * and post button
- * @param {*} user_follower 
- * @param {*} following_list 
- */
-function updateBtn(user_follower, following_list, notification_id, post_id, div) {
-    followBtn = div.querySelector(".follow-btn");
-    if(followBtn != null) {
-      if(!following_list.includes(user_follower)) {
-        followBtn.innerHTML = `<em class="bi bi-person-plus"> Segui</em>`;
-        addOrReplace(followBtn, "btn-primary", "btn-danger");
-        followBtn.addEventListener('click', function abstractFunct() {
-          followOrUnfollow(user_follower, "follow");
-        });
-      } else {
-        followBtn.innerHTML = `<em class="bi bi-person-plus"> Non seguire</em>`;
-        addOrReplace(followBtn, "btn-danger", "btn-primary");
-        followBtn.addEventListener('click', function abstractFunct() {
-          followOrUnfollow(user_follower, "unfollow");
-        });
-      }
-    }
-}
-
 const followBtn = document.querySelector("button#followBtn");
 const followerCount = document.querySelector("span#followerCount");
 const username = getParameter("username");
@@ -53,11 +28,11 @@ axios.post("api-follow.php", formData).then(response => {
         `;
         }
 });
+
 function enableFollow() {
     const followBtn = document.querySelector("button#followBtn");
     const followerCount = document.querySelector("span#followerCount");
     const username = getParameter("username");
-    console.log("folloe enable" + username);
     followBtn.addEventListener("click", function(event) {
         event.preventDefault();
         const formData = new FormData();

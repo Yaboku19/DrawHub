@@ -70,10 +70,8 @@ function saveChanges(bio, email, password, img, username){
   formData.append("email", email);
   formData.append("password", password);
   axios.post('api-update-settings.php', formData).then(response => {
-    console.log(username);
     if(response.data["success"]) {
       window.location.href = "../php/profile.php?username=" + username;
-      console.log("funziona");
     } else {
       showErrorMsg(response.data["errormsg"]);
     }
@@ -94,7 +92,6 @@ function updateButton(username) {
 const main = document.getElementById("dinamic");
 axios.get("api-get-current-settings.php").then(currentSettings => {
     if(currentSettings.data["logged"]) {
-      console.log("logged");
       showPage(currentSettings.data);
       updateButton(currentSettings.data["username"]);
     } else {

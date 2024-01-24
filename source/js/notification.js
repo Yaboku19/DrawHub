@@ -27,7 +27,7 @@ function loadcomment(comment, color) {
             </p> 
           </div>
           <div class="col-4 px-0 my-0">
-            <img class="my-1 img-fluid mx-1" src="../img/${comment["urlImage"]}" alt="immagine del post" style="max-height: 70px; object-fit:cover;">
+            <img class="my-1 img-fluid mx-1" src="../img/${comment["urlImage"]}" alt="immagine del post" style="max-height: 70px; object-fit:cover;"/>
           </div>
           <div class="col-3 pe-1 ps-0 ms-0 text-end">
             <button data-toggle="button" class="btn btn-outline-danger fs-6 m-1 p-1 ms-0" id="delete-comment${comment["notificationID"]}"><i class="bi bi-trash"></i></button>
@@ -83,7 +83,6 @@ function containerBase() {
 
 function enableDeleteButton (btn, notification) {
   if(btn) {
-    console.log(btn);
     btn.addEventListener("click", () => {
       let id = btn.id;
       let type = id.split('-')[1];
@@ -91,7 +90,7 @@ function enableDeleteButton (btn, notification) {
       const formData = new FormData();
       formData.append("tableName", "new" + type);
       formData.append("notificationID", notification["notificationID"]);
-      console.log(formData.get("tableName"));console.log(formData.get("notificationID"));
+      //console.log(formData.get("tableName"));console.log(formData.get("notificationID"));
       axios.post("api-deletenotification.php", formData).then(response => {
         if (response.data["success"]) {
           showNotification();
@@ -124,7 +123,6 @@ function showNotification () {
           div.innerHTML += loadreaction(notification, color);
         }
       });
-      console.log(sortedArray.length);
       if (sortedArray.length == 0) {
         div.innerHTML += loadNoNotification(color);
       }
@@ -155,4 +153,4 @@ const background = "bg-secondary bg-opacity-10";
 let div = document.getElementById("dinamic"); 
 div.innerHTML += containerBase();
 div = document.getElementById("notificationContainer");
-showNotification();  
+showNotification();
