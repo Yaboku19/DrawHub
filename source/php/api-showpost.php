@@ -1,17 +1,18 @@
 <?php
 require_once("db_config.php");
 
-$numeropost = 2; //prende un post alla volta
+$numeropost = 2;
 $var = false;
 $modifyButton= false;
 $loggedUser= true;
+$message="";
 if (isset($_SESSION["username"]) && isset($_POST["postsView"])) {
     if($_POST["postsView"] == "HomePage") {
-        $post = $dbh->getHomePosts($_SESSION["username"], $numeropost); //prende i post degli utenti che segue
+        $post = $dbh->getHomePosts($_SESSION["username"], $numeropost);
     } else if($_POST["postsView"] == "Explore") {
         $post = $dbh->getExplorePosts($_SESSION["username"], $numeropost);
     } else if($_POST["postsView"] == "Profile") {
-        $post = $dbh->getAllUserPosts($_POST["username"]); //query post utente
+        $post = $dbh->getAllUserPosts($_POST["username"]); 
         if($_POST["username"] === $_SESSION["username"]) {
             $modifyButton = true;
         } else {
@@ -29,12 +30,17 @@ if (isset($_SESSION["username"]) && isset($_POST["postsView"])) {
         
         $post[$i] = array_merge($post[$i] , $userReactions);
         $post[$i]["modifyButton"] = $modifyButton;
+    }
+    if(count($post) == 0) {
+        $message="Non hai post da visualizzare, inizia a <a href='../php/showExplore.php'> cercare</a>";
+    } else {
         $var = true;
     }
 }
 $posts["loggedUser"] = $loggedUser;
 $posts["posts"] = $post;
 $posts["success"] = $var;
+$posts["message"] = $message;
 
 $templateParams["title"] = "Show Post";
 header("Content-Type: application/json");

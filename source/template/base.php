@@ -3,11 +3,11 @@
 
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"/>
     <title><?php echo $templateParams["title"]?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style.css"/>
 </head>
 <body>
     <header>
@@ -20,9 +20,9 @@
                         </button>
                     </div>    
                     <div class="col text-center px-0 mx-0">
-                            <img src="../img/drawhub.png" class="pt-2 me-5 img-fluid" alt="Immagine" class="img-fluid" width="120">
+                            <img src="../img/drawhub.png" class="pt-2 me-5 img-fluid" alt="Immagine" class="img-fluid" width="120"/>
                     </div>
-                    <hr class="p-0 m-0">
+                    <hr class="p-0 m-0"/>
                 </div>
             </div>
         </div>
@@ -33,7 +33,7 @@
                 <div class="modal-content">
                 <div class="modal-header">
                     <label for="searchInput" class="modal-title" id="searchModalLabel">Ricerca:</label>
-                    <input type="search" class="form-control" id="searchInput" placeholder="Cerca utente">
+                    <input type="search" class="form-control" id="searchInput" placeholder="Cerca utente"/>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -58,7 +58,7 @@
                     <div class="modal-body text-wrap comment-body border border-dark">
                     </div>
                     <div class="modal-footer border border-dark">
-                        <input type="text" class="form-control" id="commentInput" placeholder="Scrivi un commento">
+                        <input type="text" class="form-control" id="commentInput" placeholder="Scrivi un commento"/>
                         <button data-toggle="button" class="btn btn-outline-primary" id="postaCommento">Posta</button>
                     </div>
                 </div>
@@ -68,8 +68,8 @@
                 <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 min-vh-100 sticky-top">
                 <button type="button" class="btn-close btn-close-dark align-self-end" data-bs-dismiss="offcanvas" aria-label="Chiudi"></button>
                 <div class="mt-5">
-                    <img class="img-fluid mb-3" src="../img/drawhub.png" alt="immagine del logo">
-                    <hr>
+                    <img class="img-fluid mb-3" src="../img/drawhub.png" alt="immagine del logo"/>
+                    <hr/>
                 </div>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
                     <li class="nav-item">
@@ -116,8 +116,8 @@
                 <div class="col-auto d-md-block d-none col-md-3 col-xl-2 px-sm-2 px-0 bg-secondary bg-opacity-10 ">
                     <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 min-vh-100 sticky-top">
                         <div class="mt-5">
-                            <img class="img-fluid mb-3" src="../img/drawhub.png" alt="">
-                            <hr>
+                            <img class="img-fluid mb-3" src="../img/drawhub.png" alt=""/>
+                            <hr/>
                         </div>
                         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
                             <li class="nav-item">
@@ -163,17 +163,17 @@
                     <div id="dinamic" class="col-md-8 offset-md-1 px-3 py-3">
                         <main>
                         <?php
-                        if (isset($templateParams["name"])) {
-                            require($templateParams["name"]);
-                        }
-                        if (isset($templateParams["js"])) :
-                            foreach($templateParams["js"] as $script):
-                        ?>
+                            if (isset($templateParams["name"])) {
+                                require($templateParams["name"]);
+                            }
+                            if (isset($templateParams["js"])) :
+                                foreach($templateParams["js"] as $script):
+                            ?>
                         <script src="<?php echo $script; ?>"></script>
-                        <?php
-                                endforeach;
-                            endif;
-                        ?>
+                            <?php
+                                    endforeach;
+                                endif;
+                            ?>
                         </main>
                     </div>
                 </div>

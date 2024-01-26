@@ -13,82 +13,82 @@ function generateForm(post_data) {
     post_data[i]["user_has_occhi_neutri"] = chooseButtonColor(post_data[i], "user_has_occhi_neutri");
     post_data[i]["user_has_pollice_giu"] = chooseButtonColor(post_data[i], "user_has_pollice_giu");
     section+= `
-    <div class="card my-4 bg-secondary bg-opacity-10 row postCard"> <!-- un Post inizia da qua -->
-    <div class="card-header">
-      <div class="container">
-        <div class="row">
-          <div class="col-8 p-0 m-0">
-            <a href="../php/profile.php?username=${post_data[i]["user"]}" class="nav-link px-0 mx-0 my-1  text-dark">
-                <img src="../img/${post_data[i]["urlProfilePicture"]}" class="rounded-circle py-0 mb-1" alt="foto profilo" width="40" height="40">
-                <!--<i class="fs-3 bi-person-circle"></i>--> 
-                <span class="fs-3 ms-2 pt-1 mt-2 d-sm-inline">${post_data[i]["user"]}</span>
-            </a>
-          </div>
-          <div class="col-4 text-end pl-0">
-          ${modifyButton}
+    <div class="card my-4 bg-secondary bg-opacity-10 row postCard">
+      <div class="card-header">
+        <div class="container">
+          <div class="row">
+            <div class="col-8 p-0 m-0">
+              <a href="../php/profile.php?username=${post_data[i]["user"]}" class="nav-link px-0 mx-0 my-1  text-dark">
+                  <img src="../img/${post_data[i]["urlProfilePicture"]}" class="rounded-circle py-0 mb-1" alt="foto profilo" width="40" height="40" style="object-fit:cover;"/>
+                  <span class="fs-3 ms-2 pt-1 mt-2 d-sm-inline">${post_data[i]["user"]}</span>
+              </a>
+            </div>
+            <div class="col-4 text-end pl-0">
+              ${modifyButton}
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="card-body">
+      <div class="card-body pb-0">
         <p class="card-text">${post_data[i]["description"]}</p>
         <p class="card-text"><small class="text-body-secondary">${post_data[i]["datePost"]}</small></p>
         <div class="container m-0 p-0">
-        <div class="position-relative" id="post${post_data[i]["postID"]}">
-        <img src="../img/${post_data[i]["urlImage"]}" class="card-img-bottom img-fluid py-2 my-1 w-100" alt="foto post" >
-        </div>
+          <div class="position-relative" id="post${post_data[i]["postID"]}">
+            <img src="../img/${post_data[i]["urlImage"]}" class="card-img-bottom img-fluid py-2 my-1 w-100" alt="foto post" style="max-height: 700px; object-fit:cover;"/>
+          </div>
         </div>
         <div class=" container">
           <div class="row">
             <div class="col-10 px-0 mx-0 d-flex flex-wrap">
-                <button type="button" class="btn ${post_data[i]["user_has_cuore"]} position-relative my-3 ms-0 me-2 pl-0 fs-5" id="btn_cuore_${post_data[i]["postID"]}"><em class="bi-heart-fill"></em>
-                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cuore${post_data[i]["postID"]}">
-                    ${post_data[i]["cuore"]}
-                  </span>
-                </button>
-                <button type="button" class="btn ${post_data[i]["user_has_occhi_a_cuore"]} position-relative my-3 mx-3 fs-5" id="btn_occhi_a_cuore_${post_data[i]["postID"]}"><em class="bi-emoji-heart-eyes-fill"></em>
-                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="occhi_a_cuore${post_data[i]["postID"]}">
-                    ${post_data[i]["occhi_a_cuore"]}
-                  </span>
-                </button>
-                <button type="button" class="btn ${post_data[i]["user_has_occhi_neutri"]} position-relative my-3 mx-2 fs-5" id="btn_occhi_neutri_${post_data[i]["postID"]}"><em class="bi-emoji-neutral-fill"></em>
-                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="occhi_neutri${post_data[i]["postID"]}">
-                    ${post_data[i]["occhi_neutri"]}
-                  </span>
-                </button>
-                <button type="button" class="btn ${post_data[i]["user_has_pollice_giu"]} position-relative my-3 mx-3 fs-5" id="btn_pollice_giu_${post_data[i]["postID"]}"><em class="bi-hand-thumbs-down-fill"></em>
-                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="pollice_giu${post_data[i]["postID"]}">
-                      ${post_data[i]["pollice_giu"]}
-                  </span>
-                </button>
-              </div>
-              <div class="text-end col-2 px-0 mx-0">
-                <button type="button" class="btn ml-5 my-3 mx-0 fs-3" id="download${post_data[i]["postID"]}"><em class="bi-download"></em>
-                <a href="../img/${post_data[i]["urlImage"]}" id="image${post_data[i]["postID"]}" download="${post_data[i]["urlImage"]}"></a>
-                </button>
-              </div>
+              <button type="button" class="btn ${post_data[i]["user_has_cuore"]} position-relative my-2 ms-0 me-2 pl-0 fs-6" id="btn_cuore_${post_data[i]["postID"]}"><em class="bi-heart-fill"></em>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cuore${post_data[i]["postID"]}">
+                  ${post_data[i]["cuore"]}
+                </span>
+              </button>
+              <button type="button" class="btn ${post_data[i]["user_has_occhi_a_cuore"]} position-relative my-2 mx-2 fs-6" id="btn_occhi_a_cuore_${post_data[i]["postID"]}"><em class="bi-emoji-heart-eyes-fill"></em>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="occhi_a_cuore${post_data[i]["postID"]}">
+                  ${post_data[i]["occhi_a_cuore"]}
+                </span>
+              </button>
+              <button type="button" class="btn ${post_data[i]["user_has_occhi_neutri"]} position-relative my-2 mx-2 fs-6" id="btn_occhi_neutri_${post_data[i]["postID"]}"><em class="bi-emoji-neutral-fill"></em>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="occhi_neutri${post_data[i]["postID"]}">
+                  ${post_data[i]["occhi_neutri"]}
+                </span>
+              </button>
+              <button type="button" class="btn ${post_data[i]["user_has_pollice_giu"]} position-relative my-2 ms-2 fs-6" id="btn_pollice_giu_${post_data[i]["postID"]}"><em class="bi-hand-thumbs-down-fill"></em>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="pollice_giu${post_data[i]["postID"]}">
+                    ${post_data[i]["pollice_giu"]}
+                </span>
+              </button>
             </div>
+            <div class="text-end col-2 px-0 mx-0">
+              <button type="button" class="btn ml-5 my-2 mx-0 fs-5" id="download${post_data[i]["postID"]}"><em class="bi-download"></em>
+                <a href="../img/${post_data[i]["urlImage"]}" id="image${post_data[i]["postID"]}" download="${post_data[i]["urlImage"]}"></a>
+              </button>
+            </div>
+          </div>
         </div>
-    </div>
-    <div class="card-footer">
-      <a data-bs-toggle="modal" data-bs-target="#commentModal" class="nav-link px-0 text-dark" href="#">
-        <i class="bi-chat-left-text"></i> <span class="fs-4 ms-2 d-sm-inline" id="comment${post_data[i]["postID"]}">Commenti (${post_data[i]["num_comments"]})</span>
-      </a>
-    </div>
-    <script src="comment.js"></script>               
-  </div><!-- un Post finisce qui -->`;
+      </div>
+      <div class="card-footer">
+        <a data-bs-toggle="modal" data-bs-target="#commentModal" class="nav-link px-0 text-dark" href="#">
+          <i class="bi-chat-left-text"></i> <span class="fs-4 ms-2 d-sm-inline" id="comment${post_data[i]["postID"]}">Commenti (${post_data[i]["num_comments"]})</span>
+        </a>
+      </div>
+      <script src="comment.js"></script>               
+    </div>`;
   }
 
 return section;
 }
 
-function showError() {
-  return `<div>
+function showMessage(msg) {
+  return `
+      <div>
         <div class="container bg-secondary bg-opacity-10 border"> 
           <div class="row d-flex align-items-center my-1">
             <div class="col-12">
               <p class="my-1">
-              Non hai post da visualizzare, inizia a <a href="../php/showExplore.php"> cercare</a>
+              ${msg}
               </p>
             </div>
           </div>
@@ -125,13 +125,16 @@ let rd;
 let loading = false;
 let div = document.getElementById("dinamic");
 let end = false;
-console.log(postsView);
+let postsView = "";
+let username_profile = "";
+postsView = selectPage();
+username_profile = selectUsername();
+//console.log(postsView);
 const postsViewData = new FormData();
 postsViewData.append('postsView', postsView);
 
-postsViewData.append('username', usernameprofileprova);
+postsViewData.append('username', username_profile);
 axios.post("api-showpost.php", postsViewData).then(response => {
-  console.log(response.data);
   if (response.data["success"]) {
     showForm(response.data["posts"]);
     addPostIDAlreadyShow(response.data["posts"]);
@@ -143,12 +146,10 @@ axios.post("api-showpost.php", postsViewData).then(response => {
     if (!response.data["loggedUser"]) {
       enableFollow();
     }
-    //loadMore();
   } else {
     if(postsView=="HomePage") {
-      let formErr = showError();
-      div.innerHTML += formErr; 
-      
+      let formMsg = showMessage(response.data["message"]);
+      div.innerHTML += formMsg;
     }
     if(postsView =="Profile") {
       enableFollowersButton();
@@ -156,7 +157,6 @@ axios.post("api-showpost.php", postsViewData).then(response => {
     if (!response.data["loggedUser"]) {
       enableFollow();
     }
-    //div.appendChild(showError());
   }
 
 });
@@ -182,11 +182,10 @@ function enableButton(postID, buttonType, reactionType, iconTag) {
   let button = document.getElementById(buttonID);
   let span = document.getElementById(spanID);
   let postDiv = document.getElementById(postImage);
-  if(button){
+  if(button) {
     button.addEventListener('click', function onclick() {
       axios.post("api-reaction.php", formData).then(response =>
         span.innerHTML=response.data[reactionType]);
-        //quando viene cliccato il bottone, aggiorna dinamicamente il colore
         if(button.classList.contains("btn-outline-danger")) {
           button.classList.replace("btn-outline-danger", "btn-danger");
           const react= document.createElement('em');
@@ -223,18 +222,17 @@ function enablePostComment() {
       const formData = new FormData();
       formData.append("postID", document.getElementById("idPost").innerHTML);
       formData.append("text", document.getElementById("commentInput").value);
-      console.log(formData.get("text"));
       axios.post("api-addcomment.php", formData).then(response => {
         if (response.data["success"]) {
           loadComments(document.getElementById("idPost").innerHTML);
         } else {
-          console.log(response.data["comment"]);
+          showMessage(response.data["comment"]);
         }
         document.getElementById("commentInput").value = "";
       });
     });
   } else {
-    console.log("errore nel caricamento del pulsante posta");
+    showMessage("errore nel caricamento del pulsante posta");
   }
 }
 
@@ -246,19 +244,18 @@ function enableComment(postID) {
       loadComments(postID);
     });
   } else {
-    console.log("errore nel caricamento del commentspan");
+    showMessage("errore nel caricamento del commentspan");
   }
 }
 
 function addPostIDAlreadyShow(post_data) {
   for (let index = 0; index < post_data.length; index++) {
-    if (!num.contains(post_data[index]["postID"])) {
-      console.log("aggiungo il post id" + post_data[index]["postID"]);
+    if (!num.includes(post_data[index]["postID"])) {
       num.push(post_data[index]["postID"]);
     }
   }
-  //console.log(num);
 }
+
 function loadComments(postID) {
   const formData = new FormData();
   formData.append("postID", postID);
@@ -281,15 +278,14 @@ function loadComments(postID) {
               <div class="commento">
                 <div class="d-flex align-items-center">
                   <div class="flex-grow-1 ms-4">
-                      <p>
-                        <a href="../php/profile.php?username=${response.data["comments"][i]["user"]}" class=" text-wrap text-primary fs-5 d-inline-block text-decoration-none">${response.data["comments"][i]["user"]}</a>
-                        <span class=" text-secondary fs-6 ms-4">${response.data["comments"][i]["dateComment"]}</span>
-                      </p>
-                      <p class="d-block w-100 text-break text-wrap fs-5">${response.data["comments"][i]["text"]}</p>
+                    <p>
+                      <a href="../php/profile.php?username=${response.data["comments"][i]["user"]}" class=" text-wrap text-primary fs-5 d-inline-block text-decoration-none">${response.data["comments"][i]["user"]}</a>
+                      <span class=" text-secondary fs-6 ms-4">${response.data["comments"][i]["dateComment"]}</span>
+                    </p>
+                    <p class="d-block w-100 text-break text-wrap fs-5">${response.data["comments"][i]["text"]}</p>
                   </div>
                   <div class="ms-auto">
-                  <button data-toggle="button" class="btn btn-outline-danger fs-6 m-1 p-1" id="DeleteComment${response.data["comments"][i]["commentID"]}"><i class="bi bi-trash"></i></button>
-                      <!--<button data-toggle="button" class="btn btn-outline-danger" id="DeleteComment${response.data["comments"][i]["commentID"]}">Delete</button>-->
+                    <button data-toggle="button" class="btn btn-outline-danger fs-6 m-1 p-1" id="DeleteComment${response.data["comments"][i]["commentID"]}"><i class="bi bi-trash"></i></button>
                   </div>
                 </div>
               </div>
@@ -301,13 +297,13 @@ function loadComments(postID) {
             container.innerHTML = `
               <div class="commento">
                 <div class="d-flex align-items-center">
-                    <div class="flex-grow-1 ms-4">
-                      <p>
-                        <a href="../php/profile.php?username=${response.data["comments"][i]["user"]}" class=" text-wrap text-primary fs-5 d-inline-block text-decoration-none">${response.data["comments"][i]["user"]}</a>
-                        <span class=" text-secondary fs-6 ms-4">${response.data["comments"][i]["dateComment"]}</span>
-                      </p>
-                      <p class="d-block w-100 text-wrap fs-5">${response.data["comments"][i]["text"]}</p>
-                    </div>
+                  <div class="flex-grow-1 ms-4">
+                    <p>
+                      <a href="../php/profile.php?username=${response.data["comments"][i]["user"]}" class=" text-wrap text-primary fs-5 d-inline-block text-decoration-none">${response.data["comments"][i]["user"]}</a>
+                      <span class=" text-secondary fs-6 ms-4">${response.data["comments"][i]["dateComment"]}</span>
+                    </p>
+                    <p class="d-block w-100 text-wrap fs-5">${response.data["comments"][i]["text"]}</p>
+                  </div>
                 </div>
               </div>
               <hr/>
@@ -316,10 +312,10 @@ function loadComments(postID) {
           }
         }
       } else {
-        console.log("modalBody commenti non valido");
+        showMessage("modalBody commenti non valido");
       }
     } else {
-      console.log(response.data["comment"]);
+      showMessage(response.data["comment"]);
     }
   });
 }
@@ -345,28 +341,17 @@ function enableDeleteBtn($comment) {
   }
 }
 
-function addPostIDAlreadyShow(post_data) {
-  for (let index = 0; index < post_data.length; index++) {
-    num.push(post_data[index]["postID"]);
-  }
-  //console.log(num);
-}
-
 async function loadMore() {
   if ((window.scrollY + window.innerHeight) >=(document.body.scrollHeight-10) && !loading) {
-    loading=true; //per farlo svolgere una volta sola
-    console.log("scorre");
+    loading=true;
     await axios.post("api-loadMorePosts.php", {
       numPost: num,
       postsView: postsView
     }).then(response => {
-      //console.log(response.data);
-      console.log(num);
       if (response.data["success"]) {
         showForm(response.data["posts"]);
         addPostIDAlreadyShow(response.data["posts"]);
         enableAllButtons(response.data["posts"].length, response.data["posts"]);
-        console.log(num);
       }
     });
     loading=false;

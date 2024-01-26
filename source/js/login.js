@@ -1,18 +1,18 @@
 function generateForm(loginerror = null) {
-    let form = `
-    <section>
-      <div class="d-flex justify-content-center align-middle margin m-2 py-3 align-items-center ">
-        <div class="flex-column border border-3 p-5 bg-secondary bg-opacity-10">
-          <div class="pb-2 pt-0 text-center">
-              <img src="../img/drawhub.png" alt="" width="300" height="75">
+  let form = `
+  <section>
+    <div class="d-flex justify-content-center align-middle margin m-2 py-3 align-items-center ">
+      <div class="flex-column border border-3 p-5 bg-secondary bg-opacity-10">
+        <div class="pb-2 pt-0 text-center">
+          <img src="../img/drawhub.png" alt="" width="300" height="75"/>
+        </div>
+        <div class="p-1">
+          <div class="pb-2 my-2 text-center">
+            <button type="button" class="btn btn-primary mx-2" data-toggle="button" aria-pressed="true" disabled>Log in</button><a class="btn btn-primary mx-2" data-toggle="button" aria-pressed="false" href='../php/index.php'>Sign in</a>
           </div>
-          <div class="p-1">
-            <div class="pb-2 my-2 text-center">
-              <button type="button" class="btn btn-primary mx-2" data-toggle="button" aria-pressed="true" disabled>Log in</button><a class="btn btn-primary mx-2" data-toggle="button" aria-pressed="false" href='../php/index.php'>Sign in</a>
-            </div>
-            <form action="../php/Login.php" method="POST">
+          <form action="../php/Login.php" method="POST">
             <ul class="list-group-flush">
-              <li class="list-group-item m-1 p-0"><label for="email" class="fw-semibold fst-italic">E-mail</label><input type="email" class="d-flex justify-content-end rounded" id="email" name="email"/></li>
+              <li class="list-group-item m-1 p-0"><label for="username" class="fw-semibold fst-italic">Username</label><input type="text" class="d-flex justify-content-end rounded" id="username" name="username"/></li>
               <li class="list-group-item m-1 p-0"><label for="password" class="fw-semibold fst-italic">Password</label><input type="password" class="d-flex justify-content-end rounded" id="password" name="password"/></li>
             </ul>
             <hr/>
@@ -20,55 +20,45 @@ function generateForm(loginerror = null) {
               <button type="submit" data-toggle="button" class="btn btn-outline-primary">Accedi</button>
             </div>
             <p class="text-danger m-0" id="error-text"></p>
-            </form>
-         </div> 
-        </div>
+          </form>
+        </div> 
       </div>
-    </section>
-    `;
-    return form;
-  }
+    </div>
+  </section>
+  `;
+  return form;
+}
   
-  const main = document.querySelector("main");
-  axios.get('api-login.php').then(response => {
-      if (!response.data["login-result"]) {
-        VisualizeLoginForm();          
+const main = document.querySelector("main");
+axios.get('api-login.php').then(response => {
+    if (!response.data["login-result"]) {
+      VisualizeLoginForm();          
+    }
+});
+  
+  
+function VisualizeLoginForm() {
+  let form = generateForm();
+  main.innerHTML = form;
+  document.querySelector("main form").addEventListener("submit", function (event) {
+      event.preventDefault();
+      const username = document.querySelector("#username").value;
+      const password = document.querySelector("#password").value;
+      login(username, password);
+  });
+}
+  
+function login(username, password) {
+  const formData = new FormData();
+  formData.append('username', username);
+  formData.append('password', password);
+
+  axios.post('api-login.php', formData).then(response => {
+    if (response.data["login-result"]) {
+        window.location.href = "../php/showhomepage.php";
+      } else {
+        document.getElementById("error-text").innerText = response.data["login-error"];
       }
   });
-  
-  
-  function VisualizeLoginForm() {
-    // Utente NON loggato
-    let form = generateForm();
-    main.innerHTML = form;
-    // Gestisco tentativo di login
-    document.querySelector("main form").addEventListener("submit", function (event) {
-        event.preventDefault();
-        const email = document.querySelector("#email").value;
-        const password = document.querySelector("#password").value;
-        login(email, password);
-    });
-  }
-  
-  function login(email, password) {
-    const formData = new FormData();
-
-    console.log(email); 
-    console.log(password); 
-    formData.append('email', email);
-    formData.append('password', password);
-  
-    axios.post('api-login.php', formData).then(response => {
-      console.log(response.data["test"]);  
-      console.log(response.data["hash"]); 
-      console.log(response.data["login-result"]); 
-      console.log(response.data); 
-      if (response.data["login-result"]) {
-          console.log("funziona");  
-          window.location.href = "../php/showhomepage.php";
-        } else {
-          document.getElementById("error-text").innerText = response.data["login-error"];
-        }
-    });
-  }
+}
   

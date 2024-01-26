@@ -16,9 +16,9 @@ class DatabaseHelper{
         $this->db->close();
     }
 
-    public function login($email, $passw) {
-        $stmt = $this->db->prepare("SELECT * FROM user U WHERE U.email = ? AND U.password = ?");
-        $stmt->bind_param("ss", $email, $passw); //ss sta per string string
+    public function login($username, $passw) {
+        $stmt = $this->db->prepare("SELECT * FROM user U WHERE U.username = ? AND U.password = ?");
+        $stmt->bind_param("ss", $username, $passw); //ss sta per string string
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -46,9 +46,9 @@ class DatabaseHelper{
         return $stmt->execute();
     }
 
-    public function getPasswordFromDB($email) {
-        $stmt = $this->db->prepare("SELECT password FROM user U WHERE U.email = ?");
-        $stmt->bind_param("s", $email,);
+    public function getPasswordFromDB($username) {
+        $stmt = $this->db->prepare("SELECT password FROM user U WHERE U.username = ?");
+        $stmt->bind_param("s", $username,);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -56,7 +56,8 @@ class DatabaseHelper{
     }
 
     public function checkValueInDb($table, $field, $id) {
-        $stmt = $this->db->prepare("SELECT * FROM $table t WHERE t.$field = ?");
+        $escapedTable= $this->db->real_escape_string($table);
+        $stmt = $this->db->prepare("SELECT * FROM $escapedTable t WHERE t.$field = ?");
         $id = strval($id);
         $stmt->bind_param("s", $id);
         $stmt->execute();
@@ -111,26 +112,26 @@ class DatabaseHelper{
      * Prende post che non ho gia visualizzato, che non sono quelli che ha postato
      *  l'utente, da usare nell'esplora
      */
-    public function getMoreExplorePosts($username, $posts, $numeropost) { 
+    public function getMoreExplorePosts($username, $posts, $numPost) { 
         $placeholders = implode(',', array_fill(0, (count($posts)), '?'));
-        $stmt1 = "(SELECT U.username FROM user U WHERE U.username <> '".$username."') ORDER BY  P.datePost DESC LIMIT ".strval($numeropost)." ;";
-
+        $escapedUsername = $this->db->real_escape_string($username);
+        $escapedNumPost = $this->db->real_escape_string($numPost);
+        $stmt1 = "(SELECT U.username FROM user U WHERE U.username <> '".$escapedUsername."') ORDER BY  P.datePost DESC LIMIT ".strval($escapedNumPost)." ;";
         $stmt = $this->db->prepare("SELECT P.*, U.urlProfilePicture FROM post P, user U WHERE P.user = U.username AND P.postID NOT IN ( $placeholders ) AND P.user IN ".$stmt1);
         $stmt->bind_param(str_repeat('i', (count($posts))), ...$posts);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
-
-    
 
     /**
      * Prende i post degli utenti che segue
      */
-    public function getMoreHomePosts($username, $posts, $numeropost) { //da fare
+    public function getMoreHomePosts($username, $posts, $numPost) {
         $placeholders = implode(',', array_fill(0, (count($posts)), '?'));
-        $stmt1 = "(SELECT user AS username FROM follow WHERE followerUser = '".$username."') ORDER BY  P.datePost DESC LIMIT ".strval($numeropost)." ;";
-
+        $escapedUsername = $this->db->real_escape_string($username);
+        $escapedNumPost = $this->db->real_escape_string($numPost);
+        $stmt1 = "(SELECT user AS username FROM follow WHERE followerUser = '".$escapedUsername."') ORDER BY  P.datePost DESC LIMIT ".strval($escapedNumPost)." ;";
         $stmt = $this->db->prepare("SELECT P.*, U.urlProfilePicture FROM post P, user U WHERE P.user = U.username AND P.postID NOT IN ( $placeholders ) AND P.user IN ".$stmt1);
         $stmt->bind_param(str_repeat('i', (count($posts))), ...$posts);
         $stmt->execute();
@@ -138,7 +139,7 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getPostComments($postID){ //da sistemare
+    public function getPostComments($postID){
         $stmt = $this->db->prepare("SELECT COUNT(*) AS comment FROM comment C WHERE C.postID = ?");
         $stmt->bind_param("i", $postID);
         $stmt->execute();
@@ -172,7 +173,7 @@ class DatabaseHelper{
         return $result;
     }
 
-    public function countPostReactionType($post_id, $reactionType){ //da sist
+    public function countPostReactionType($post_id, $reactionType){
         $stmt = $this->db->prepare("SELECT COUNT(*) AS info FROM post P, reaction R  WHERE R.postID=P.postID AND P.postID = ? AND R.typeID = ?");
         $stmt->bind_param("is", $post_id, $reactionType);
         $stmt->execute();
@@ -180,7 +181,7 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC)[0]["info"];
     }
 
-        /**
+    /**
      * Given a username returns the number of followers that user has
      */
     public function getFollowerCount($username) {
@@ -192,7 +193,7 @@ class DatabaseHelper{
     }
 
     /**
-     * Given username returns il numero di seguiti
+     * Dato username ritorna il numero di seguiti
      */
     public function getFollowedCount($username) {
         $stmt = $this->db->prepare("SELECT COUNT(*) AS followed_count FROM follow WHERE followerUser = ?");
@@ -306,6 +307,7 @@ class DatabaseHelper{
         $result = $stmt->execute();
         return $result;
     }
+    
     public function addReaction($username, $postID, $reactionType) {
         $stmt = $this->db->prepare("INSERT INTO reaction (user, typeID, postID) VALUES (?, ?, ?)");
         $stmt->bind_param("ssi", $username, $reactionType, $postID);

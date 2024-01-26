@@ -1,39 +1,4 @@
-function generateOptions(values, selected, category) {
-  let options = `<option value='0'></option>`;
-  let add_selected = ``;
-  if(values == null && category == 'course') {
-    return options;
-  }
-  if(category != 'uni') {
-    options = ``;
-  }
-  values.forEach(element => {
-    add_selected = ``;
-    switch (category) {
-      case 'uni':
-        if(selected == element["uni_id"]) {
-          add_selected = `selected='selected'`;
-        }
-        options += `<option value='${element["uni_id"]}' ` + add_selected + `>${element["nome"]}</option>`;
-        break;
-      case 'course':
-        if(selected == element["corso_id"]) {
-          add_selected = `selected='selected'`;
-        }
-        options += `<option value='${element["corso_id"]}' ` + add_selected + `>${element["nome"]}</option>`;
-        break;
-      case 'residence':
-        if(selected == element) {
-          add_selected = `selected='selected'`;
-        }
-        options += `<option value='${element}' ` + add_selected + `>${element}</option>`;
-        break;
-    }
-  });
-  return options;
-}
-
-function showPage(currentSettings){//, response_select) {
+function showPage(currentSettings) {
   let form = `
     <div class="container justify-content-center align-middle p-0 m-0 my-1">
       <div class="container p-1 mb-2 bg-secondary bg-opacity-10 p-0 m-0 border">
@@ -47,18 +12,19 @@ function showPage(currentSettings){//, response_select) {
         </div>
         <div class="row p-0 m-0 my-1 py-1">
           <div class="col-sm-6 d-flex">
-            <label for="bio" class="fw-bold">Descrizione:</label>
+            <label for="bio" class="fw-bold">Biografia:</label>
           </div>
           <div class="col-sm-6 d-flex ">
             <textarea id="bio" name="bio" rows="5" cols="30">${currentSettings["bio"]}</textarea>
           </div>
         </div>
         <div class="row p-0 m-0 my-1 py-1">
-          <div class="col-sm-6">
+          <div class="col-sm-6 my-1">
             <label for="urlProfilePicture" class="fw-bold">Immagine profilo:</label>
           </div>
-          <div class="col-sm-6">
-            <input type="file" name="urlProfilePicture" id="urlProfilePicture" class="form-control" />
+          <div class="col-sm-6 text-center my-1">
+            <img src="../img/${currentSettings["urlProfilePicture"]}" class="rounded-circle py-0 mb-1" alt="foto profilo" width="120" height="120" style="object-fit:cover;"/>
+            <input type="file" name="urlProfilePicture" id="urlProfilePicture" class="form-control form-control-sm " />
           </div>
         </div>
         <div class="row p-0 m-0 my-1 py-1">
@@ -103,20 +69,13 @@ function saveChanges(bio, email, password, img, username){
   formData.append("img", img); 
   formData.append("email", email);
   formData.append("password", password);
-
   axios.post('api-update-settings.php', formData).then(response => {
-    console.log(username);
     if(response.data["success"]) {
       window.location.href = "../php/profile.php?username=" + username;
-      console.log("funziona");
     } else {
       showErrorMsg(response.data["errormsg"]);
     }
   });
-}
-
-function logout() {
-  fetch("login.php");
 }
 
 function updateButton(username) {
@@ -126,31 +85,15 @@ function updateButton(username) {
     const img = document.querySelector("#urlProfilePicture") != null ? document.querySelector("#urlProfilePicture").files[0] : null;
     const email = document.querySelector("#email").value;
     const password = document.querySelector("#passw").value;
-    //console.log(bio + img + email + password);
     saveChanges(bio, email, password, img, username);
   });
 }
 
-/*function updateSelect(response_settings) {
-  var formData = new FormData();
-  select = document.querySelector("#uni");
-  select.addEventListener('change', function abstractFunction() {
-    formData.append("uni-selected", select.value);
-    axios.post("api-selector-controller.php", formData).then(response_selector => {
-      showPage(response_settings.data, response_selector.data);
-      updateButton(response_settings.data["username"]);
-      updateSelect(response_settings);
-    });
-  });
-}*/
-
 const main = document.getElementById("dinamic");
 axios.get("api-get-current-settings.php").then(currentSettings => {
     if(currentSettings.data["logged"]) {
-      console.log("logged");
-      showPage(currentSettings.data);//, response_selector.data);
+      showPage(currentSettings.data);
       updateButton(currentSettings.data["username"]);
-      //updateSelect(currentSettings);*/
     } else {
       window.location.href = "../php/index.php";
     }

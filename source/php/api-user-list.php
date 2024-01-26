@@ -1,7 +1,5 @@
 <?php
-/**
- * In questo file prendo e aggiorno le liste di utenti siguiti e seguaci da far mostrare nel profilo
- */
+
 require_once("db_config.php");
 
 $result["success"] = false;
@@ -12,7 +10,6 @@ if (isset($_POST["profileUsername"]) && isset($_POST["requestedList"])) {
     switch($requestedList) {
         case "followers":
             $result["success"] = true;
-            $result["pippo"] = "followers";
             $followers = $dbh->getFollowers($profileUsername);
             for($i = 0; $i < count($followers); $i++) {
                 $followerInfo = $dbh->getUserInfo($followers[$i]["username"]);
@@ -32,11 +29,11 @@ if (isset($_POST["profileUsername"]) && isset($_POST["requestedList"])) {
             $result["requestedList"] = $requestedList;
             break;
         default:
-            $result["errormsg"] = "Requested list uknown";
+            $result["errormsg"] = "Lista richiesta sconosciuta";
             break;
     }
 } else {
-    $result["errormsg"] = "Missing required data";
+    $result["errormsg"] = "dati richiesti non presenti";
 }
 
 header("Content-Type: application/json");

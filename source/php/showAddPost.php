@@ -5,7 +5,6 @@ $templateParams["title"] = "Insert Post";
 $templateParams["name"] = "../template/template-add-post.php";
 $templateParams["homepage"] = "";
 $templateParams["notifications"] = "";
-//$templateParams["paginaprofilouser"]= $_SESSION["username"];
 $templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js", "../js/updateNotification.js");
 
 $error = "";
@@ -24,10 +23,6 @@ if(isset($_POST["submit"]) && isset($_POST["post"])){
         } else {
             $error = "Errore; l'immagine deve essere presente";
         }
-        
-        //$dbh->addPost($testo, $_SESSION["username"]);
-        
-        //echo($result);
         
     } else if($testo == ""){
         $error = "Errore; Il testo non può essere vuoto";

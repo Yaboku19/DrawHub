@@ -5,7 +5,6 @@ define("IMG_PATH", "../img/");
 $templateParams["title"] = "Profile";
 $templateParams["user_exists"] = false;
 $templateParams["errormsg"] = "Missing username";
-//$templateParams["paginaprofilouser"]=$_SESSION["username"];
 $templateParams["name"]=null;
 $templateParams["homepage"] = "";
 $templateParams["notifications"] = "";
@@ -26,11 +25,8 @@ if (isset($_GET["username"])) {
         $templateParams["follower_count"] = $dbh->getFollowerCount($templateParams["username"]);
         $templateParams["followed_count"] = $dbh->getFollowedCount($templateParams["username"]);
         $templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js", "../js/profile.js", "../js/updateNotification.js", "../js/follow.js","../js/user-profile-list.js", "../js/post.js");
-        //$templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js", "../js/reactions.js", "../js/utils.js", "../js/user-profile-list.js", "../js/follow.js");
     } else {
-        $templateParams["js"] = array("https://unpkg.com/axios/dist/axios.min.js", "../js/utils.js");
         $templateParams["errormsg"] = "Utente non trovato.";
-        $templateParams["name"] = "show-error.php";
     }
 }
 

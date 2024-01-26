@@ -24,10 +24,8 @@ CREATE TABLE drawHub.post (
     postID                  INT             NOT NULL        AUTO_INCREMENT      PRIMARY KEY,
     description             VARCHAR(200)    NOT NULL,
     urlImage                VARCHAR(100)    NOT NULL,
-    originalPostId          INT,
     datePost                DATE            NOT NULL,
     CONSTRAINT FK_Post_Author FOREIGN KEY (user) REFERENCES drawHub.user(username) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT FK_Post_OriginalPost FOREIGN KEY (originalPostId) REFERENCES drawHub.post(postID) ON DELETE CASCADE ON UPDATE CASCADE
 ) engine=InnoDB;
 
 CREATE TABLE drawHub.comment (

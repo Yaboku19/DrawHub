@@ -1,2 +1,7 @@
-let postsView = "Explore";
-let usernameprofileprova = "adad";
+function selectPage() {
+    return "Explore";
+}
+
+function selectUsername() {
+    return "default2";
+}

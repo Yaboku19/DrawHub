@@ -4,29 +4,27 @@ $result["login-result"] = false;
 $result["login-error"] = "";
 
 
-if(isset($_POST["email"]) && isset($_POST["password"])) {
-  $storedHash = $dbh->getPasswordFromDB($_POST["email"]);
-
-  $result["test"] = password_verify($_POST["password"], $storedHash[0]["password"]);
-  $result["pwd"] = $_POST["password"];
-  $result["hash"] = $storedHash[0]["password"];
-  try {
-  if(password_verify($_POST["password"], $storedHash[0]["password"])) {
-    $login_result = $dbh->login($_POST["email"], $storedHash[0]["password"]);
-    if(count($login_result) != 0) {
-      $result["login-result"] = true;
-      //$_SESSION["user-id"] = array_column($login_result, "username")[0];
-      registerLoggedUser(array_column($login_result, "username")[0]);
-    } else {
-      $result["login-error"] = "Email or Password wrong!";
+if(isset($_POST["username"]) && isset($_POST["password"])) {
+  $storedHash = $dbh->getPasswordFromDB($_POST["username"]);
+  if($dbh->checkValueInDb("user", "username", $_POST["username"])) {
+    try {
+      if(password_verify($_POST["password"], $storedHash[0]["password"])) {
+        $login_result = $dbh->login($_POST["username"], $storedHash[0]["password"]);
+        if(count($login_result) != 0) {
+          $result["login-result"] = true;
+          registerLoggedUser(array_column($login_result, "username")[0]);
+        } else {
+          $result["login-error"] = "Username o Password errati";
+        }
+      } else {
+        $result["login-error"] = "Password errata";
+      }
+    } catch(Exception $e){
+      $result["catch"] = $e->getMessage();
     }
   } else {
-    $result["login-error"] = "Hash errato";
+    $result["login-error"] = "Username non valido";
   }
-} catch(Exception $e){
-  echo $e->getMessage();
-  $result["catch"] = $e->getMessage();
-}
 }
 
 header('Content-Type: application/json');

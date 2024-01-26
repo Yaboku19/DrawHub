@@ -6,5 +6,10 @@ getParameter = (key) => {
     
     return parameterList.get(key)
 }
-let postsView = "Profile";
-let usernameprofileprova = getParameter("username");
+function selectPage() {
+    return "Profile";
+}
+
+function selectUsername() {
+    return getParameter("username");
+}
