@@ -27,7 +27,7 @@ function loadcomment(comment, color) {
             </p> 
           </div>
           <div class="col-4 px-0 my-0">
-            <img class="my-1 img-fluid mx-1" src="../img/${comment["urlImage"]}" alt="immagine del post" style="max-height: 70px; object-fit:cover;"/>
+            <img class="my-1 img-fluid mx-1 post-notify" src="../img/${comment["urlImage"]}" alt="immagine del post"/>
           </div>
           <div class="col-3 pe-1 ps-0 ms-0 text-end">
             <button data-toggle="button" class="btn btn-outline-danger fs-6 m-1 p-1 ms-0" id="delete-comment${comment["notificationID"]}"><i class="bi bi-trash"></i></button>
@@ -46,7 +46,7 @@ function loadreaction(reaction, color) {
             <p class="mt-2"><a href="../php/profile.php?username=${reaction["newReactionUser"]}" class="d-inline-block text-decoration-none text-primary text-break">${reaction["newReactionUser"]} </a> ha reagito al post con:  <em class="${reaction["tagImage"]} text-danger"></em></p> 
           </div>
           <div class="col-4 px-0 my-0">
-            <img class="my-1 img-fluid mx-1" src="../img/${reaction["urlImage"]}" alt="immagine del post" style="max-height: 70px; object-fit:cover;" >
+            <img class="my-1 img-fluid mx-1 post-notify" src="../img/${reaction["urlImage"]}" alt="immagine del post"/>
           </div>
           <div class="col-3 pe-1 ps-0 ms-0 text-end">
             <button data-toggle="button" class="btn btn-outline-danger fs-6 m-1 p-1" id="delete-reaction${reaction["notificationID"]}"><i class="bi bi-trash"></i></button>

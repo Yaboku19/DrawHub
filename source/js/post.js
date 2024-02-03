@@ -19,7 +19,7 @@ function generateForm(post_data) {
           <div class="row">
             <div class="col-8 p-0 m-0">
               <a href="../php/profile.php?username=${post_data[i]["user"]}" class="nav-link px-0 mx-0 my-1  text-dark">
-                  <img src="../img/${post_data[i]["urlProfilePicture"]}" class="rounded-circle py-0 mb-1" alt="foto profilo" width="40" height="40" style="object-fit:cover;"/>
+                  <img src="../img/${post_data[i]["urlProfilePicture"]}" class="rounded-circle py-0 mb-1 image-cover" alt="foto profilo" width="40px" height="40px"/>
                   <span class="fs-3 ms-2 pt-1 mt-2 d-sm-inline">${post_data[i]["user"]}</span>
               </a>
             </div>
@@ -34,7 +34,7 @@ function generateForm(post_data) {
         <p class="card-text"><small class="text-body-secondary">${post_data[i]["datePost"]}</small></p>
         <div class="container m-0 p-0">
           <div class="position-relative" id="post${post_data[i]["postID"]}">
-            <img src="../img/${post_data[i]["urlImage"]}" class="card-img-bottom img-fluid py-2 my-1 w-100" alt="foto post" style="max-height: 700px; object-fit:cover;"/>
+            <img src="../img/${post_data[i]["urlImage"]}" class="card-img-bottom img-fluid py-2 my-1 w-100 post-size" alt="foto post"/>
           </div>
         </div>
         <div class=" container">

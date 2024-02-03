@@ -14,7 +14,7 @@ function generateForm(post_data, error) {
                 <form action="modify-post.php" method="POST">
                     <p class="fs-3 text-center"><strong><label for="post">Modifica il tuo post:</label></strong></p>
                     <div class="container" id="post${post_data["postID"]}">
-                        <img src="../img/${post_data["urlImage"]}" class="img-fluid py-2 my-1 w-100" alt="foto post" style="max-height: 700px; object-fit:cover;"/>
+                        <img src="../img/${post_data["urlImage"]}" class="img-fluid py-2 my-1 w-100 post-size" alt="foto post"/>
                     </div>
                     <div class="container mx-0">
                         <textarea class="w-100" id="post" name="descrizione" rows="3" >${post_data["description"]}</textarea>
