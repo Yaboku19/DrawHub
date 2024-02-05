@@ -1,3 +1,2 @@
 # DrawHub
-Quanto sei forte ricky
-aaaa
+Progetto Tecnologie web A.A 2023-2024
