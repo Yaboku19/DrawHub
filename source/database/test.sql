@@ -5,7 +5,7 @@ INSERT INTO drawHub.user (username, password, bio, urlProfilePicture, birthDate,
 VALUES ('mariobalo', 'mariobalo', 'Descrizione 2.', 'defaultImage.png', '1985-05-15', 'utente2@example.com', 'mario', 'balotelli');
 
 INSERT INTO drawHub.user (username, password, bio, urlProfilePicture, birthDate, email, name, surname)
-VALUES ('elecinti1', 'elecinti1', 'boccio tutti', 'defaultImage.png', '1956-05-15', 'utente3@example.com', 'eleonora', 'cinti');
+VALUES ('matteoPobega', 'matteoPobega1', 'sono scarso a calcio', 'defaultImage.png', '1956-05-15', 'utente3@example.com', 'matteo', 'pobega');
 
 INSERT INTO drawHub.user (username, password, bio, urlProfilePicture, birthDate, email, name, surname)
 VALUES ('rickyfra11', 'rickyfra11', 'sono una bestia', 'defaultImage.png', '2002-05-15', 'utente4@example.com', 'riccardo', 'frascio');
@@ -17,10 +17,10 @@ INSERT INTO drawHub.post (user, description, urlImage, datePost)
 VALUES ('marcorossi', 'Descrizione del secondo post.', 'prova.jpg', '2024-01-17');
 
 INSERT INTO drawHub.post (user, description, urlImage, datepost)
-VALUES ('rickyfra11', 'Descrizione a caso.', 'photome.jpg', '2024-01-18');
+VALUES ('rickyfra11', 'Descrizione a caso.', '19032320354424.jpg', '2024-01-18');
 
 INSERT INTO drawHub.post (user, description, urlImage, datepost)
-VALUES ('elecinti1', 'easy kill.', 'pokemon.jpg', '2024-01-18');
+VALUES ('matteoPobega', 'easy kill.', 'pokemon.jpg', '2024-01-18');
 
 INSERT INTO drawHub.reactionType (typeID, tagImage)
 VALUES ("cuore", "bi-heart-fill");
