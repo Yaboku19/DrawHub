@@ -6,8 +6,22 @@
     transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out, filter 0.2s ease-in-out;
   }
 
-  .animation.clicked {
-    transform: scale(1.2);
-    opacity: 1;
-    filter: blur(0);
-  }
+.animation.clicked {
+  transform: scale(1.2);
+  opacity: 1;
+  filter: blur(0);
+}
+
+.image-cover {
+  object-fit: cover;
+}
+
+.post-size {
+  max-height: 700px;
+  object-fit: cover;
+}
+
+.post-notify {
+  max-height: 70px;
+  object-fit: cover;
+}

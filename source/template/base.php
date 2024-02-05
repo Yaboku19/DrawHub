@@ -14,14 +14,14 @@
         <div class="d-sm-block d-md-none container p-3">
             <div class=" fixed-top z-index-master w-100 bg-white bg-opacity-100 p-0 m-0">
                 <div class="row">
-                    <div class="col-auto pe-0 mx-0">
+                    <div class="col text-center px-0 mx-0">
+                            <img src="../img/drawhub.png" class="pt-2 ms-5 me-0 img-fluid" alt="" class="img-fluid" width="120"/>
+                    </div>
+                    <div class="col-auto pe-3 ps-0 me-1">
                         <button class="navbar-toggler fs-1 mx-0 my-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                             <i class="bi bi-list text-dark"></i>
                         </button>
-                    </div>    
-                    <div class="col text-center px-0 mx-0">
-                            <img src="../img/drawhub.png" class="pt-2 me-5 img-fluid" alt="Immagine" class="img-fluid" width="120"/>
-                    </div>
+                    </div>   
                     <hr class="p-0 m-0"/>
                 </div>
             </div>

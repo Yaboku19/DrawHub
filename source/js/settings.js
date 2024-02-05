@@ -23,7 +23,7 @@ function showPage(currentSettings) {
             <label for="urlProfilePicture" class="fw-bold">Immagine profilo:</label>
           </div>
           <div class="col-sm-6 text-center my-1">
-            <img src="../img/${currentSettings["urlProfilePicture"]}" class="rounded-circle py-0 mb-1" alt="foto profilo" width="120" height="120" style="object-fit:cover;"/>
+            <img src="../img/${currentSettings["urlProfilePicture"]}" class="rounded-circle py-0 mb-1 image-cover" alt="foto profilo" width="120" height="120"/>
             <input type="file" name="urlProfilePicture" id="urlProfilePicture" class="form-control form-control-sm " />
           </div>
         </div>
