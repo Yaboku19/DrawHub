@@ -58,6 +58,7 @@
                     <div class="modal-body text-wrap comment-body border border-dark">
                     </div>
                     <div class="modal-footer border border-dark">
+                        <label for="commentInput" class="d-none">a</label>
                         <input type="text" class="form-control" id="commentInput" placeholder="Scrivi un commento"/>
                         <button data-toggle="button" class="btn btn-outline-primary" id="postaCommento">Posta</button>
                     </div>
