@@ -15,11 +15,11 @@
             <div class=" fixed-top z-index-master w-100 bg-white bg-opacity-100 p-0 m-0">
                 <div class="row">
                     <div class="col text-center px-0 mx-0">
-                            <img src="../img/drawhub.png" class="pt-2 ms-5 me-0 img-fluid" alt="" class="img-fluid" width="120"/>
+                            <img src="../img/drawhub.png" class="pt-2 ms-5 me-0 img-fluid" alt="" width="120"/>
                     </div>
                     <div class="col-auto pe-3 ps-0 me-1">
                         <button class="navbar-toggler fs-1 mx-0 my-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                            <i class="bi bi-list text-dark"></i>
+                            <em class="bi bi-list text-dark"></em>
                         </button>
                     </div>   
                     <hr class="p-0 m-0"/>
@@ -58,6 +58,7 @@
                     <div class="modal-body text-wrap comment-body border border-dark">
                     </div>
                     <div class="modal-footer border border-dark">
+                        <label for="commentInput" class="d-none">a</label>
                         <input type="text" class="form-control" id="commentInput" placeholder="Scrivi un commento"/>
                         <button data-toggle="button" class="btn btn-outline-primary" id="postaCommento">Posta</button>
                     </div>
@@ -74,38 +75,38 @@
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
                     <li class="nav-item">
                         <a href="../php/showHomepage.php" class="nav-link px-0 text-dark">
-                            <i class="fs-3 bi-house-fill"></i> <span class="fs-3 ms-2 d-sm-inline">Home</span>
+                            <em class="fs-3 bi-house-fill"></em> <span class="fs-3 ms-2 d-sm-inline">Home</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="../php/profile.php?username=<?php echo $_SESSION["username"];?>" class="nav-link px-0 text-dark">
-                            <i class="fs-3 bi-person-circle"></i> <span class="fs-3 ms-2 d-sm-inline">Account</span>
+                            <em class="fs-3 bi-person-circle"></em> <span class="fs-3 ms-2 d-sm-inline">Account</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="../php/showNotification.php" class="nav-link px-0 text-dark position-relative">
-                            <i class="fs-3 bi-bell-fill"></i> <span class="fs-3 ms-2 d-sm-inline">Notifiche</span>
+                            <em class="fs-3 bi-bell-fill"></em> <span class="fs-3 ms-2 d-sm-inline">Notifiche</span>
                             <span class="position-absolute top-0 start-100  badge rounded-pill bg-danger fs-7" id="offCanvasNotificationSpan"></span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a data-bs-toggle="modal" data-bs-target="#searchModal" class="nav-link px-0 text-dark" href="#">
-                            <i class="fs-3 bi-search"></i> <span class="fs-3 ms-2 d-sm-inline">Cerca</span>
+                            <em class="fs-3 bi-search"></em> <span class="fs-3 ms-2 d-sm-inline">Cerca</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="../php/showAddPost.php" class="nav-link px-0 text-dark">
-                            <i class="fs-3 bi-plus-circle-fill"></i> <span class="fs-3 ms-2 d-sm-inline">Nuovo post</span>
+                            <em class="fs-3 bi-plus-circle-fill"></em> <span class="fs-3 ms-2 d-sm-inline">Nuovo post</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="../php/showExplore.php" class="nav-link px-0 text-dark">
-                            <i class="fs-3 bi-compass-fill"></i> <span class="fs-3 ms-2 d-sm-inline">Esplora</span>
+                            <em class="fs-3 bi-compass-fill"></em> <span class="fs-3 ms-2 d-sm-inline">Esplora</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="../php/showSettings.php" class="nav-link px-0 text-dark">
-                            <i class="fs-3 bi-gear-fill"></i> <span class="fs-3 ms-2 d-sm-inline">Impostazioni</span>
+                            <em class="fs-3 bi-gear-fill"></em> <span class="fs-3 ms-2 d-sm-inline">Impostazioni</span>
                         </a>
                     </li>  
                 </ul>
@@ -122,68 +123,64 @@
                         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
                             <li class="nav-item">
                                 <a href="../php/showHomepage.php" class="nav-link px-0 text-dark d-flex flex-nowrap">
-                                    <i class="fs-4 bi-house-fill"></i> <span class="fs-4 ms-2 d-none d-sm-inline">Home</span>
+                                    <em class="fs-4 bi-house-fill"></em> <span class="fs-4 ms-2 d-none d-sm-inline">Home</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="../php/profile.php?username=<?php echo $_SESSION["username"];?>" class="nav-link px-0 text-dark d-flex flex-nowrap">
-                                    <i class="fs-4 bi-person-circle"></i> <span class="fs-4 ms-2 d-none d-sm-inline">Account</span>
+                                    <em class="fs-4 bi-person-circle"></em> <span class="fs-4 ms-2 d-none d-sm-inline">Account</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="../php/showNotification.php" class="nav-link px-0 text-dark d-flex flex-nowrap position-relative">
-                                    <i class="fs-4 bi-bell-fill"></i> <span class="fs-4 ms-2 d-none d-sm-inline me-0">Notifiche</span>
+                                    <em class="fs-4 bi-bell-fill"></em> <span class="fs-4 ms-2 d-none d-sm-inline me-0">Notifiche</span>
                                     <span class="position-absolute top-0 start-100  badge rounded-pill bg-danger fs-7" id="baseNotificationSpan"></span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a data-bs-toggle="modal" data-bs-target="#searchModal" class="nav-link px-0 text-dark d-flex flex-nowrap" href="#">
-                                    <i class="fs-4 bi-search"></i> <span class="fs-4 ms-2 d-none d-sm-inline">Cerca</span>
+                                    <em class="fs-4 bi-search"></em> <span class="fs-4 ms-2 d-none d-sm-inline">Cerca</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="../php/showAddPost.php" class="nav-link px-0 text-dark d-flex flex-nowrap">
-                                    <i class="fs-4 bi-plus-circle-fill"></i> <span class="fs-4 ms-2 d-none d-sm-inline">Nuovo post</span>
+                                    <em class="fs-4 bi-plus-circle-fill"></em> <span class="fs-4 ms-2 d-none d-sm-inline">Nuovo post</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="../php/showExplore.php" class="nav-link px-0 text-dark d-flex flex-nowrap">
-                                    <i class="fs-4 bi-compass-fill"></i> <span class="fs-4 ms-2 d-none d-sm-inline">Esplora</span>
+                                    <em class="fs-4 bi-compass-fill"></em> <span class="fs-4 ms-2 d-none d-sm-inline">Esplora</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="../php/showSettings.php" class="nav-link px-0 text-dark d-flex flex-nowrap">
-                                    <i class="fs-4 bi-gear-fill"></i> <span class="fs-4 ms-2 d-none d-sm-inline">Impostazioni</span>
+                                    <em class="fs-4 bi-gear-fill"></em> <span class="fs-4 ms-2 d-none d-sm-inline">Impostazioni</span>
                                 </a>
                             </li>
                             
                         </ul>
                     </div>
                 </div>
-                    <div id="dinamic" class="col-md-8 offset-md-1 px-3 py-3">
-                        <main>
+                <div id="dinamic" class="col-md-8 offset-md-1 px-3 py-3">
+                    <?php
+                        if (isset($templateParams["name"])) {
+                            require($templateParams["name"]);
+                        }
+                        if (isset($templateParams["js"])) :
+                            foreach($templateParams["js"] as $script):
+                        ?>
+                    <script src="<?php echo $script; ?>"></script>
                         <?php
-                            if (isset($templateParams["name"])) {
-                                require($templateParams["name"]);
-                            }
-                            if (isset($templateParams["js"])) :
-                                foreach($templateParams["js"] as $script):
-                            ?>
-                        <script src="<?php echo $script; ?>"></script>
-                            <?php
-                                    endforeach;
-                                endif;
-                            ?>
-                        </main>
-                    </div>
+                                endforeach;
+                            endif;
+                        ?>
                 </div>
             </div>
         </div>
     </main>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
-</script>
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 <script src="../js/search.js"></script>
 
 </html>
