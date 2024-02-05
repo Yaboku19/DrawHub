@@ -14,7 +14,7 @@ INSERT INTO drawHub.post (user, description, urlImage, datepost)
 VALUES ('mariobalo', 'Descrizione del primo post.', 'prova.jpg', '2024-01-17');
 
 INSERT INTO drawHub.post (user, description, urlImage, datePost)
-VALUES ('marcorossi', 'Descrizione del secondo post.', 'prova.jpg', '2024-01-17');
+VALUES ('marcorossi', 'Descrizione del secondo post.', 'disegno3.jpg', '2024-01-17');
 
 INSERT INTO drawHub.post (user, description, urlImage, datepost)
 VALUES ('rickyfra11', 'Descrizione a caso.', '19032320354424.jpg', '2024-01-18');
